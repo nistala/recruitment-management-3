@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Color Variables */
+    --background: 0, 0%, 91%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 210, 79%, 24%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    
+    /* Custom App Variables */
+    --header-height: 4rem;
+    --container-padding: 1rem;
+    --section-spacing: 2rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Typography */
+  h1 {
+    @apply text-3xl font-bold tracking-tight;
+  }
+  
+  h2 {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+  
+  h3 {
+    @apply text-xl font-semibold tracking-tight;
+  }
+  
+  h4 {
+    @apply text-lg font-semibold tracking-tight;
+  }
+  
+  p {
+    @apply leading-7;
+  }
+  
+  .text-muted {
+    @apply text-muted-foreground;
+  }
+}
+
+@layer components {
+  /* Container */
+  .container {
+    @apply w-full mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1280px;
+  }
+
+  /* Card Components */
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-md hover:scale-[1.02];
+  }
+
+  /* Form Components */
+  .form-section {
+    @apply space-y-6 p-6 bg-card rounded-lg border;
+  }
+  
+  .form-grid {
+    @apply grid gap-4 md:grid-cols-2;
+  }
+  
+  .form-grid-full {
+    @apply md:col-span-2;
+  }
+
+  /* Button Variants */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md font-medium transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 px-4 py-2 rounded-md font-medium transition-colors;
+  }
+  
+  .btn-outline {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded-md font-medium transition-colors;
+  }
+
+  /* Navigation */
+  .nav-link {
+    @apply flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors;
+  }
+  
+  .nav-link-active {
+    @apply bg-primary text-primary-foreground;
+  }
+  
+  .nav-link-inactive {
+    @apply text-muted-foreground hover:text-foreground hover:bg-accent;
+  }
+
+  /* Layout */
+  .page-header {
+    @apply mb-8 space-y-2;
+  }
+  
+  .page-title {
+    @apply text-3xl font-bold tracking-tight;
+  }
+  
+  .page-description {
+    @apply text-muted-foreground;
+  }
+
+  /* Stats Cards */
+  .stats-grid {
+    @apply grid gap-4 md:grid-cols-2 lg:grid-cols-4;
+  }
+  
+  .stat-card {
+    @apply bg-card p-6 rounded-lg border;
+  }
+  
+  .stat-value {
+    @apply text-2xl font-bold;
+  }
+  
+  .stat-label {
+    @apply text-sm font-medium text-muted-foreground;
+  }
+
+  /* Tables */
+  .data-table {
+    @apply w-full border-collapse;
+  }
+  
+  .table-header {
+    @apply bg-muted/50;
+  }
+  
+  .table-cell {
+    @apply px-4 py-3 text-left border-b;
+  }
+
+  /* Responsive Utilities */
+  .mobile-hidden {
+    @apply hidden md:block;
+  }
+  
+  .mobile-only {
+    @apply block md:hidden;
+  }
+}
+
+@layer utilities {
+  /* Spacing */
+  .section-spacing {
+    @apply space-y-8;
+  }
+  
+  .content-spacing {
+    @apply space-y-6;
+  }
+  
+  .form-spacing {
+    @apply space-y-4;
+  }
+
+  /* Animations */
+  .fade-in {
+    @apply animate-in fade-in-0 duration-500;
+  }
+  
+  .slide-in {
+    @apply animate-in slide-in-from-bottom-4 duration-500;
+  }
+
+  /* Focus States */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
