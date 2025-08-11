@@ -1,20 +1,161 @@
-"use client"
-
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Separator } from "@/components/ui/separator"
-import { useToast } from "@/hooks/use-toast"
-import { Building2 } from 'lucide-react'
+"use client";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
+import { Building2 } from "lucide-react";
 
 const employerSchema = z.object({
+  company_cin: z.string().superRefine((cin, ctx) => {
+    const currentYear = new Date().getFullYear();
+    if (cin.length === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "CIN should be Empty",
+      });
+    } else if (cin.length > 21)
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "CIN should not exceed 21 characters",
+      });
+
+    // Section 1
+    const section1 = cin.charAt(0);
+    if (!["L", "U"].includes(section1)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "Must start with 'L' (Listed) or 'U' (Unlisted) OR should be lowercase",
+      });
+    }
+    // Section 2: Industry Code
+    const section2 = cin.slice(1, 6); // characters 2–6 (index 1–5)
+
+    if (!/^[A-Z]{5}$/.test(section2)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Section 2: No letters or symbols",
+      });
+    } else if (!/^\d{5}$/.test(section2)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Section 2: Must be exactly 5 digits",
+      });
+    }
+
+    // Section 3
+    const section3 = cin.slice(6, 8);
+    const validStates = [
+      "AP",
+      "AR",
+      "AS",
+      "BR",
+      "CG",
+      "CH",
+      "DD",
+      "DL",
+      "GA",
+      "GJ",
+      "HR",
+      "HP",
+      "JK",
+      "JH",
+      "KA",
+      "KL",
+      "LA",
+      "LD",
+      "MH",
+      "ML",
+      "MN",
+      "MP",
+      "MZ",
+      "NL",
+      "OD",
+      "PB",
+      "PY",
+      "RJ",
+      "SK",
+      "TN",
+      "TS",
+      "TR",
+      "UP",
+      "UK",
+      "WB",
+    ];
+    if (!validStates.includes(section3)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Section 3: Invalid state code '${section3}'`,
+      });
+    }
+
+    // Section 4
+    const section4 = cin.slice(8, 12);
+    const year = parseInt(section4, 10);
+    if (!/^\d{4}$/.test(section4) || year < 1900 || year > currentYear) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Section 4: Year '${section4}' must be between 1900 and ${currentYear}`,
+      });
+    }
+
+    // Section 5
+    const section5 = cin.slice(12, 15);
+    const validCompanyTypes = [
+      "PTC",
+      "PLC",
+      "FTC",
+      "GOI",
+      "SGC",
+      "OPC",
+      "NPL",
+      "GAP",
+      "NCT",
+      "SEC",
+    ];
+    if (!validCompanyTypes.includes(section5)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Section 5: Invalid company type code '${section5}'`,
+      });
+    }
+
+    // Section 6
+    const section6 = cin.slice(15);
+    if (!/^\d{6}$/.test(section6)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Section 6: Must be 6 digits for ROC registration number",
+      });
+    }
+  }),
   company_name: z.string().min(2, "Company name must be at least 2 characters"),
   company_website: z.string().url("Please enter a valid website URL"),
   department_name: z.string().min(2, "Department name is required"),
@@ -22,10 +163,18 @@ const employerSchema = z.object({
   department_type: z.string().min(1, "Please select department type"),
   company_type: z.string().min(1, "Please select company type"),
   industry_type: z.string().min(1, "Please select industry type"),
-  registration_number: z.string().min(5, "Registration number is required"),
-  number_of_branches: z.coerce.number().min(1, "Number of branches must be at least 1"),
-  pan_number: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Invalid PAN format"),
-  gst_number: z.string().regex(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/, "Invalid GST format"),
+  number_of_branches: z.coerce
+    .number()
+    .min(1, "Number of branches must be at least 1"),
+  pan_number: z
+    .string()
+    .regex(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Invalid PAN format"),
+  gst_number: z
+    .string()
+    .regex(
+      /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/,
+      "Invalid GST format"
+    ),
   iso_certified: z.boolean(),
   no_of_employees: z.coerce.number().min(1, "Number of employees is required"),
   date_of_registered: z.string().min(1, "Registration date is required"),
@@ -36,26 +185,38 @@ const employerSchema = z.object({
   contact_person_name: z.string().min(2, "Contact person name is required"),
   contact_person_designation: z.string().min(2, "Designation is required"),
   contact_person_email: z.string().email("Invalid email format"),
-  contact_person_mobile: z.string().regex(/^[6-9]\d{9}$/, "Invalid mobile number"),
-  year_founded: z.coerce.number().min(1800, "Invalid year").max(new Date().getFullYear(), "Year cannot be in future"),
-  head_office_address: z.string().min(10, "Address must be at least 10 characters"),
-  about_company: z.string().min(50, "Company description must be at least 50 characters"),
+  contact_person_mobile: z
+    .string()
+    .regex(/^[6-9]\d{9}$/, "Invalid mobile number"),
+  year_founded: z.coerce
+    .number()
+    .min(1800, "Invalid year")
+    .max(new Date().getFullYear(), "Year cannot be in future"),
+  head_office_address: z
+    .string()
+    .min(10, "Address must be at least 10 characters"),
+  about_company: z
+    .string()
+    .min(50, "Company description must be at least 50 characters"),
   state: z.string().min(1, "Please select state"),
   district: z.string().min(1, "Please select district"),
   mandal: z.string().min(1, "Please select mandal"),
   city: z.string().min(1, "Please select city"),
   pincode: z.string().regex(/^[1-9][0-9]{5}$/, "Invalid pincode"),
-})
+});
 
-type EmployerFormData = z.infer<typeof employerSchema>
+type EmployerFormData = z.infer<typeof employerSchema>;
 
 export default function EmployerRegistration() {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const form = useForm<EmployerFormData>({
     resolver: zodResolver(employerSchema),
+    mode: "onBlur", // errors show after first blur
+    reValidateMode: "onChange",
     defaultValues: {
       iso_certified: false,
+      company_cin: "",
       company_name: "",
       company_website: "",
       department_name: "",
@@ -63,7 +224,6 @@ export default function EmployerRegistration() {
       department_type: "",
       company_type: "",
       industry_type: "",
-      registration_number: "",
       number_of_branches: 0,
       pan_number: "",
       gst_number: "",
@@ -86,15 +246,15 @@ export default function EmployerRegistration() {
       city: "",
       pincode: "",
     },
-  })
+  });
 
   const onSubmit = (data: EmployerFormData) => {
-    console.log("Employer Registration Data:", data)
+    console.log("Employer Registration Data:", data);
     toast({
       title: "Registration Successful!",
       description: "Employer has been registered successfully.",
-    })
-  }
+    });
+  };
 
   return (
     <div className="p-2">
@@ -104,20 +264,56 @@ export default function EmployerRegistration() {
           <h1 className="text-2xl font-bold">Employer Registration</h1>
         </div>
         <p className="text-muted-foreground">
-          Please fill in all the required information to register your organization.
+          Please fill in all the required information to register your
+          organization.
         </p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {/* Company Information Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="company-info">Company Information</CardTitle>
-              <CardDescription>Basic information about your company</CardDescription>
+              <CardTitle id="company-info" className="text-primary">Company Information</CardTitle>
+              <CardDescription>
+                Basic information about your company
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-3">
+                <FormField
+                  control={form.control}
+                  name="company_cin"
+                  render={({ field }) => {
+                    const isTouched = form.formState.touchedFields.company_cin;
+                    const isDirty = form.formState.dirtyFields.company_cin;
+                    const errorMessage =
+                      form.formState.errors.company_cin?.message;
+
+                    return (
+                      <FormItem>
+                        <FormLabel>
+                          Corporate Identification Number (CIN)*
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="U00000DL2020PTC000001"
+                            {...field}
+                            className={
+                              errorMessage && (isTouched || isDirty)
+                                ? "border-red-500"
+                                : ""
+                            }
+                          />
+                        </FormControl>
+                        {(isTouched || isDirty) && errorMessage && (
+                          <p className="text-sm text-red-500">{errorMessage}</p>
+                        )}
+                      </FormItem>
+                    );
+                  }}
+                />
+
                 <FormField
                   control={form.control}
                   name="company_name"
@@ -138,7 +334,10 @@ export default function EmployerRegistration() {
                     <FormItem>
                       <FormLabel>Company Website *</FormLabel>
                       <FormControl>
-                        <Input placeholder="https://www.example.com" {...field} />
+                        <Input
+                          placeholder="https://www.example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -150,17 +349,28 @@ export default function EmployerRegistration() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Company Type *</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select company type" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Private Limited">Private Limited</SelectItem>
-                          <SelectItem value="Public Limited">Public Limited</SelectItem>
-                          <SelectItem value="Partnership">Partnership</SelectItem>
-                          <SelectItem value="Sole Proprietorship">Sole Proprietorship</SelectItem>
+                          <SelectItem value="Private Limited">
+                            Private Limited
+                          </SelectItem>
+                          <SelectItem value="Public Limited">
+                            Public Limited
+                          </SelectItem>
+                          <SelectItem value="Partnership">
+                            Partnership
+                          </SelectItem>
+                          <SelectItem value="Sole Proprietorship">
+                            Sole Proprietorship
+                          </SelectItem>
                           <SelectItem value="Government">Government</SelectItem>
                         </SelectContent>
                       </Select>
@@ -174,18 +384,25 @@ export default function EmployerRegistration() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Industry Type *</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select industry type" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Information Technology">Information Technology</SelectItem>
+                          <SelectItem value="Information Technology">
+                            Information Technology
+                          </SelectItem>
                           <SelectItem value="Healthcare">Healthcare</SelectItem>
                           <SelectItem value="Finance">Finance</SelectItem>
                           <SelectItem value="Education">Education</SelectItem>
-                          <SelectItem value="Manufacturing">Manufacturing</SelectItem>
+                          <SelectItem value="Manufacturing">
+                            Manufacturing
+                          </SelectItem>
                           <SelectItem value="Retail">Retail</SelectItem>
                           <SelectItem value="Other">Other</SelectItem>
                         </SelectContent>
@@ -255,7 +472,10 @@ export default function EmployerRegistration() {
                     <FormItem>
                       <FormLabel>About Company *</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="We are a leading IT solutions provider offering cutting-edge software solutions..." {...field} />
+                        <Textarea
+                          placeholder="We are a leading IT solutions provider offering cutting-edge software solutions..."
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -268,11 +488,13 @@ export default function EmployerRegistration() {
           {/* Department Details Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="department-info">Department Details</CardTitle>
-              <CardDescription>Information about the specific department</CardDescription>
+              <CardTitle id="department-info" className="text-primary">Department Details</CardTitle>
+              <CardDescription>
+                Information about the specific department
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-3">
                 <FormField
                   control={form.control}
                   name="department_name"
@@ -305,17 +527,26 @@ export default function EmployerRegistration() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Department Type *</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select department type" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="State Govt">State Government</SelectItem>
-                          <SelectItem value="Central Govt">Central Government</SelectItem>
+                          <SelectItem value="State Govt">
+                            State Government
+                          </SelectItem>
+                          <SelectItem value="Central Govt">
+                            Central Government
+                          </SelectItem>
                           <SelectItem value="Private">Private</SelectItem>
-                          <SelectItem value="Semi-Govt">Semi-Government</SelectItem>
+                          <SelectItem value="Semi-Govt">
+                            Semi-Government
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -329,24 +560,15 @@ export default function EmployerRegistration() {
           {/* Registration & Legal Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="legal-info">Registration & Legal Information</CardTitle>
-              <CardDescription>Legal registration details and certifications</CardDescription>
+              <CardTitle id="legal-info" className="text-primary">
+                Registration & Legal Information
+              </CardTitle>
+              <CardDescription>
+                Legal registration details and certifications
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
-                <FormField
-                  control={form.control}
-                  name="registration_number"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Registration Number *</FormLabel>
-                      <FormControl>
-                        <Input placeholder="REG1234567" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className="grid gap-4 md:grid-cols-3">
                 <FormField
                   control={form.control}
                   name="date_of_registered"
@@ -410,14 +632,18 @@ export default function EmployerRegistration() {
           {/* Contact Information Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="contact-info">Contact Information</CardTitle>
-              <CardDescription>Official contact details and contact person information</CardDescription>
+              <CardTitle id="contact-info" className="text-primary">Contact Information</CardTitle>
+              <CardDescription>
+                Official contact details and contact person information
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-sm font-medium mb-4">Official Contact Details</h4>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <h4 className="text-sm font-medium mb-4">
+                    Official Contact Details
+                  </h4>
+                  <div className="grid gap-4 md:grid-cols-3">
                     <FormField
                       control={form.control}
                       name="official_email"
@@ -425,7 +651,11 @@ export default function EmployerRegistration() {
                         <FormItem>
                           <FormLabel>Official Email *</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="info@example.com" {...field} />
+                            <Input
+                              type="email"
+                              placeholder="info@example.com"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -459,11 +689,13 @@ export default function EmployerRegistration() {
                     />
                   </div>
                 </div>
-                
+
                 <Separator />
-                
+
                 <div>
-                  <h4 className="text-sm font-medium mb-4">Contact Person Details</h4>
+                  <h4 className="text-sm font-medium mb-4">
+                    Contact Person Details
+                  </h4>
                   <div className="grid gap-4 md:grid-cols-2">
                     <FormField
                       control={form.control}
@@ -472,7 +704,10 @@ export default function EmployerRegistration() {
                         <FormItem>
                           <FormLabel>Contact Person Name *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Sai Kartik Nistala" {...field} />
+                            <Input
+                              placeholder="Sai Kartik Nistala"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -498,7 +733,11 @@ export default function EmployerRegistration() {
                         <FormItem>
                           <FormLabel>Contact Person Email *</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="snistala@miraclesoft.com" {...field} />
+                            <Input
+                              type="email"
+                              placeholder="snistala@miraclesoft.com"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -526,8 +765,10 @@ export default function EmployerRegistration() {
           {/* Address Information Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="address-info">Address Information</CardTitle>
-              <CardDescription>Head office address and location details</CardDescription>
+              <CardTitle id="address-info" className="text-primary">Address Information</CardTitle>
+              <CardDescription>
+                Head office address and location details
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -538,20 +779,26 @@ export default function EmployerRegistration() {
                     <FormItem>
                       <FormLabel>Head Office Address *</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="123, Main Street, Hyderabad, Telangana" {...field} />
+                        <Textarea
+                          placeholder="123, Main Street, Hyderabad, Telangana"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 md:grid-cols-3">
                   <FormField
                     control={form.control}
                     name="state"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>State *</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select state" />
@@ -559,9 +806,13 @@ export default function EmployerRegistration() {
                           </FormControl>
                           <SelectContent>
                             <SelectItem value="Telangana">Telangana</SelectItem>
-                            <SelectItem value="Andhra Pradesh">Andhra Pradesh</SelectItem>
+                            <SelectItem value="Andhra Pradesh">
+                              Andhra Pradesh
+                            </SelectItem>
                             <SelectItem value="Karnataka">Karnataka</SelectItem>
-                            <SelectItem value="Tamil Nadu">Tamil Nadu</SelectItem>
+                            <SelectItem value="Tamil Nadu">
+                              Tamil Nadu
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -626,7 +877,7 @@ export default function EmployerRegistration() {
           </Card>
 
           {/* Submit Button */}
-          <div className="flex justify-end pt-6">
+          <div className="flex justify-end pb-2">
             <Button type="submit" size="lg" className="min-w-[200px]">
               Register Employer
             </Button>
@@ -634,5 +885,5 @@ export default function EmployerRegistration() {
         </form>
       </Form>
     </div>
-  )
+  );
 }

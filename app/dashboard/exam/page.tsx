@@ -179,7 +179,7 @@ export default function ExamDashboard() {
   const renderStatsCards = () => {
     if (loading) {
       return (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 ">
           {Array.from({ length: 4 }).map((_, i) => (
             <SkeletonCard key={i} />
           ))}
@@ -218,10 +218,10 @@ export default function ExamDashboard() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 space-y-2">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Exam Dashboard</h1>
+          <h1 className="text-2xl font-bold">Exam Dashboard</h1>
           <p className="text-muted-foreground">Schedule and manage examinations</p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

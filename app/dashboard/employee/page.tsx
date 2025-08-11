@@ -66,27 +66,65 @@ const employerData = [
 ];
 
 const candidateDistribution = [
-  { name: "Government Colleges", value: 65, color: "#8884d8" },
-  { name: "Private Colleges", value: 35, color: "#82ca9d" },
+  { name: "Government Colleges", value: 65, color: " #2368a0" },
+  { name: "Private Colleges", value: 35, color: " #ef4048" },
 ];
 
 const examData = [
   {
     name: "Banking Exam",
+    examKey: "BE",
     candidates: 70,
     date: "2025-08-15",
     status: "Scheduled",
   },
   {
     name: "Civil Services",
+    examKey: "CS",
     candidates: 50,
     date: "2025-08-20",
     status: "Active",
   },
   {
     name: "Technical Test",
+    examKey: "TT",
     candidates: 30,
     date: "2025-08-25",
+    status: "Completed",
+  },
+  {
+    name: "Railway Recruitment",
+    candidates: 120,
+    examKey: "RR",
+    date: "2025-08-30",
+    status: "Scheduled",
+  },
+  {
+    name: "Teacher Eligibility Test",
+    candidates: 95,
+    examKey: "TET",
+    date: "2025-09-05",
+    status: "Active",
+  },
+  {
+    name: "Police Constable Exam",
+    examKey: "PCE",
+    candidates: 150,
+    date: "2025-09-10",
+    status: "Scheduled",
+  },
+  {
+    name: "Software Developer Engineer",
+    examKey: "SDE",
+    candidates: 40,
+    date: "2025-09-15",
+    status: "Active",
+  },
+  {
+    name: "Medical Entrance Test",
+    examKey: "NEET",
+    candidates: 85,
+    date: "2025-09-20",
     status: "Completed",
   },
 ];
@@ -216,10 +254,18 @@ export default function EmployeeDashboard() {
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={examData}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
+                  <XAxis dataKey="examKey" />
                   <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="candidates" fill="#8884d8" />
+                  <Tooltip
+                    formatter={(value, name, props) => [value, "Candidates"]}
+                    labelFormatter={(label, payload) => {
+                      const exam = examData.find(
+                        (item) => item.examKey === label
+                      );
+                      return exam ? exam.name : label;
+                    }}
+                  />
+                  <Bar dataKey="candidates" fill="#00aae7" />
                 </BarChart>
               </ResponsiveContainer>
             )}
@@ -310,8 +356,8 @@ export default function EmployeeDashboard() {
 
       {/* Exam List */}
       <Card>
-         <CardHeader>
-           <CardTitle>Exam Schedule & Merit List</CardTitle>
+        <CardHeader>
+          <CardTitle>Exam Schedule & Merit List</CardTitle>
           <CardDescription>Upcoming and completed examinations</CardDescription>
           <div className="flex gap-4">
             <div className="relative flex-1">
@@ -386,7 +432,7 @@ export default function EmployeeDashboard() {
                           exam.status === "Active"
                             ? "default"
                             : exam.status === "Completed"
-                            ? "muted"
+                            ? "secondary"
                             : "outline"
                         }
                       >

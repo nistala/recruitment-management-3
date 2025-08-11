@@ -26,6 +26,7 @@ const candidateSchema = z.object({
   pincode: z.string().regex(/^[1-9][0-9]{5}$/, "Invalid pincode"),
   aadhar_card_number: z.string().regex(/^\d{12}$/, "Aadhar number must be 12 digits"),
   pan_number: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Invalid PAN format"),
+  employment_no: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Invalid PAN format"),
   mother_name: z.string().min(2, "Mother's name is required"),
   guardian_name: z.string().min(2, "Guardian's name is required"),
   father_name: z.string().min(2, "Father's name is required"),
@@ -44,6 +45,9 @@ const candidateSchema = z.object({
   cgpa: z.coerce.number().min(0).max(10, "CGPA must be between 0 and 10"),
   percentage: z.coerce.number().min(0).max(100, "Percentage must be between 0 and 100"),
   education_location: z.string().min(2, "Education location is required"),
+  certificate: z.instanceof(File).optional(),
+  resume: z.instanceof(File).optional(),
+  aadhaar: z.instanceof(File).optional(),
 })
 
 type CandidateFormData = z.infer<typeof candidateSchema>
@@ -67,6 +71,7 @@ export default function CandidateRegistration() {
       pincode: "",
       aadhar_card_number: "",
       pan_number: "",
+      employment_no: "",
       mother_name: "",
       guardian_name: "",
       father_name: "",
@@ -85,6 +90,9 @@ export default function CandidateRegistration() {
       cgpa: 0,
       percentage: 0,
       education_location: "",
+      certificate: undefined,
+      resume: undefined,
+      aadhaar: undefined,
     },
   })
 
@@ -109,15 +117,15 @@ export default function CandidateRegistration() {
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {/* Personal Information Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="personal-info ">Personal Information</CardTitle>
+              <CardTitle id="personal-info " className="text-primary">Personal Information</CardTitle>
               <CardDescription>Basic personal details and contact information</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-3">
                 <FormField
                   control={form.control}
                   name="first_name"
@@ -248,14 +256,14 @@ export default function CandidateRegistration() {
           {/* Identity & Family Information Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="identity-info">Identity & Family Information</CardTitle>
+              <CardTitle id="identity-info" className="text-primary">Identity & Family Information</CardTitle>
               <CardDescription>Identity documents and family details</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div>
-                  <h4 className="text-sm font-medium mb-4">Identity Documents</h4>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <h4 className="text-lg font-medium mb-4">Identity Documents</h4>
+                  <div className="grid gap-4 md:grid-cols-3">
                     <FormField
                       control={form.control}
                       name="aadhar_card_number"
@@ -282,14 +290,27 @@ export default function CandidateRegistration() {
                         </FormItem>
                       )}
                     />
+                    <FormField
+                      control={form.control}
+                      name="employment_no"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Employment No. *</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ABCDE1234F" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
                 </div>
                 
                 <Separator />
                 
                 <div>
-                  <h4 className="text-sm font-medium mb-4">Family Details</h4>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <h4 className="text-lg font-medium mb-4">Family Details</h4>
+                  <div className="grid gap-4 md:grid-cols-3">
                     <FormField
                       control={form.control}
                       name="father_name"
@@ -335,8 +356,8 @@ export default function CandidateRegistration() {
                 <Separator />
                 
                 <div>
-                  <h4 className="text-sm font-medium mb-4">Category Information</h4>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <h4 className="text-lg font-medium mb-4">Category Information</h4>
+                  <div className="grid gap-4 md:grid-cols-3">
                     <FormField
                       control={form.control}
                       name="religion"
@@ -407,11 +428,11 @@ export default function CandidateRegistration() {
           {/* Address Information Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="address-info">Address Information</CardTitle>
+              <CardTitle id="address-info" className="text-primary">Address Information</CardTitle>
               <CardDescription>Current residential address details</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-3">
                 <FormField
                   control={form.control}
                   name="state"
@@ -494,11 +515,11 @@ export default function CandidateRegistration() {
           {/* Education Information Section */}
           <Card>
             <CardHeader>
-              <CardTitle id="education-info">Education Information</CardTitle>
+              <CardTitle id="education-info" className="text-primary">Education Information</CardTitle>
               <CardDescription>Educational qualifications and academic details</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-3">
                 <FormField
                   control={form.control}
                   name="education_type"
@@ -645,8 +666,79 @@ export default function CandidateRegistration() {
             </CardContent>
           </Card>
 
+          <Card>
+  <CardHeader>
+    <CardTitle id="documents-info" className="text-primary">Documents Upload</CardTitle>
+    <CardDescription>Upload required documents below</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <div className="grid gap-4 md:grid-cols-3">
+      {/* Certificate Upload */}
+      <FormField
+        control={form.control}
+        name="certificate"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Certificate *</FormLabel>
+            <FormControl>
+              <Input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png"
+                  className="file:cursor-pointer file:rounded file:border-0 file:bg-primary file:px-2  file:text-white hover:file:bg-primary"
+                onChange={(e) => field.onChange(e.target.files?.[0] || null)}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      {/* Resume Upload */}
+      <FormField
+        control={form.control}
+        name="resume"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Resume *</FormLabel>
+            <FormControl>
+              <Input
+                type="file"
+                accept=".pdf,.doc,.docx"
+                  className="file:cursor-pointer file:rounded file:border-0 file:bg-primary file:px-2  file:text-white hover:file:bg-primary"
+                onChange={(e) => field.onChange(e.target.files?.[0] || null)}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      {/* Aadhaar Upload */}
+      <FormField
+        control={form.control}
+        name="aadhaar"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Aadhaar *</FormLabel>
+            <FormControl>
+              <Input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png"
+                className="file:cursor-pointer file:rounded file:border-0 file:bg-primary file:px-2  file:text-white hover:file:bg-primary"
+                onChange={(e) => field.onChange(e.target.files?.[0] || null)}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </div>
+  </CardContent>
+</Card>
+
+
           {/* Submit Button */}
-          <div className="flex justify-end pt-6">
+          <div className="flex justify-end pb-2">
             <Button type="submit" size="lg" className="min-w-[200px]">
               Register Candidate
             </Button>
