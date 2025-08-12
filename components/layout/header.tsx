@@ -18,8 +18,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Building2, Calendar, GraduationCap, Home, MapPin, Users, UserPlus, ClipboardList, BarChart3, Menu, User, Settings, LogOut } from 'lucide-react'
+import { Building2, Calendar, GraduationCap, Home, MapPin, Users, UserPlus, ClipboardList, BarChart3, Menu, User, Settings, LogOut,Search } from 'lucide-react'
 import { cn } from "@/lib/utils"
 
 const navigationItems = [
@@ -46,6 +47,11 @@ const navigationItems = [
   {
     title: "Dashboards",
     items: [
+      {
+        title: "Admin Dashboard",
+        href: "/dashboard/admin",
+        icon: Users,
+      },
       {
         title: "Employee Dashboard",
         href: "/dashboard/employee",
@@ -196,6 +202,13 @@ export function Header() {
               </p> */}
             </div>
           </Link>
+
+           <div className="hidden md:flex md:flex-1 md:max-w-md md:mx-8">
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input placeholder="Search jobs, exams, employers..." className="pl-10" />
+          </div>
+        </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">

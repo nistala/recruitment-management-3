@@ -295,7 +295,7 @@ export default function CandidateRegistration() {
                       name="employment_no"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Employment No. *</FormLabel>
+                          <FormLabel>Employment No.</FormLabel>
                           <FormControl>
                             <Input placeholder="ABCDE1234F" {...field} />
                           </FormControl>
