@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils"
 
 const navigationItems = [
   {
-    title: "Dashboard",
+    title: "Home",
     href: "/",
     icon: Home,
   },

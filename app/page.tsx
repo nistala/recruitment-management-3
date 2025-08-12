@@ -33,7 +33,7 @@ export default function HomePage() {
       change: "+12%",
       description: "Employers registered on the platform",
       icon: Building2,
-      color: "#00aae7",
+      color: "#232527",
     },
     {
       title: "Candidates (Reg.)",
@@ -41,7 +41,7 @@ export default function HomePage() {
       change: "+8%",
       description: "Candidates eligible for upcoming or ongoing exams",
       icon: Users,
-      color: "#22c55e", // green-500
+      color: "#232527", // green-500
     },
     {
       title: "Active Exams",
@@ -49,7 +49,7 @@ export default function HomePage() {
       change: "+15%",
       description: "Exams currently open for participation",
       icon: ClipboardList,
-      color: "#f59e0b", // amber-500
+      color: "#0d416b", // amber-500
     },
     {
       title: "Exam Centers",
@@ -57,7 +57,7 @@ export default function HomePage() {
       change: "+5%",
       description: "Approved locations available for conducting exams",
       icon: MapPin,
-      color: "#8b5cf6", // violet-500
+      color: "#0d416b", // violet-500
     },
     {
       title: "Scheduled Exams",
@@ -65,7 +65,7 @@ export default function HomePage() {
       change: "+9%",
       description: "Exams scheduled to start within the next 30 days",
       icon: Calendar,
-      color: "#ec4899", // pink-500
+      color: " #00aae7", // pink-500
     },
     {
       title: "Results Published",
@@ -73,7 +73,7 @@ export default function HomePage() {
       change: "+4%",
       description: "Exams whose results are available for candidates",
       icon: Award,
-      color: "#ef4444", // red-500
+      color: " #00aae7", // red-500
     },
   ]
 
