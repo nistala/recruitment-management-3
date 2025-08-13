@@ -1,250 +1,421 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card } from "@/components/ui/card"
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
-import { Badge } from "@/components/ui/badge"
-import { Clock, MapPin, Users } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Card } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Clock, MapPin, Users } from "lucide-react";
 export default function HomePage() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const [currentIndexJN, setCurrentIndexJN] = useState(0);
+  const [currentGovIndex, setCurrentGovIndex] = useState(0);
+  const [currentPrivateIndex, setCurrentPrivateIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("");
 
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const jobNotificationsData = [
+    // Govt jobs
+    { title: "BSF 1121 Head Constable Online Form 2025" },
+    { title: "Bank of Maharashtra 500 Generalist Officer Online Form 2025" },
+    { title: "Indian Navy 1266 Skilled Tradesman Online Form 2025" },
+    { title: "BHEL 515 Artisan Online Form 2025" },
+    { title: "IB 4987 Security Assistant Online Form 2025" },
+    { title: "SBI 6589 Junior Associate (CLERK) Online Form 2025" },
+    { title: "BSF 3588 Constable Tradesman Online Form 2025" },
+    { title: "RRB 434 Paramedical Staff Online Form 2025" },
+    { title: "AAI 976 Junior Executive Online Form 2025" },
+    { title: "UPSC Civil Services Exam 2025" },
+    { title: "SSC CGL 2025 Online Registration" },
+    { title: "DRDO Scientist Recruitment 2025" },
+    { title: "ISRO Technician Vacancy 2025" },
+    { title: "Indian Railways 1287 Junior Engineer Recruitment 2025" },
+    { title: "LIC 2143 Assistant Administrative Officer Online Form 2025" },
+    { title: "NHAI 320 Civil Engineer Recruitment 2025" },
+    { title: "CSIR 478 Technical Assistant Online Form 2025" },
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex === jobNotifications.length - 1 ? 0 : prevIndex + 1))
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500) // Simulate loading
-    return () => clearTimeout(timer)
-  }, [])
-
+    // Private sector (software-focused)
+    { title: "TCS 1500 Software Engineer Fresher Hiring 2025" },
+    { title: "Infosys 1200 Full Stack Developer Recruitment 2025" },
+    { title: "Wipro 980 Cloud Engineer Hiring 2025" },
+    { title: "HCL 850 Data Engineer Online Application 2025" },
+    { title: "Tech Mahindra 720 AI/ML Engineer Recruitment 2025" },
+    { title: "Capgemini 600 Backend Developer Hiring 2025" },
+    { title: "Accenture 950 DevOps Engineer Online Registration 2025" },
+    { title: "Cognizant 1100 Java Developer Recruitment 2025" },
+    { title: "Mindtree 540 UI/UX Developer Online Form 2025" },
+    { title: "LTIMindtree 800 Software Test Engineer Recruitment 2025" },
+    { title: "Persistent Systems 430 Mobile App Developer Hiring 2025" },
+    { title: "Zensar Technologies 390 Python Developer Online Form 2025" },
+  ];
   const jobNotifications = [
-  {
-    id: 1,
-    title: "SBI Clerk Recruitment 2024 - 8000+ Vacancies",
-    organization: "State Bank of India",
-    location: "Pan India",
-    deadline: "15 Dec 2024",
-    type: "Banking",
-    isNew: true,
-    applicants: "2.5L+",
-  },
-  {
-    id: 2,
-    title: "IBPS PO Notification 2024 - 4000 Posts",
-    organization: "IBPS",
-    location: "All India",
-    deadline: "20 Dec 2024",
-    type: "Banking",
-    isHot: true,
-    applicants: "1.8L+",
-  },
-  {
-    id: 3,
-    title: "SSC CGL 2024 - Combined Graduate Level",
-    organization: "Staff Selection Commission",
-    location: "Various States",
-    deadline: "25 Dec 2024",
-    type: "Government",
-    isNew: true,
-    applicants: "5.2L+",
-  },
-  {
-    id: 4,
-    title: "Railway Group D Recruitment - 50000 Posts",
-    organization: "Indian Railways",
-    location: "Pan India",
-    deadline: "30 Dec 2024",
-    type: "Railway",
-    isHot: true,
-    applicants: "8.5L+",
-  },
-  {
-    id: 5,
-    title: "UPSC Civil Services 2024 - IAS/IPS/IFS",
-    organization: "UPSC",
-    location: "All India",
-    deadline: "10 Jan 2025",
-    type: "Civil Services",
-    isNew: true,
-    applicants: "12L+",
-  },
-]
+    {
+      id: 1,
+      title: "SBI Clerk Recruitment 2024 - 8000+ Vacancies",
+      organization: "State Bank of India",
+      location: "Pan India",
+      deadline: "15 Dec 2024",
+      type: "Banking",
+      sector: "Government",
+      salaryRange: "₹26,000 - ₹40,000",
+      experienceLevel: "Fresher",
+      qualification: "Graduate",
+      mode: "Online",
+      isNew: true,
+      applicants: "2.5L+",
+    },
+    {
+      id: 2,
+      title: "IBPS PO Notification 2024 - 4000 Posts",
+      organization: "IBPS",
+      location: "All India",
+      deadline: "20 Dec 2024",
+      type: "Banking",
+      sector: "Government",
+      salaryRange: "₹37,000 - ₹52,000",
+      experienceLevel: "Fresher",
+      qualification: "Graduate",
+      mode: "Online",
+      isHot: true,
+      applicants: "1.8L+",
+    },
+    {
+      id: 3,
+      title: "SSC CGL 2024 - Combined Graduate Level",
+      organization: "Staff Selection Commission",
+      location: "Various States",
+      deadline: "25 Dec 2024",
+      type: "Government",
+      sector: "Government",
+      salaryRange: "₹35,000 - ₹65,000",
+      experienceLevel: "Fresher/Experienced",
+      qualification: "Graduate",
+      mode: "Online",
+      isNew: true,
+      applicants: "5.2L+",
+    },
+    {
+      id: 4,
+      title: "Railway Group D Recruitment - 50000 Posts",
+      organization: "Indian Railways",
+      location: "Pan India",
+      deadline: "30 Dec 2024",
+      type: "Railway",
+      sector: "Government",
+      salaryRange: "₹21,000 - ₹35,000",
+      experienceLevel: "Fresher",
+      qualification: "10th Pass",
+      mode: "Offline",
+      isHot: true,
+      applicants: "8.5L+",
+    },
+    {
+      id: 5,
+      title: "UPSC Civil Services 2024 - IAS/IPS/IFS",
+      organization: "UPSC",
+      location: "All India",
+      deadline: "10 Jan 2025",
+      type: "Civil Services",
+      sector: "Government",
+      salaryRange: "₹56,100 - ₹2,50,000",
+      experienceLevel: "Fresher/Experienced",
+      qualification: "Graduate",
+      mode: "Online",
+      isNew: true,
+      applicants: "12L+",
+    },
+    {
+      id: 6,
+      title: "TCS NQT 2025 - Software Engineer Fresher Hiring",
+      organization: "Tata Consultancy Services",
+      location: "Pan India",
+      deadline: "05 Jan 2025",
+      type: "IT & Software",
+      sector: "Private",
+      salaryRange: "₹3.5 LPA - ₹6 LPA",
+      experienceLevel: "Fresher",
+      qualification: "B.Tech/B.E/MCA",
+      mode: "Online",
+      isNew: true,
+      applicants: "90K+",
+    },
+    {
+      id: 7,
+      title: "Infosys Specialist Programmer Recruitment 2025",
+      organization: "Infosys Ltd",
+      location: "Bangalore, Pune, Hyderabad",
+      deadline: "12 Jan 2025",
+      type: "IT & Software",
+      sector: "Private",
+      salaryRange: "₹8 LPA - ₹12 LPA",
+      experienceLevel: "Experienced",
+      qualification: "B.Tech/B.E/MCA",
+      mode: "Online",
+      isHot: true,
+      applicants: "45K+",
+    },
+    {
+      id: 8,
+      title: "Wipro Cloud Engineer Hiring 2025",
+      organization: "Wipro Technologies",
+      location: "Noida, Chennai, Pune",
+      deadline: "18 Jan 2025",
+      type: "IT & Software",
+      sector: "Private",
+      salaryRange: "₹5 LPA - ₹9 LPA",
+      experienceLevel: "Experienced",
+      qualification: "B.Tech/B.E",
+      mode: "Online",
+      applicants: "38K+",
+    },
+    {
+      id: 9,
+      title: "Capgemini Full Stack Developer Recruitment 2025",
+      organization: "Capgemini India",
+      location: "Bangalore, Mumbai",
+      deadline: "22 Jan 2025",
+      type: "IT & Software",
+      sector: "Private",
+      salaryRange: "₹6 LPA - ₹11 LPA",
+      experienceLevel: "Experienced",
+      qualification: "B.Tech/B.E/MCA",
+      mode: "Online",
+      isNew: true,
+      applicants: "26K+",
+    },
+    {
+      id: 10,
+      title: "Indian Navy 2025 Tradesman Recruitment",
+      organization: "Indian Navy",
+      location: "Pan India",
+      deadline: "15 Jan 2025",
+      type: "Defence",
+      sector: "Government",
+      salaryRange: "₹18,000 - ₹56,900",
+      experienceLevel: "Fresher",
+      qualification: "10th Pass/ITI",
+      mode: "Offline",
+      applicants: "3.2L+",
+    },
+  ];
+  const jobData = [
+    {
+      id: 1,
+      jobType: "Government",
+      jobList: [
+        {
+          jobTitle: "Junior Engineer (Civil)",
+          organization: "Public Works Department",
+          location: "Delhi, India",
+          salary: "₹35,000 - ₹45,000",
+          isNew: true,
+          isHot: false,
+          type: "Full-Time",
+        },
+        {
+          jobTitle: "Assistant Section Officer",
+          organization: "Ministry of Finance",
+          location: "Mumbai, India",
+          salary: "₹40,000 - ₹50,000",
+          isNew: false,
+          isHot: true,
+          type: "Full-Time",
+        },
+        {
+          jobTitle: "Railway Station Master",
+          organization: "Indian Railways",
+          location: "Pan India",
+          salary: "₹35,000 - ₹45,000",
+          isNew: true,
+          isHot: true,
+          type: "Full-Time",
+        },
+        {
+          jobTitle: "Primary School Teacher",
+          organization: "Delhi Govt Education Dept",
+          location: "Delhi, India",
+          salary: "₹25,000 - ₹35,000",
+          isNew: false,
+          isHot: false,
+          type: "Contract",
+        },
+      ],
+    },
+    {
+      id: 2,
+      jobType: "Private",
+      jobList: [
+        {
+          jobTitle: "Software Engineer",
+          company: "Tech Solutions",
+          location: "New York, NY",
+          salary: "$80,000 - $100,000",
+          isNew: true,
+          isHot: false,
+          type: "Full-Time",
+        },
+        {
+          jobTitle: "Data Analyst",
+          company: "Data Insights",
+          location: "San Francisco, CA",
+          salary: "$70,000 - $90,000",
+          isNew: false,
+          isHot: true,
+          type: "Contract",
+        },
+        {
+          jobTitle: "UI/UX Designer",
+          company: "Creative Minds Studio",
+          location: "Austin, TX",
+          salary: "$65,000 - $85,000",
+          isNew: true,
+          isHot: true,
+          type: "Full-Time",
+        },
+        {
+          jobTitle: "Digital Marketing Specialist",
+          company: "BrandBoost",
+          location: "Chicago, IL",
+          salary: "$50,000 - $70,000",
+          isNew: false,
+          isHot: false,
+          type: "Part-Time",
+        },
+      ],
+    },
+    {
+      id: 3,
+      jobType: "JobFair",
+      jobList: [
+        {
+          id: 1,
+          name: "National Government Job Fair 2024",
+          date: "2024-03-15",
+          time: "10:00 AM - 6:00 PM",
+          type: "Physical",
+          location: "Pragati Maidan, New Delhi",
+          participants: 150,
+          expectedVisitors: "10,000+",
+          registrationFee: "Free",
+          status: "Registration Open",
+          description:
+            "Largest government job fair featuring central and state government organizations.",
+        },
+        {
+          id: 2,
+          name: "Banking & Finance Career Fair",
+          date: "2024-03-22",
+          time: "11:00 AM - 5:00 PM",
+          type: "Virtual",
+          location: "Online Platform",
+          participants: 85,
+          expectedVisitors: "5,000+",
+          registrationFee: "Free",
+          status: "Registration Open",
+          description:
+            "Connect with leading banks and financial institutions for various positions.",
+        },
+        {
+          id: 3,
+          name: "Engineering Jobs Expo",
+          date: "2024-04-05",
+          time: "9:00 AM - 7:00 PM",
+          type: "Hybrid",
+          location: "HITEX, Hyderabad + Virtual",
+          participants: 200,
+          expectedVisitors: "15,000+",
+          registrationFee: "₹100",
+          status: "Registration Open",
+          description:
+            "Premier engineering job fair for civil, mechanical, electrical, and IT engineers.",
+        },
+        {
+          id: 4,
+          name: "Healthcare Professionals Meet",
+          date: "2024-04-12",
+          time: "10:00 AM - 4:00 PM",
+          type: "Physical",
+          location: "AIIMS Convention Center, Delhi",
+          participants: 60,
+          expectedVisitors: "3,000+",
+          registrationFee: "Free",
+          status: "Registration Open",
+          description:
+            "Exclusive job fair for doctors, nurses, and healthcare professionals.",
+        },
+        {
+          id: 5,
+          name: "Tech Startups Career Carnival",
+          date: "2024-04-20",
+          time: "12:00 PM - 8:00 PM",
+          type: "Hybrid",
+          location: "Bangalore International Exhibition Centre + Virtual",
+          participants: 120,
+          expectedVisitors: "8,000+",
+          registrationFee: "₹50",
+          status: "Registration Open",
+          description:
+            "Meet innovative startups and tech companies hiring across multiple domains.",
+        },
+      ],
+    },
+  ];
 
-const jobData= [
-  {
-    "id": 1,
-    "jobType": "Government",
-    "jobList": [
-      {
-        "jobTitle": "Junior Engineer (Civil)",
-        "organization": "Public Works Department",
-        "location": "Delhi, India",
-        "salary": "₹35,000 - ₹45,000",
-        "isNew": true,
-        "isHot": false,
-        "type": "Full-Time"
-      },
-      {
-        "jobTitle": "Assistant Section Officer",
-        "organization": "Ministry of Finance",
-        "location": "Mumbai, India",
-        "salary": "₹40,000 - ₹50,000",
-        "isNew": false,
-        "isHot": true,
-        "type": "Full-Time"
-      },
-      {
-        "jobTitle": "Railway Station Master",
-        "organization": "Indian Railways",
-        "location": "Pan India",
-        "salary": "₹35,000 - ₹45,000",
-        "isNew": true,
-        "isHot": true,
-        "type": "Full-Time"
-      },
-      {
-        "jobTitle": "Primary School Teacher",
-        "organization": "Delhi Govt Education Dept",
-        "location": "Delhi, India",
-        "salary": "₹25,000 - ₹35,000",
-        "isNew": false,
-        "isHot": false,
-        "type": "Contract"
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "jobType": "Private",
-    "jobList": [
-      {
-        "jobTitle": "Software Engineer",
-        "company": "Tech Solutions",
-        "location": "New York, NY",
-        "salary": "$80,000 - $100,000",
-        "isNew": true,
-        "isHot": false,
-        "type": "Full-Time"
-      },
-      {
-        "jobTitle": "Data Analyst",
-        "company": "Data Insights",
-        "location": "San Francisco, CA",
-        "salary": "$70,000 - $90,000",
-        "isNew": false,
-        "isHot": true,
-        "type": "Contract"
-      },
-      {
-        "jobTitle": "UI/UX Designer",
-        "company": "Creative Minds Studio",
-        "location": "Austin, TX",
-        "salary": "$65,000 - $85,000",
-        "isNew": true,
-        "isHot": true,
-        "type": "Full-Time"
-      },
-      {
-        "jobTitle": "Digital Marketing Specialist",
-        "company": "BrandBoost",
-        "location": "Chicago, IL",
-        "salary": "$50,000 - $70,000",
-        "isNew": false,
-        "isHot": false,
-        "type": "Part-Time"
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "jobType": "JobFair",
-    "jobList": [
-      {
-        "id": 1,
-        "name": "National Government Job Fair 2024",
-        "date": "2024-03-15",
-        "time": "10:00 AM - 6:00 PM",
-        "type": "Physical",
-        "location": "Pragati Maidan, New Delhi",
-        "participants": 150,
-        "expectedVisitors": "10,000+",
-        "registrationFee": "Free",
-        "status": "Registration Open",
-        "description": "Largest government job fair featuring central and state government organizations."
-      },
-      {
-        "id": 2,
-        "name": "Banking & Finance Career Fair",
-        "date": "2024-03-22",
-        "time": "11:00 AM - 5:00 PM",
-        "type": "Virtual",
-        "location": "Online Platform",
-        "participants": 85,
-        "expectedVisitors": "5,000+",
-        "registrationFee": "Free",
-        "status": "Registration Open",
-        "description": "Connect with leading banks and financial institutions for various positions."
-      },
-      {
-        "id": 3,
-        "name": "Engineering Jobs Expo",
-        "date": "2024-04-05",
-        "time": "9:00 AM - 7:00 PM",
-        "type": "Hybrid",
-        "location": "HITEX, Hyderabad + Virtual",
-        "participants": 200,
-        "expectedVisitors": "15,000+",
-        "registrationFee": "₹100",
-        "status": "Registration Open",
-        "description": "Premier engineering job fair for civil, mechanical, electrical, and IT engineers."
-      },
-      {
-        "id": 4,
-        "name": "Healthcare Professionals Meet",
-        "date": "2024-04-12",
-        "time": "10:00 AM - 4:00 PM",
-        "type": "Physical",
-        "location": "AIIMS Convention Center, Delhi",
-        "participants": 60,
-        "expectedVisitors": "3,000+",
-        "registrationFee": "Free",
-        "status": "Registration Open",
-        "description": "Exclusive job fair for doctors, nurses, and healthcare professionals."
-      },
-      {
-        "id": 5,
-        "name": "Tech Startups Career Carnival",
-        "date": "2024-04-20",
-        "time": "12:00 PM - 8:00 PM",
-        "type": "Hybrid",
-        "location": "Bangalore International Exhibition Centre + Virtual",
-        "participants": 120,
-        "expectedVisitors": "8,000+",
-        "registrationFee": "₹50",
-        "status": "Registration Open",
-        "description": "Meet innovative startups and tech companies hiring across multiple domains."
-      }
-    ]
-  }
-]
+  const governmentJobs = jobNotifications.filter(
+    (job) => job.sector === "Government"
+  );
+  const privateJobs = jobNotifications.filter(
+    (job) => job.sector === "Private"
+  );
 
+  // Auto-slide Government jobs
+  useEffect(() => {
+    const govInterval = setInterval(() => {
+      setCurrentGovIndex((prev) => (prev + 1) % governmentJobs.length);
+    }, 3000); // 3 sec interval
+    return () => clearInterval(govInterval);
+  }, [governmentJobs.length]);
 
+  // Auto-slide Private jobs
+  useEffect(() => {
+    const privateInterval = setInterval(() => {
+      setCurrentPrivateIndex((prev) => (prev + 1) % privateJobs.length);
+    }, 3000);
+    return () => clearInterval(privateInterval);
+  }, [privateJobs.length]);
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCurrentIndexJN((prev) => (prev + 1) % jobNotificationsData.length);
+  //   }, 2000); // Change every 2 sec
+  //   return () => clearInterval(timer);
+  // }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500); // Simulate loading
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleSearch = () => {
+    const filtered = jobNotifications.filter((job) => {
+      const matchesType = filterType
+        ? job.sector === filterType || job.type === filterType
+        : true;
+      const matchesSearch =
+        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.organization.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesType && matchesSearch;
+    });
+
+    console.log("Search Results:", filtered);
+    // You can update a state to display filtered jobs below
+  };
   return (
     <div className="p-2 space-y-4">
-      {/* <div>
-        <h1 className="text-2xl font-bold">Recruitment & Exam Management System</h1>
-        <p className="text-muted-foreground">
-          Comprehensive platform for managing recruitment processes and examinations
-        </p>
-      </div> */}
-       
       <div className="container mx-auto px-4">
         <div className="flex items-center mb-3">
           <div className="flex items-center space-x-2">
@@ -255,163 +426,374 @@ const jobData= [
           </div>
         </div>
 
-        <div className="relative overflow-hidden h-32">
-          <div
-            className="flex transition-transform duration-1000 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {jobNotifications.map((job, index) => (
-              <div key={job.id} className="w-full flex-shrink-0">
-                <Card className="p-4 mx-2 hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <h3 className="font-semibold text-gray-800 text-lg leading-tight">{job.title}</h3>
-                        {job.isNew && <Badge className="bg-green-500 text-white text-xs animate-bounce">NEW</Badge>}
-                        {job.isHot && <Badge className="bg-red-500 text-white text-xs animate-pulse">HOT</Badge>}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {/* Government Slider */}
+          <div className="relative overflow-hidden h-34">
+            <h2 className="text-lg font-bold mb-2">Government Notifications</h2>
+            <div
+              className="flex transition-transform duration-1000 ease-in-out"
+              style={{
+                transform: `translateX(-${currentGovIndex * 100}%)`,
+              }}
+            >
+              {governmentJobs.map((job) => (
+                <div key={job.id} className="w-full flex-shrink-0">
+                  {/* Your Government job card UI here */}
+                  <Card className="p-4 mx-2 hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-primary bg-white/80 backdrop-blur-sm">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <h3 className="font-semibold text-gray-800 text-lg leading-tight">
+                            {job.title}
+                          </h3>
+                          {job.isNew && (
+                            <Badge className="bg-green-500 text-white text-xs animate-bounce">
+                              NEW
+                            </Badge>
+                          )}
+                          {job.isHot && (
+                            <Badge className="bg-red-500 text-white text-xs animate-pulse">
+                              Trending
+                            </Badge>
+                          )}
+                        </div>
+
+                        <div className="flex items-center space-x-4 text-sm text-gray-600 mb-2">
+                          <span className="font-medium text-blue-600">
+                            {job.organization}
+                          </span>
+                          <div className="flex items-center space-x-1">
+                            <MapPin className="w-3 h-3" />
+                            <span>{job.location}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <Users className="w-3 h-3" />
+                            <span>{job.applicants} Applied</span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <Badge variant="outline" className="text-xs">
+                            {job.type}
+                          </Badge>
+                          <div className="flex items-center space-x-1 text-xs text-red-600">
+                            <Clock className="w-3 h-3" />
+                            <span>Deadline: {job.deadline}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Private Slider */}
+          <div className="relative overflow-hidden h-34">
+            <h2 className="text-lg font-bold mb-2">Private Notifications</h2>
+            <div
+              className="flex transition-transform duration-1000 ease-in-out"
+              style={{
+                transform: `translateX(-${currentPrivateIndex * 100}%)`,
+              }}
+            >
+              {privateJobs.map((job) => (
+                <div key={job.id} className="w-full flex-shrink-0">
+                  {/* Your Private job card UI here */}
+                  <Card className="p-4 mx-2 hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-primary bg-white/80 backdrop-blur-sm">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <h3 className="font-semibold text-gray-800 text-lg leading-tight">
+                            {job.title}
+                          </h3>
+                          {job.isNew && (
+                            <Badge className="bg-green-500 text-white text-xs animate-bounce">
+                              NEW
+                            </Badge>
+                          )}
+                          {job.isHot && (
+                            <Badge className="bg-red-500 text-white text-xs animate-pulse">
+                              Trending
+                            </Badge>
+                          )}
+                        </div>
+
+                        <div className="flex items-center space-x-4 text-sm text-gray-600 mb-2">
+                          <span className="font-medium text-blue-600">
+                            {job.organization}
+                          </span>
+                          <div className="flex items-center space-x-1">
+                            <MapPin className="w-3 h-3" />
+                            <span>{job.location}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <Users className="w-3 h-3" />
+                            <span>{job.applicants} Applied</span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <Badge variant="outline" className="text-sm">
+                            {job.type}
+                          </Badge>
+                          <div className="flex items-center space-x-1 text-sm text-red-600">
+                            <Clock className="w-3 h-3" />
+                            <span>Deadline: {job.deadline}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-2 bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow flex flex-col gap-4">
+          {/* Application Description */}
+          <div className="text-center">
+            <h3 className="text-2xl md:text-3xl font-bold text-[#2368a0] tracking-wide">
+              Find Your Next Career Opportunity
+            </h3>
+            <p className="text-gray-600 text-md md:text-base leading-relaxed mt-2">
+              Welcome to{" "}
+              <span className="font-semibold text-[#00aae7]">JobConnect</span>,
+              your hub for the latest Government and Private jobs. Search,
+              filter, and apply — all in one place.
+            </p>
+          </div>
+
+          {/* Search Row */}
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            {/* Filter Dropdown */}
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full md:w-48 focus:ring-2 focus:ring-primary focus:outline-none"
+            >
+              <option value="">All Types</option>
+              <option value="Government">Government</option>
+              <option value="Private">Private</option>
+              <option value="Banking">Banking</option>
+              <option value="IT & Software">IT & Software</option>
+              <option value="Defence">Defence</option>
+              <option value="Railway">Railway</option>
+            </select>
+
+            {/* Search Input */}
+            <input
+              type="text"
+              placeholder="Search jobs..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 flex-1 focus:ring-2 focus:ring-primary focus:outline-none"
+            />
+
+            {/* Search Button */}
+            <button
+              onClick={handleSearch}
+              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors w-full md:w-auto"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+
+        <div className="flex w-full mt-4 gap-4 justify-space-around ">
+          {/* Job Type - 20% */}
+          <div className="w-1/3 bg-white/80 rounded-xl shadow-lg overflow-hidden">
+            <h2 className="bg-primary text-white font-bold px-4 py-3 uppercase text-sm tracking-wide">
+              Job Types
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {jobData.map((category) => (
+                <AccordionItem key={category.id} value={category.jobType}>
+                  <AccordionTrigger className="text-sm pl-4 pr-2 py-3 flex items-center justify-between hover:bg-accent transition-colors">
+                    {category.jobType}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="space-y-2">
+                      {category.jobList.map((job: any, index: number) => (
+                        <li
+                          key={index}
+                          className="flex items-center justify-between hover:bg-gray-100 p-2 rounded-md cursor-pointer"
+                        >
+                          <span className="text-xs sm:text-sm">
+                            {job.jobTitle || job.name}
+                          </span>
+                          <div className="flex gap-1">
+                            {job.isNew && (
+                              <Badge
+                                className="text-[10px] bg-[#00aae7] text-white"
+                                variant="secondary"
+                              >
+                                New
+                              </Badge>
+                            )}
+                            {job.isHot && (
+                              <Badge className="text-[10px] bg-red-500 text-white">
+                                Trending
+                              </Badge>
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+
+          {/* Job List Details - 50% */}
+          <div className="w-full bg-white/90 rounded-xl shadow-lg overflow-hidden">
+            {/* Header */}
+            <h2 className="bg-primary text-white font-bold px-4 py-3 uppercase text-sm tracking-wide">
+              Job List Details
+            </h2>
+
+            {jobData.map((category) => (
+              <div key={category.id} className="divide-y">
+                {category.jobList.map((job: any, idx: number) => (
+                  <div
+                    key={idx}
+                    className="p-2 flex flex-col gap-2 hover:bg-gray-50 transition-colors"
+                  >
+                    {/* Top Row: Job Title & Badges */}
+                    <div className="flex flex-wrap justify-between items-center gap-2">
+                      {/* Left: Job title & company */}
+                      <div>
+                        <h4 className="font-semibold text-gray-800 text-sm sm:text-base ">
+                          <span className="text-xs sm:text-sm mr-2">
+                            {job.jobTitle || job.name}
+                          </span>
+
+                          {job.isNew && (
+                            <Badge
+                              className="text-[10px] m-l-2"
+                              variant="secondary"
+                            >
+                              New
+                            </Badge>
+                          )}
+                          {job.isHot && (
+                            <Badge className="text-[10px] p-l-2 bg-red-500 text-white">
+                              Trending
+                            </Badge>
+                          )}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-gray-600">
+                          {(job.organization || job.company) && (
+                            <>
+                              {job.organization || job.company}
+                              {job.location ? ` — ${job.location}` : ""}
+                            </>
+                          )}
+                          {!job.organization &&
+                            !job.company &&
+                            job.location && <>{job.location}</>}
+                        </p>
                       </div>
 
-                      <div className="flex items-center space-x-4 text-sm text-gray-600 mb-2">
-                        <span className="font-medium text-blue-600">{job.organization}</span>
-                        <div className="flex items-center space-x-1">
-                          <MapPin className="w-3 h-3" />
-                          <span>{job.location}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Users className="w-3 h-3" />
-                          <span>{job.applicants} Applied</span>
-                        </div>
+                      {/* Right: Job type, work type, salary */}
+                      <div className="flex flex-wrap gap-2 items-center">
+                        {category.jobType && (
+                          <Badge className="bg-[#2368a0] text-white text-xs">
+                            {category.jobType}
+                          </Badge>
+                        )}
+                        {job.type && (
+                          <Badge variant="outline" className="text-xs">
+                            {job.type}
+                          </Badge>
+                        )}
                       </div>
+                    </div>
 
-                      <div className="flex items-center justify-between">
-                        <Badge variant="outline" className="text-xs">
-                          {job.type}
-                        </Badge>
-                        <div className="flex items-center space-x-1 text-xs text-red-600">
+                    {/* Second Row: Meta Info */}
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+                      {/* {job.salary && (
+                        <span className="text-xs text-green-700 font-medium">
+                          {job.salary}
+                        </span>
+                      )} */}
+                      {job.registrationFee && (
+                        <span className="text-sm text-[#ef4048] font-medium">
+                          {job.registrationFee}
+                        </span>
+                      )}
+                      {job.deadline && (
+                        <div className="flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           <span>Deadline: {job.deadline}</span>
                         </div>
-                      </div>
+                      )}
+                      {job.date && (
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          <span>Date: {job.date}</span>
+                        </div>
+                      )}
+                      {job.applicants && (
+                        <div className="flex items-center gap-1">
+                          <Users className="w-3 h-3" />
+                          <span>{job.applicants} Applied</span>
+                        </div>
+                      )}
+                      {job.expectedVisitors && (
+                        <div className="flex items-center gap-1">
+                          <Users className="w-3 h-3" />
+                          <span>{job.expectedVisitors} Visitors</span>
+                        </div>
+                      )}
                     </div>
+
+                    {/* Third Row: Status Badges */}
+                    {/* <div className="flex items-center gap-2">
+            {job.isNew && (
+              <Badge className="bg-green-500 text-white text-[10px] px-2 animate-bounce">
+                NEW
+              </Badge>
+            )}
+            {job.isHot && (
+              <Badge className="bg-red-500 text-white text-[10px] px-2 animate-pulse">
+                HOT
+              </Badge>
+            )}
+            {job.status && (
+              <Badge variant="secondary" className="text-[10px] px-2">
+                {job.status}
+              </Badge>
+            )}
+          </div> */}
                   </div>
-                </Card>
+                ))}
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Pagination Dots */}
-        <div className="flex justify-center space-x-2 mt-3">
-          {jobNotifications.map((_, index) => (
-            <button
-              key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "bg-blue-600 w-6" : "bg-gray-300 hover:bg-gray-400"
-              }`}
-              onClick={() => setCurrentIndex(index)}
-            />
-          ))}
-        </div>
-        <div className="flex w-full mt-8 gap-4">
-          {/* Job Type - 20% */}
-          {/* <div className="w-1/5 bg-white/80 rounded-lg shadow p-4">
-            <h2 className="font-bold text-lg mb-3">Job Types</h2>
-            <ul className="space-y-2">
-              {[...new Set(jobNotifications.map(j => j.type))].map(type => (
-                <li key={type}>
-                  <Badge variant="outline" className="text-xs">{type}</Badge>
-                </li>
-              ))}
-            </ul>
-          </div> */}
-
-          <div className="w-1/5 bg-white/80 rounded-lg shadow p-4">
-      <h2 className="font-bold text-lg mb-3">Job Types</h2>
-      <Accordion type="single" collapsible className="w-full">
-        {jobData.map((category) => (
-          <AccordionItem key={category.id} value={category.jobType}>
-            <AccordionTrigger className="font-medium">
-              {category.jobType}
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul className="space-y-2">
-                {category.jobList.map((job: any, index: number) => (
-                  <li
-                    key={index}
-                    className="flex items-center justify-between hover:bg-gray-100 p-2 rounded-md cursor-pointer"
-                  >
-                    <span className="text-sm">{job.jobTitle || job.name}</span>
-                    {job.isNew && (
-                      <Badge className="text-xs" variant="secondary">
-                        New
-                      </Badge>
-                    )}
-                    {job.isHot && (
-                      <Badge className="text-xs bg-red-500 text-white">
-                        Hot
-                      </Badge>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </div>
-
-          {/* Job List Details - 50% */}
-          <div className="w-1/2 bg-white/80 rounded-lg shadow p-4">
-            <h2 className="font-bold text-lg mb-3">Job List Details</h2>
-            <ul className="space-y-4">
-              {jobNotifications.map(job => (
-                <li key={job.id}>
-                  <Card className="p-3 border-l-4 border-blue-500">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="font-semibold text-gray-800">{job.title}</h3>
-                        <div className="text-sm text-gray-600">{job.organization} - {job.location}</div>
-                      </div>
-                      <div>
-                        <Badge variant="outline" className="text-xs">{job.type}</Badge>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2 mt-2 text-xs">
-                      <Clock className="w-3 h-3" />
-                      <span>Deadline: {job.deadline}</span>
-                      <Users className="w-3 h-3 ml-2" />
-                      <span>{job.applicants} Applied</span>
-                    </div>
-                  </Card>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* Job Notification - 30% */}
-          <div className="w-3/10 bg-white/80 rounded-lg shadow p-4">
-            <h2 className="font-bold text-lg mb-3">Job Notification</h2>
-            <Card className="p-4 border-l-4 border-red-500">
-              <div className="flex flex-col space-y-2">
-                <h3 className="font-semibold text-gray-800 text-lg">{jobNotifications[currentIndex].title}</h3>
-                <div className="text-sm text-gray-600">{jobNotifications[currentIndex].organization} - {jobNotifications[currentIndex].location}</div>
-                <div className="flex items-center space-x-2 text-xs">
-                  <Clock className="w-3 h-3" />
-                  <span>Deadline: {jobNotifications[currentIndex].deadline}</span>
-                </div>
-                <div className="flex items-center space-x-2 text-xs">
-                  <Users className="w-3 h-3" />
-                  <span>{jobNotifications[currentIndex].applicants} Applied</span>
-                </div>
-                <Badge variant="outline" className="text-xs">{jobNotifications[currentIndex].type}</Badge>
-                {jobNotifications[currentIndex].isNew && <Badge className="bg-green-500 text-white text-xs animate-bounce">NEW</Badge>}
-                {jobNotifications[currentIndex].isHot && <Badge className="bg-red-500 text-white text-xs animate-pulse">HOT</Badge>}
-              </div>
-            </Card>
+          <div className="w-1/2 bg-white/90 rounded-xl shadow-lg overflow-hidden">
+            <h2 className="bg-primary text-white font-bold px-4 py-3 uppercase text-sm tracking-wide">
+              Job Notifications
+            </h2>
+            <ul className="list-disc list-inside space-y-2 p-3">
+              {jobNotificationsData
+                .map((job, idx) => (
+                  <li
+                    key={idx}
+                    className="text-[#00aae7] hover:underline cursor-pointer text-sm"
+                  >
+                    {job.title}
+                  </li>
+                ))}
+            </ul>
           </div>
         </div>
-      
+      </div>
     </div>
-    </div>
-  )
+  );
 }

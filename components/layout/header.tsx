@@ -1,27 +1,43 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Bell } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Building2, Calendar, GraduationCap, Home, MapPin, Users, UserPlus, ClipboardList, BarChart3, Menu, User, Settings, LogOut,Search } from 'lucide-react'
-import { cn } from "@/lib/utils"
+} from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Building2,
+  Calendar,
+  GraduationCap,
+  Home,
+  MapPin,
+  Users,
+  UserPlus,
+  ClipboardList,
+  BarChart3,
+  Menu,
+  User,
+  Settings,
+  LogOut,
+  Search,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const navigationItems = [
   {
@@ -89,18 +105,18 @@ const navigationItems = [
       },
     ],
   },
-]
+];
 
 export function Header() {
-  const pathname = usePathname()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isActiveLink = (href: string) => {
     if (href === "/") {
-      return pathname === "/"
+      return pathname === "/";
     }
-    return pathname.startsWith(href)
-  }
+    return pathname.startsWith(href);
+  };
 
   const renderNavigationItem = (item: any, isMobile = false) => {
     if (item.href) {
@@ -120,7 +136,7 @@ export function Header() {
           <item.icon className="h-4 w-4 " />
           {item.title}
         </Link>
-      )
+      );
     }
 
     return (
@@ -153,12 +169,12 @@ export function Header() {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-    )
-  }
+    );
+  };
 
   const renderMobileNavigationItem = (item: any) => {
     if (item.href) {
-      return renderNavigationItem(item, true)
+      return renderNavigationItem(item, true);
     }
 
     return (
@@ -185,8 +201,8 @@ export function Header() {
           ))}
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-primary backdrop-blur supports-[backdrop-filter]:bg-primary">
@@ -196,27 +212,44 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2">
             <GraduationCap className="h-8 w-8 text-muted" />
             <div className="hidden sm:block">
-              <h2 className="text-lg font-semibold text-secondary">Unemployee</h2>
+              <h2 className="text-lg font-semibold text-secondary">
+                Unemployee
+              </h2>
               {/* <p className="text-xs text-secondary ">
                 Recruitment & Exam Management
               </p> */}
             </div>
           </Link>
 
-           <div className="hidden md:flex md:flex-1 md:max-w-md md:mx-8">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Search jobs, exams, employers..." className="pl-10" />
-          </div>
-        </div>
+          {/* <div className="hidden md:flex md:flex-1 md:max-w-md md:mx-8">
+            <div className="relative w-full">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search jobs, exams, employers..."
+                className="pl-10"
+              />
+            </div>
+          </div> */}
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
             {navigationItems.map((item) => renderNavigationItem(item))}
           </nav>
 
+
           {/* Right Side - Profile Menu */}
           <div className="flex items-center gap-4">
+             <div className="hidden md:flex md:items-center md:space-x-4 text-secondary">
+            <div className="relative">
+              <Button variant="ghost" size="icon">
+                <Bell className="h-6 w-6" />
+              </Button>
+              {/* Badge Count */}
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                3
+              </span>
+            </div>
+          </div>
             {/* Mobile Menu Button */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
@@ -233,7 +266,9 @@ export function Header() {
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="mt-6 space-y-4">
-                  {navigationItems.map((item) => renderMobileNavigationItem(item))}
+                  {navigationItems.map((item) =>
+                    renderMobileNavigationItem(item)
+                  )}
                 </nav>
               </SheetContent>
             </Sheet>
@@ -241,7 +276,10 @@ export function Header() {
             {/* Profile Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-10 w-10 rounded-full"
+                >
                   <Avatar className="h-10 w-10">
                     <AvatarImage src="/placeholder-avatar.jpg" alt="Profile" />
                     <AvatarFallback className="bg-secondary text-secondary-foreground">
@@ -269,9 +307,11 @@ export function Header() {
                   <span>Settings</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-red-600">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Logout</span>
+                <DropdownMenuItem className="text-[#2368a0]">
+                  <Link href="/auth/login">
+    <LogOut className=" h-4 w-4" />
+    <span>Logout</span>
+  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -279,5 +319,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }

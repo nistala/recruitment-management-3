@@ -4,7 +4,7 @@ import "./globals.css"
 import { Header } from "@/components/layout/header"
 import { Toaster } from "@/components/ui/toaster"
 import {Footer} from "@/components/layout/footer"
-import FloatingAddButton from "@/components/layout/floating-add-button"
+import {FloatingChatButton} from "@/components/layout/floating-chat-button"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -29,7 +29,7 @@ export default function RootLayout({
           <main className="container mx-auto px-4 py-6">
             {children}
           </main>
-          <FloatingAddButton />
+          <FloatingChatButton />
         </div>
         <Footer />
       </body>
