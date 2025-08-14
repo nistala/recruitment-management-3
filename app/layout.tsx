@@ -1,23 +1,23 @@
-import type { Metadata } from "next"
-import { Inter } from 'next/font/google'
-import "./globals.css"
-import { Header } from "@/components/layout/header"
-import { Toaster } from "@/components/ui/toaster"
-import {Footer} from "@/components/layout/footer"
-import {FloatingChatButton} from "@/components/layout/floating-chat-button"
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Header } from "@/components/layout/header";
+import { Toaster } from "@/components/ui/toaster";
+import { Footer } from "@/components/layout/footer";
+import { FloatingChatButton } from "@/components/layout/floating-chat-button";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Recruitment & Exam Management System",
   description: "Comprehensive platform for recruitment and exam management",
-    generator: 'v0.dev'
-}
+  generator: "v0.dev",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -26,13 +26,14 @@ export default function RootLayout({
           <Header />
           <Toaster />
           {/* Main content area */}
-          <main className="container mx-auto px-4 py-6">
+          <main className=" max-full px-4 py-6">
             {children}
           </main>
+
           <FloatingChatButton />
         </div>
         <Footer />
       </body>
     </html>
-  )
+  );
 }

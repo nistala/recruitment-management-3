@@ -10,13 +10,16 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Clock, MapPin, Users } from "lucide-react";
+import { he } from "date-fns/locale";
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
-  const [currentIndexJN, setCurrentIndexJN] = useState(0);
   const [currentGovIndex, setCurrentGovIndex] = useState(0);
   const [currentPrivateIndex, setCurrentPrivateIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState("");
+  const [selectedSub, setSelectedSub] = useState<string | null>(null);
+  const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
+  const [displayedJobs, setDisplayedJobs] = useState<any[]>([]);
 
   const jobNotificationsData = [
     // Govt jobs
@@ -206,84 +209,774 @@ export default function HomePage() {
     {
       id: 1,
       jobType: "Government",
-      jobList: [
+      subJobCategories: [
         {
-          jobTitle: "Junior Engineer (Civil)",
-          organization: "Public Works Department",
-          location: "Delhi, India",
-          salary: "₹35,000 - ₹45,000",
-          isNew: true,
-          isHot: false,
-          type: "Full-Time",
+          categoryName: "UPSC & Civil Services",
+          jobList: [
+            {
+              jobTitle: "Indian Administrative Service (IAS) Officer",
+              organization: "Union Public Service Commission",
+              location: "Pan India",
+              salary: "₹56,100 - ₹2,50,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Indian Police Service (IPS) Officer",
+              organization: "Union Public Service Commission",
+              location: "Pan India",
+              salary: "₹56,100 - ₹2,25,000",
+              isNew: false,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Indian Foreign Service (IFS) Officer",
+              organization: "Union Public Service Commission",
+              location: "Pan India / Foreign Missions",
+              salary: "₹56,100 - ₹2,25,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Defence - Army",
+          jobList: [
+            {
+              jobTitle: "Lieutenant",
+              organization: "Indian Army",
+              location: "Pan India",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Junior Commissioned Officer (JCO)",
+              organization: "Indian Army",
+              location: "Pan India",
+              salary: "₹35,000 - ₹65,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Soldier General Duty",
+              organization: "Indian Army",
+              location: "Pan India",
+              salary: "₹21,700 - ₹40,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
         },
         {
-          jobTitle: "Assistant Section Officer",
-          organization: "Ministry of Finance",
-          location: "Mumbai, India",
-          salary: "₹40,000 - ₹50,000",
-          isNew: false,
-          isHot: true,
-          type: "Full-Time",
+          categoryName: "Defence - Navy",
+          jobList: [
+            {
+              jobTitle: "Sub Lieutenant",
+              organization: "Indian Navy",
+              location: "Pan India",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Sailor (SSR)",
+              organization: "Indian Navy",
+              location: "Pan India",
+              salary: "₹21,700 - ₹35,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Naval Architect",
+              organization: "Indian Navy",
+              location: "Pan India",
+              salary: "₹40,000 - ₹60,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
         },
         {
-          jobTitle: "Railway Station Master",
-          organization: "Indian Railways",
-          location: "Pan India",
-          salary: "₹35,000 - ₹45,000",
-          isNew: true,
-          isHot: true,
-          type: "Full-Time",
+          categoryName: "Defence - Air Force",
+          jobList: [
+            {
+              jobTitle: "Flying Officer",
+              organization: "Indian Air Force",
+              location: "Pan India",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Airman (Group X)",
+              organization: "Indian Air Force",
+              location: "Pan India",
+              salary: "₹33,100 - ₹45,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Airman (Group Y)",
+              organization: "Indian Air Force",
+              location: "Pan India",
+              salary: "₹26,900 - ₹35,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
         },
+
         {
-          jobTitle: "Primary School Teacher",
-          organization: "Delhi Govt Education Dept",
-          location: "Delhi, India",
-          salary: "₹25,000 - ₹35,000",
-          isNew: false,
-          isHot: false,
-          type: "Contract",
+          categoryName: "State Public Service Commissions (Groups)",
+          jobList: [
+            {
+              jobTitle: "Group 1 Officer",
+              organization: "APPSC / TSPSC",
+              location: "Andhra Pradesh / Telangana",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Group 2 Executive Officer",
+              organization: "TNPSC / KPSC / MPSC",
+              location: "State Capitals",
+              salary: "₹36,000 - ₹65,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Group 4 Clerk",
+              organization: "Various State PSCs",
+              location: "District Headquarters",
+              salary: "₹22,000 - ₹35,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Railways",
+          jobList: [
+            {
+              jobTitle: "Station Master",
+              organization: "Indian Railways",
+              location: "Pan India",
+              salary: "₹35,400 - ₹50,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Junior Engineer",
+              organization: "Indian Railways",
+              location: "Pan India",
+              salary: "₹35,400 - ₹50,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Ticket Collector",
+              organization: "Indian Railways",
+              location: "Pan India",
+              salary: "₹21,700 - ₹32,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Banking & Finance (Govt)",
+          jobList: [
+            {
+              jobTitle: "Probationary Officer",
+              organization: "State Bank of India",
+              location: "Pan India",
+              salary: "₹41,960 - ₹60,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Clerk",
+              organization: "Reserve Bank of India",
+              location: "Pan India",
+              salary: "₹28,000 - ₹40,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Specialist Officer",
+              organization: "Punjab National Bank",
+              location: "Pan India",
+              salary: "₹48,000 - ₹65,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Police & Paramilitary",
+          jobList: [
+            {
+              jobTitle: "Sub Inspector",
+              organization: "State Police Department",
+              location: "State Capitals",
+              salary: "₹35,000 - ₹50,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Constable",
+              organization: "Central Reserve Police Force",
+              location: "Pan India",
+              salary: "₹21,700 - ₹30,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Head Constable",
+              organization: "Border Security Force",
+              location: "Border Areas",
+              salary: "₹25,500 - ₹35,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Public Sector Undertakings (PSUs)",
+          jobList: [
+            {
+              jobTitle: "Graduate Engineer Trainee",
+              organization: "BHEL",
+              location: "Pan India",
+              salary: "₹50,000 - ₹1,60,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Management Trainee",
+              organization: "ONGC",
+              location: "Pan India",
+              salary: "₹60,000 - ₹1,80,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Technician",
+              organization: "NTPC",
+              location: "Pan India",
+              salary: "₹25,000 - ₹40,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Education",
+          jobList: [
+            {
+              jobTitle: "Primary School Teacher",
+              organization: "Delhi Govt Education Dept",
+              location: "Delhi, India",
+              salary: "₹25,000 - ₹35,000",
+              isNew: false,
+              isHot: false,
+              type: "Contract",
+            },
+            {
+              jobTitle: "High School Science Teacher",
+              organization: "Karnataka Education Board",
+              location: "Bengaluru, India",
+              salary: "₹30,000 - ₹40,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "College Lecturer (Mathematics)",
+              organization: "Andhra Pradesh State University",
+              location: "Vijayawada, India",
+              salary: "₹45,000 - ₹55,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Healthcare",
+          jobList: [
+            {
+              jobTitle: "Staff Nurse",
+              organization: "AIIMS",
+              location: "Delhi, India",
+              salary: "₹44,900 - ₹60,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Medical Officer",
+              organization: "State Health Department",
+              location: "State Capitals",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Pharmacist",
+              organization: "ESIC Hospitals",
+              location: "Pan India",
+              salary: "₹29,200 - ₹40,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Judiciary",
+          jobList: [
+            {
+              jobTitle: "Civil Judge",
+              organization: "State High Court",
+              location: "State Capitals",
+              salary: "₹27,700 - ₹44,770",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Public Prosecutor",
+              organization: "Law Department",
+              location: "District Courts",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Court Clerk",
+              organization: "Judiciary Services",
+              location: "District Headquarters",
+              salary: "₹22,000 - ₹30,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Agriculture",
+          jobList: [
+            {
+              jobTitle: "Agricultural Officer",
+              organization: "State Agriculture Dept",
+              location: "State Headquarters",
+              salary: "₹35,000 - ₹55,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Horticulture Officer",
+              organization: "State Agriculture Dept",
+              location: "District Headquarters",
+              salary: "₹30,000 - ₹45,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Farm Assistant",
+              organization: "Krishi Vigyan Kendra",
+              location: "Rural Areas",
+              salary: "₹18,000 - ₹25,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Environment",
+          jobList: [
+            {
+              jobTitle: "Environmental Scientist",
+              organization: "Central Pollution Control Board",
+              location: "Delhi, India",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Forest Range Officer",
+              organization: "State Forest Dept",
+              location: "Forested Areas",
+              salary: "₹35,000 - ₹55,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Wildlife Guard",
+              organization: "Wildlife Protection Dept",
+              location: "National Parks",
+              salary: "₹18,000 - ₹25,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Science & Research",
+          jobList: [
+            {
+              jobTitle: "Scientist-B",
+              organization: "ISRO",
+              location: "Bengaluru, India",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Research Fellow",
+              organization: "CSIR",
+              location: "Pan India",
+              salary: "₹31,000 - ₹45,000",
+              isNew: false,
+              isHot: false,
+              type: "Contract",
+            },
+            {
+              jobTitle: "Lab Technician",
+              organization: "DRDO",
+              location: "Pan India",
+              salary: "₹25,000 - ₹35,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Social Welfare",
+          jobList: [
+            {
+              jobTitle: "Child Development Project Officer",
+              organization: "Women & Child Welfare Dept",
+              location: "District Headquarters",
+              salary: "₹35,000 - ₹50,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Welfare Officer",
+              organization: "Social Justice Dept",
+              location: "State Headquarters",
+              salary: "₹30,000 - ₹45,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Community Coordinator",
+              organization: "Rural Development Dept",
+              location: "Rural Areas",
+              salary: "₹20,000 - ₹30,000",
+              isNew: true,
+              isHot: false,
+              type: "Contract",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Sports",
+          jobList: [
+            {
+              jobTitle: "Sports Coach",
+              organization: "Sports Authority of India",
+              location: "Pan India",
+              salary: "₹35,000 - ₹50,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Fitness Trainer",
+              organization: "State Sports Dept",
+              location: "State Capitals",
+              salary: "₹25,000 - ₹35,000",
+              isNew: false,
+              isHot: false,
+              type: "Contract",
+            },
+            {
+              jobTitle: "Physiotherapist",
+              organization: "National Sports Teams",
+              location: "Pan India",
+              salary: "₹40,000 - ₹55,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Municipal Services",
+          jobList: [
+            {
+              jobTitle: "Sanitary Inspector",
+              organization: "Municipal Corporation",
+              location: "Urban Areas",
+              salary: "₹25,000 - ₹35,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Junior Engineer (Civil)",
+              organization: "Municipal Corporation",
+              location: "Urban Areas",
+              salary: "₹30,000 - ₹45,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Clerk",
+              organization: "Municipal Corporation",
+              location: "Urban Areas",
+              salary: "₹20,000 - ₹28,000",
+              isNew: true,
+              isHot: false,
+              type: "Contract",
+            },
+          ],
+        },
+
+        {
+          categoryName: "Transport & Aviation",
+          jobList: [
+            {
+              jobTitle: "Commercial Pilot",
+              organization: "Air India",
+              location: "Pan India",
+              salary: "₹1,50,000 - ₹3,00,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Driver",
+              organization: "State Transport Corporation",
+              location: "State Capitals",
+              salary: "₹18,000 - ₹25,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Air Traffic Controller",
+              organization: "Airport Authority of India",
+              location: "Major Airports",
+              salary: "₹56,100 - ₹1,77,500",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
         },
       ],
     },
     {
       id: 2,
       jobType: "Private",
-      jobList: [
+      subJobCategories: [
         {
-          jobTitle: "Software Engineer",
-          company: "Tech Solutions",
-          location: "New York, NY",
-          salary: "$80,000 - $100,000",
-          isNew: true,
-          isHot: false,
-          type: "Full-Time",
+          categoryName: "Information Technology",
+          jobList: [
+            {
+              jobTitle: "Software Engineer",
+              company: "Tech Solutions",
+              location: "New York, NY",
+              salary: "$80,000 - $100,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Full Stack Developer",
+              company: "CodeCrafters Inc.",
+              location: "Seattle, WA",
+              salary: "$85,000 - $110,000",
+              isNew: false,
+              isHot: true,
+              type: "Full-Time",
+            },
+          ],
         },
         {
-          jobTitle: "Data Analyst",
-          company: "Data Insights",
-          location: "San Francisco, CA",
-          salary: "$70,000 - $90,000",
-          isNew: false,
-          isHot: true,
-          type: "Contract",
+          categoryName: "Data & Analytics",
+          jobList: [
+            {
+              jobTitle: "Data Analyst",
+              company: "Data Insights",
+              location: "San Francisco, CA",
+              salary: "$70,000 - $90,000",
+              isNew: false,
+              isHot: true,
+              type: "Contract",
+            },
+            {
+              jobTitle: "Data Scientist",
+              company: "AI Innovations",
+              location: "Boston, MA",
+              salary: "$95,000 - $130,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+          ],
         },
         {
-          jobTitle: "UI/UX Designer",
-          company: "Creative Minds Studio",
-          location: "Austin, TX",
-          salary: "$65,000 - $85,000",
-          isNew: true,
-          isHot: true,
-          type: "Full-Time",
+          categoryName: "Design & Creative",
+          jobList: [
+            {
+              jobTitle: "UI/UX Designer",
+              company: "Creative Minds Studio",
+              location: "Austin, TX",
+              salary: "$65,000 - $85,000",
+              isNew: true,
+              isHot: true,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Graphic Designer",
+              company: "VisualWorks",
+              location: "Los Angeles, CA",
+              salary: "$55,000 - $75,000",
+              isNew: false,
+              isHot: false,
+              type: "Contract",
+            },
+          ],
         },
         {
-          jobTitle: "Digital Marketing Specialist",
-          company: "BrandBoost",
-          location: "Chicago, IL",
-          salary: "$50,000 - $70,000",
-          isNew: false,
-          isHot: false,
-          type: "Part-Time",
+          categoryName: "Marketing & Sales",
+          jobList: [
+            {
+              jobTitle: "Digital Marketing Specialist",
+              company: "BrandBoost",
+              location: "Chicago, IL",
+              salary: "$50,000 - $70,000",
+              isNew: false,
+              isHot: false,
+              type: "Part-Time",
+            },
+            {
+              jobTitle: "Sales Executive",
+              company: "GlobalReach Corp",
+              location: "Dallas, TX",
+              salary: "$60,000 - $80,000 + Commission",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
+        },
+        {
+          categoryName: "Finance & Consulting",
+          jobList: [
+            {
+              jobTitle: "Financial Analyst",
+              company: "MoneyMatters Consulting",
+              location: "New York, NY",
+              salary: "$75,000 - $95,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Business Consultant",
+              company: "GrowthPartners",
+              location: "San Diego, CA",
+              salary: "$85,000 - $105,000",
+              isNew: false,
+              isHot: true,
+              type: "Full-Time",
+            },
+          ],
+        },
+        {
+          categoryName: "Human Resources",
+          jobList: [
+            {
+              jobTitle: "HR Manager",
+              company: "PeopleFirst Solutions",
+              location: "Houston, TX",
+              salary: "$70,000 - $90,000",
+              isNew: false,
+              isHot: false,
+              type: "Full-Time",
+            },
+            {
+              jobTitle: "Recruitment Specialist",
+              company: "TalentBridge",
+              location: "Denver, CO",
+              salary: "$60,000 - $80,000",
+              isNew: true,
+              isHot: false,
+              type: "Full-Time",
+            },
+          ],
         },
       ],
     },
@@ -388,16 +1081,31 @@ export default function HomePage() {
     return () => clearInterval(privateInterval);
   }, [privateJobs.length]);
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setCurrentIndexJN((prev) => (prev + 1) % jobNotificationsData.length);
-  //   }, 2000); // Change every 2 sec
-  //   return () => clearInterval(timer);
-  // }, []);
-
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500); // Simulate loading
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (jobData.length > 0) {
+      const firstCategory: any = jobData[0];
+      let allJobs: any[] = [];
+
+      if (firstCategory.subJobCategories?.length > 0) {
+        allJobs = firstCategory.subJobCategories.flatMap(
+          (sub: any) => sub.jobList || []
+        );
+      } else if (firstCategory.jobList?.length > 0) {
+        allJobs = firstCategory.jobList;
+      }
+
+      setDisplayedJobs((prev) => {
+        const same =
+          prev.length === allJobs.length &&
+          prev.every((job, i) => job.id === allJobs[i].id);
+        return same ? prev : allJobs;
+      });
+    }
   }, []);
 
   const handleSearch = () => {
@@ -414,6 +1122,27 @@ export default function HomePage() {
     console.log("Search Results:", filtered);
     // You can update a state to display filtered jobs below
   };
+
+  const handleSubClick = (sub: any) => {
+    setSelectedSub(sub.categoryName);
+
+    if (sub.jobList && sub.jobList.length > 0) {
+      setDisplayedJobs(sub.jobList);
+    } else {
+      setDisplayedJobs([]);
+    }
+
+    // This will log AFTER the state is updated
+    setTimeout(() => {
+      console.log("Updated displayedJobs:", sub.jobList);
+    }, 0);
+  };
+
+  const handleJobClick = (job: any, category: any) => {
+    setSelectedSub(job.categoryName || job.name);
+    setSelectedJobs([job]); // If it's directly a job list, not subcategories
+  };
+
   return (
     <div className="p-2 space-y-4">
       <div className="container mx-auto px-4">
@@ -591,11 +1320,18 @@ export default function HomePage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="border border-gray-300 rounded-lg px-3 py-2 flex-1 focus:ring-2 focus:ring-primary focus:outline-none"
             />
+            <input
+              type="text"
+              placeholder="Search location..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="border border-gray-300 rounded-lg px-4 py-2 flex-1 focus:ring-2 focus:ring-primary focus:outline-none"
+            />
 
             {/* Search Button */}
             <button
               onClick={handleSearch}
-              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors w-full md:w-auto"
+              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary transition-colors w-full md:w-auto"
             >
               Search
             </button>
@@ -608,44 +1344,68 @@ export default function HomePage() {
             <h2 className="bg-primary text-white font-bold px-4 py-3 uppercase text-sm tracking-wide">
               Job Types
             </h2>
-            <Accordion type="single" collapsible className="w-full">
-              {jobData.map((category) => (
-                <AccordionItem key={category.id} value={category.jobType}>
-                  <AccordionTrigger className="text-sm pl-4 pr-2 py-3 flex items-center justify-between hover:bg-accent transition-colors">
-                    {category.jobType}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <ul className="space-y-2">
-                      {category.jobList.map((job: any, index: number) => (
-                        <li
-                          key={index}
-                          className="flex items-center justify-between hover:bg-gray-100 p-2 rounded-md cursor-pointer"
-                        >
-                          <span className="text-xs sm:text-sm">
-                            {job.jobTitle || job.name}
-                          </span>
-                          <div className="flex gap-1">
-                            {job.isNew && (
-                              <Badge
-                                className="text-[10px] bg-[#00aae7] text-white"
-                                variant="secondary"
+            <div className="h-[70vh] overflow-y-auto">
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full"
+                defaultValue={jobData[0]?.jobType}
+              >
+                {jobData.map((category) => (
+                  <AccordionItem key={category.id} value={category.jobType}>
+                    <AccordionTrigger
+                      className={`text-sm pl-4 pr-2 py-3 flex items-center justify-between transition-colors
+          ${
+            selectedSub === category.jobType
+              ? "bg-[#8c8c8c] text-[#8c8c8c]"
+              : "hover:bg-gray-100"
+          } font-bold`}
+                    >
+                      {category.jobType.toUpperCase()}
+                    </AccordionTrigger>
+
+                    <AccordionContent>
+                      <ul className="space-y-2">
+                        {/* If subcategories exist */}
+                        {category.subJobCategories
+                          ? category.subJobCategories.map((sub, index) => (
+                              <li
+                                key={index}
+                                onClick={() => handleSubClick(sub)}
+                                className={`flex items-center justify-between p-2 rounded-md cursor-pointer transition-colors
+          ${
+            selectedSub === sub.categoryName
+              ? "bg-[#00aae7] text-white"
+              : "hover:bg-gray-100"
+          }`}
                               >
-                                New
-                              </Badge>
-                            )}
-                            {job.isHot && (
-                              <Badge className="text-[10px] bg-red-500 text-white">
-                                Trending
-                              </Badge>
-                            )}
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+                                <span className="text-xs pl-5 pr-2 sm:text-sm">
+                                  {sub.categoryName}
+                                </span>
+                              </li>
+                            ))
+                          : category.jobList?.map((job: any, index: number) => (
+                              <li
+                                key={index}
+                                onClick={() => handleJobClick(job, category)}
+                                className={`flex items-center justify-between p-2 rounded-md cursor-pointer transition-colors
+          ${
+            selectedSub === (job.categoryName || job.name)
+              ? "bg-[#00aae7] text-white"
+              : "hover:bg-gray-100"
+          }`}
+                              >
+                                <span className="text-xs pl-5 pr-2 sm:text-sm">
+                                  {job.categoryName || job.name}
+                                </span>
+                              </li>
+                            ))}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
 
           {/* Job List Details - 50% */}
@@ -654,125 +1414,114 @@ export default function HomePage() {
             <h2 className="bg-primary text-white font-bold px-4 py-3 uppercase text-sm tracking-wide">
               Job List Details
             </h2>
+            <div style={{ height: "70vh", overflowY: "scroll" }}>
+              {jobData.map((category) => {
+                return (
+                  <div key={category.id} className="divide-y">
+                    {displayedJobs.length > 0 ? (
+                      displayedJobs.map((job, idx) => (
+                        <div
+                          key={idx}
+                          className="p-2 flex flex-col gap-2 hover:bg-gray-50 transition-colors"
+                        >
+                          {/* Top Row */}
+                          <div className="flex flex-wrap justify-between items-center gap-2">
+                            <div>
+                              <h4 className="font-semibold text-gray-800 text-sm sm:text-base ">
+                                <span className="text-xs sm:text-sm mr-2">
+                                  {job.jobTitle || job.name}
+                                </span>
+                                {job.isNew && (
+                                  <Badge
+                                    className="text-[10px] m-l-2"
+                                    variant="secondary"
+                                  >
+                                    New
+                                  </Badge>
+                                )}
+                                {job.isHot && (
+                                  <Badge className="text-[10px] p-l-2 bg-[#00aae7] text-white">
+                                    Trending
+                                  </Badge>
+                                )}
+                              </h4>
+                              <p className="text-xs sm:text-sm text-gray-600">
+                                {(job.organization || job.company) && (
+                                  <>
+                                    {job.organization || job.company}
+                                    {job.location ? ` — ${job.location}` : ""}
+                                  </>
+                                )}
+                                {!job.organization &&
+                                  !job.company &&
+                                  job.location && <>{job.location}</>}
+                              </p>
+                            </div>
+                            <div className="flex flex-wrap gap-2 items-center">
 
-            {jobData.map((category) => (
-              <div key={category.id} className="divide-y">
-                {category.jobList.map((job: any, idx: number) => (
-                  <div
-                    key={idx}
-                    className="p-2 flex flex-col gap-2 hover:bg-gray-50 transition-colors"
-                  >
-                    {/* Top Row: Job Title & Badges */}
-                    <div className="flex flex-wrap justify-between items-center gap-2">
-                      {/* Left: Job title & company */}
-                      <div>
-                        <h4 className="font-semibold text-gray-800 text-sm sm:text-base ">
-                          <span className="text-xs sm:text-sm mr-2">
-                            {job.jobTitle || job.name}
-                          </span>
+                              
+                              {job.type && (
+                                <Badge variant="outline" className="text-xs">
+                                  {job.type}
+                                </Badge>
+                              )}
+                                {category.jobType && (
+                                <button
+                                  className="bg-[#2368a0] text-white text-xs px-3 py-1 rounded hover:bg-[#174a6a] transition-colors"
+                                  onClick={() => {
+                                  // Navigate to `/jobs/[jobType]/[jobTitle or name]`
+                                  window.location.href = `/jobdetail`;
+                                  }}
+                                >
+                                  View Details
+                                </button>
+                                )}
+                            </div>
+                          </div>
 
-                          {job.isNew && (
-                            <Badge
-                              className="text-[10px] m-l-2"
-                              variant="secondary"
-                            >
-                              New
-                            </Badge>
-                          )}
-                          {job.isHot && (
-                            <Badge className="text-[10px] p-l-2 bg-red-500 text-white">
-                              Trending
-                            </Badge>
-                          )}
-                        </h4>
-                        <p className="text-xs sm:text-sm text-gray-600">
-                          {(job.organization || job.company) && (
-                            <>
-                              {job.organization || job.company}
-                              {job.location ? ` — ${job.location}` : ""}
-                            </>
-                          )}
-                          {!job.organization &&
-                            !job.company &&
-                            job.location && <>{job.location}</>}
-                        </p>
+                          {/* Meta Info */}
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+                            {job.registrationFee && (
+                              <span className="text-sm text-[#ef4048] font-medium">
+                                {job.registrationFee}
+                              </span>
+                            )}
+                            {job.deadline && (
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                <span>Deadline: {job.deadline}</span>
+                              </div>
+                            )}
+                            {job.date && (
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                <span>Date: {job.date}</span>
+                              </div>
+                            )}
+                            {job.applicants && (
+                              <div className="flex items-center gap-1">
+                                <Users className="w-3 h-3" />
+                                <span>{job.applicants} Applied</span>
+                              </div>
+                            )}
+                            {job.expectedVisitors && (
+                              <div className="flex items-center gap-1">
+                                <Users className="w-3 h-3" />
+                                <span>{job.expectedVisitors} Visitors</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-4 text-center text-gray-500 text-sm">
+                        No Job List in this Category
                       </div>
-
-                      {/* Right: Job type, work type, salary */}
-                      <div className="flex flex-wrap gap-2 items-center">
-                        {category.jobType && (
-                          <Badge className="bg-[#2368a0] text-white text-xs">
-                            {category.jobType}
-                          </Badge>
-                        )}
-                        {job.type && (
-                          <Badge variant="outline" className="text-xs">
-                            {job.type}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Second Row: Meta Info */}
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
-                      {/* {job.salary && (
-                        <span className="text-xs text-green-700 font-medium">
-                          {job.salary}
-                        </span>
-                      )} */}
-                      {job.registrationFee && (
-                        <span className="text-sm text-[#ef4048] font-medium">
-                          {job.registrationFee}
-                        </span>
-                      )}
-                      {job.deadline && (
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          <span>Deadline: {job.deadline}</span>
-                        </div>
-                      )}
-                      {job.date && (
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          <span>Date: {job.date}</span>
-                        </div>
-                      )}
-                      {job.applicants && (
-                        <div className="flex items-center gap-1">
-                          <Users className="w-3 h-3" />
-                          <span>{job.applicants} Applied</span>
-                        </div>
-                      )}
-                      {job.expectedVisitors && (
-                        <div className="flex items-center gap-1">
-                          <Users className="w-3 h-3" />
-                          <span>{job.expectedVisitors} Visitors</span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Third Row: Status Badges */}
-                    {/* <div className="flex items-center gap-2">
-            {job.isNew && (
-              <Badge className="bg-green-500 text-white text-[10px] px-2 animate-bounce">
-                NEW
-              </Badge>
-            )}
-            {job.isHot && (
-              <Badge className="bg-red-500 text-white text-[10px] px-2 animate-pulse">
-                HOT
-              </Badge>
-            )}
-            {job.status && (
-              <Badge variant="secondary" className="text-[10px] px-2">
-                {job.status}
-              </Badge>
-            )}
-          </div> */}
+                    )}
                   </div>
-                ))}
-              </div>
-            ))}
+                );
+              })}
+            </div>
           </div>
 
           {/* Job Notification - 30% */}
@@ -780,16 +1529,18 @@ export default function HomePage() {
             <h2 className="bg-primary text-white font-bold px-4 py-3 uppercase text-sm tracking-wide">
               Job Notifications
             </h2>
-            <ul className="list-disc list-inside space-y-2 p-3">
-              {jobNotificationsData
-                .map((job, idx) => (
-                  <li
-                    key={idx}
-                    className="text-[#00aae7] hover:underline cursor-pointer text-sm"
-                  >
-                    {job.title}
-                  </li>
-                ))}
+            <ul
+              className="list-disc list-inside space-y-2 p-3 "
+              style={{ height: "70vh", overflowY: "scroll" }}
+            >
+              {jobNotificationsData.map((job, idx) => (
+                <li
+                  key={idx}
+                  className="text-[#00aae7] hover:underline cursor-pointer text-sm"
+                >
+                  {job.title}
+                </li>
+              ))}
             </ul>
           </div>
         </div>

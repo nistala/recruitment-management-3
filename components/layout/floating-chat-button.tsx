@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X } from "lucide-react";
+import { BotMessageSquare, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChatWindow } from "./chat-window";
 import { Badge } from "@/components/ui/badge";
@@ -55,7 +55,7 @@ export function FloatingChatButton() {
                   size="sm"
                   className="bg-primary shadow-lg hover:shadow-xl transition-shadow text-secondary"
                 >
-                  <MessageCircle className="h-4 w-4 mr-2" />
+                  <BotMessageSquare className="h-6 w-6 mr-2" />
                   Job Assistant
                 </Button>
               </motion.div>
@@ -89,7 +89,7 @@ export function FloatingChatButton() {
               {isChatOpen ? (
                 <X className="h-6 w-6" />
               ) : (
-                <MessageCircle className="h-6 w-6" />
+                <BotMessageSquare className="h-6 w-6" />
               )}
             </motion.div>
             <AnimatePresence>
@@ -108,7 +108,7 @@ export function FloatingChatButton() {
                       repeat: Number.POSITIVE_INFINITY,
                     }}
                   >
-                    <Badge className="h-5 w-5 p-0 bg-[primary] text-white text-xs flex items-center justify-center">
+                    <Badge className="h-5 w-5 p-0 bg-red-500 text-white text-xs flex items-center justify-center">
                       1
                     </Badge>
                   </motion.div>
