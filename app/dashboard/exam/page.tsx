@@ -1026,14 +1026,14 @@ export default function ExamDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="px-6">Exam Name</TableHead>
-                      <TableHead className="px-6">Type</TableHead>
-                      <TableHead className="px-6">Date & Time</TableHead>
-                      <TableHead className="px-6">Duration</TableHead>
-                      <TableHead className="px-6">Agency</TableHead>
-                      <TableHead className="px-6">Board</TableHead>
-                      <TableHead className="px-6">Status</TableHead>
-                      <TableHead className="px-6">Actions</TableHead>
+                      <TableHead className="text-primary font-bold">Exam Name</TableHead>
+                      <TableHead className="text-primary font-bold">Type</TableHead>
+                      <TableHead className="text-primary font-bold">Date & Time</TableHead>
+                      <TableHead className="text-primary font-bold">Duration</TableHead>
+                      <TableHead className="text-primary font-bold">Agency</TableHead>
+                      <TableHead className="text-primary font-bold">Board</TableHead>
+                      <TableHead className="text-primary font-bold">Status</TableHead>
+                      <TableHead className="text-primary font-bold">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1202,12 +1202,12 @@ export default function ExamDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Candidate Name</TableHead>
-                      <TableHead>Application ID</TableHead>
-                      <TableHead>Exam Name</TableHead>
-                      <TableHead>Exam Date</TableHead>
-                      <TableHead>Center Assigned</TableHead>
-                      <TableHead>Status</TableHead>
+                      <TableHead className="text-primary font-bold">Candidate Name</TableHead>
+                      <TableHead className="text-primary font-bold">Application ID</TableHead>
+                      <TableHead className="text-primary font-bold">Exam Name</TableHead>
+                      <TableHead className="text-primary font-bold">Exam Date</TableHead>
+                      <TableHead className="text-primary font-bold">Center Assigned</TableHead>
+                      <TableHead className="text-primary font-bold">Status</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1274,13 +1274,13 @@ export default function ExamDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Candidate Name</TableHead>
-                      <TableHead>Score</TableHead>
-                      <TableHead>Result</TableHead>
-                      <TableHead>Rank</TableHead>
-                      <TableHead>Exam Name</TableHead>
-                      <TableHead>Exam Date</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead className="text-primary font-bold">Candidate Name</TableHead>
+                      <TableHead className="text-primary font-bold">Score</TableHead>
+                      <TableHead className="text-primary font-bold">Result</TableHead>
+                      <TableHead className="text-primary font-bold">Rank</TableHead>
+                      <TableHead className="text-primary font-bold">Exam Name</TableHead>
+                      <TableHead className="text-primary font-bold">Exam Date</TableHead>
+                      <TableHead className="text-primary font-bold">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1340,11 +1340,11 @@ export default function ExamDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Employer Name</TableHead>
-                      <TableHead>Company Type</TableHead>
-                      <TableHead>Exam Names</TableHead>
-                      <TableHead>Upload Date</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead className="text-primary font-bold">Employer Name</TableHead>
+                      <TableHead className="text-primary font-bold">Company Type</TableHead>
+                      <TableHead className="text-primary font-bold">Exam Names</TableHead>
+                      <TableHead className="text-primary font-bold">Upload Date</TableHead>
+                      <TableHead className="text-primary font-bold">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1493,10 +1493,10 @@ export default function ExamDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Agency Name</TableHead>
-                      <TableHead>Contact Info</TableHead>
-                      <TableHead>Associated Exams</TableHead>
-                      <TableHead>Region</TableHead>
+                      <TableHead className="text-primary font-bold">Agency Name</TableHead>
+                      <TableHead className="text-primary font-bold">Contact Info</TableHead>
+                      <TableHead className="text-primary font-bold">Associated Exams</TableHead>
+                      <TableHead className="text-primary font-bold">Region</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1535,10 +1535,10 @@ export default function ExamDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="px-10">Board Name</TableHead>
-                      <TableHead className="px-20">Type</TableHead>
-                      <TableHead className="px-20">Active Exams</TableHead>
-                      <TableHead className="px-20">Admin Contact</TableHead>
+                      <TableHead className="text-primary font-bold">Board Name</TableHead>
+                      <TableHead className="text-primary font-bold">Type</TableHead>
+                      <TableHead className="text-primary font-bold">Active Exams</TableHead>
+                      <TableHead className="text-primary font-bold">Admin Contact</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1577,11 +1577,11 @@ export default function ExamDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Employer Name</TableHead>
-                      <TableHead>Screening Exam Details</TableHead>
-                      <TableHead>Candidates Screened</TableHead>
-                      <TableHead>Exam Date</TableHead>
-                      <TableHead>Cutoff</TableHead>
+                      <TableHead className="text-primary font-bold">Employer Name</TableHead>
+                      <TableHead className="text-primary font-bold">Screening Exam Details</TableHead>
+                      <TableHead className="text-primary font-bold">Candidates Screened</TableHead>
+                      <TableHead className="text-primary font-bold">Exam Date</TableHead>
+                      <TableHead className="text-primary font-bold">Cutoff</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>

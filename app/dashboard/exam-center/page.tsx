@@ -287,12 +287,12 @@ export default function ExamCenterDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Batch</TableHead>
-                      <TableHead>Printed</TableHead>
-                      <TableHead>Issued</TableHead>
-                      <TableHead>Returned</TableHead>
-                      <TableHead>Scanned</TableHead>
-                      <TableHead>Progress</TableHead>
+                      <TableHead className="text-primary font-bold">Batch</TableHead>
+                      <TableHead className="text-primary font-bold">Printed</TableHead>
+                      <TableHead className="text-primary font-bold">Issued</TableHead>
+                      <TableHead className="text-primary font-bold">Returned</TableHead>
+                      <TableHead className="text-primary font-bold">Scanned</TableHead>
+                      <TableHead className="text-primary font-bold">Progress</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -383,10 +383,10 @@ export default function ExamCenterDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Center</TableHead>
-                      <TableHead>Power Uptime</TableHead>
-                      <TableHead>Internet Uptime</TableHead>
-                      <TableHead>Last Outage</TableHead>
+                      <TableHead className="text-primary font-bold">Center</TableHead>
+                      <TableHead className="text-primary font-bold">Power Uptime</TableHead>
+                      <TableHead className="text-primary font-bold">Internet Uptime</TableHead>
+                      <TableHead className="text-primary font-bold">Last Outage</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -453,11 +453,11 @@ export default function ExamCenterDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Designation</TableHead>
-                      <TableHead>Zone</TableHead>
-                      <TableHead>Phone</TableHead>
-                      <TableHead>Email</TableHead>
+                      <TableHead className="text-primary font-bold">Name</TableHead>
+                      <TableHead className="text-primary font-bold">Designation</TableHead>
+                      <TableHead className="text-primary font-bold">Zone</TableHead>
+                      <TableHead className="text-primary font-bold">Phone</TableHead>
+                      <TableHead className="text-primary font-bold">Email</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>

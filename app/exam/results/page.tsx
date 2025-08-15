@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts"
-import { Search, Filter, Download, TrendingUp, Award, Users, FileText } from 'lucide-react'
+import { Search, Filter, Download, TrendingUp, Award, Users, FileText, Star, UserX, FileCheck, Clock } from 'lucide-react'
 import { Skeleton, SkeletonCard, SkeletonTable, SkeletonChart } from "@/components/ui/skeleton"
 
 const examResults = [
@@ -45,11 +45,65 @@ const monthlyTrends = [
 ]
 
 const stats = [
-  { title: "Total Exams", value: "156", icon: FileText, color: "text-blue-600" },
-  { title: "Results Published", value: "142", icon: Award, color: "text-green-600" },
-  { title: "Average Pass Rate", value: "43.2%", icon: TrendingUp, color: "text-orange-600" },
-  { title: "Total Candidates", value: "25,678", icon: Users, color: "text-purple-600" },
-]
+  { 
+    title: "Total Exams", 
+    value: "156", 
+    icon: FileText, 
+    color: "text-blue-600",
+    description: "All conducted"
+  },
+  { 
+    title: "Results Published", 
+    value: "142", 
+    icon: Award, 
+    color: "text-green-600",
+    description: "Available to students"
+  },
+  { 
+    title: "Average Pass Rate", 
+    value: "43.2%", 
+    icon: TrendingUp, 
+    color: "text-orange-600",
+    description: "Across all exams"
+  },
+  { 
+    title: "Total Candidates", 
+    value: "25,678", 
+    icon: Users, 
+    color: "text-purple-600",
+    description: "Appeared in exams"
+  },
+  { 
+    title: "Highest Score", 
+    value: "98%", 
+    icon: Star, 
+    color: "text-yellow-600",
+    description: "Top performance"
+  },
+  { 
+    title: "Failed Candidates", 
+    value: "14,580", 
+    icon: UserX, 
+    color: "text-red-600",
+    description: "Did not qualify"
+  },
+  { 
+    title: "Certificates Issued", 
+    value: "10,345", 
+    icon: FileCheck, 
+    color: "text-teal-600",
+    description: "For successful candidates"
+  },
+  { 
+    title: "Pending Results", 
+    value: "14", 
+    icon: Clock, 
+    color: "text-pink-600",
+    description: "Awaiting publication"
+  }
+];
+
+
 
 export default function ResultsReports() {
   const [loading, setLoading] = useState(true)
@@ -59,10 +113,10 @@ export default function ResultsReports() {
     return () => clearTimeout(timer)
   }, [])
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 space-y-2">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Results & Reports</h1>
+          <h1 className="text-2xl font-bold">Results & Reports</h1>
           <p className="text-muted-foreground">View examination results and generate reports</p>
         </div>
         <Button>
@@ -79,11 +133,11 @@ export default function ResultsReports() {
           ))}
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
           {stats.map((stat) => (
             <Card key={stat.title} className="p-2">
               <CardHeader className="flex flex-row items-center justify-between p-0 mb-1">
-                <CardTitle className="text-sm font-medium mr-1">{stat.title}</CardTitle>
+                <CardTitle className="text-sm font-medium mr-1 text-[#00aae7]">{stat.title}</CardTitle>
                 <stat.icon className={`h-4 w-4 ${stat.color}`} />
               </CardHeader>
               <CardContent className="p-0 m-0 mt-0">
@@ -111,7 +165,7 @@ export default function ResultsReports() {
                   <XAxis dataKey="subject" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="average" fill="#8884d8" />
+                  <Bar dataKey="average" fill="#00aae7" />
                 </BarChart>
               </ResponsiveContainer>
             )}
@@ -135,7 +189,7 @@ export default function ResultsReports() {
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ grade, percent }) => `${grade} ${(percent * 100).toFixed(0)}%`}
+                    label={({ grade, percent }:any) => `${grade} ${(percent * 100).toFixed(0)}%`}
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="count"
@@ -220,23 +274,23 @@ export default function ResultsReports() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Exam Name</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Appeared</TableHead>
-                  <TableHead>Passed</TableHead>
-                  <TableHead>Pass Rate</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead className="text-primary font-bold">Exam Name</TableHead>
+                  <TableHead className="text-primary font-bold">Date</TableHead>
+                  <TableHead className="text-primary font-bold">Appeared</TableHead>
+                  <TableHead className="text-primary font-bold">Passed</TableHead>
+                  <TableHead className="text-primary font-bold">Pass Rate</TableHead>
+                  <TableHead className="text-primary font-bold">Status</TableHead>
+                  <TableHead className="text-primary font-bold">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {examResults.map((result) => (
                   <TableRow key={result.id}>
                     <TableCell className="font-medium">{result.exam}</TableCell>
-                    <TableCell>{result.date}</TableCell>
-                    <TableCell>{result.appeared}</TableCell>
-                    <TableCell>{result.passed}</TableCell>
-                    <TableCell>
+                    <TableCell className="px-2 py-1">{result.date}</TableCell>
+                    <TableCell className="px-2 py-1">{result.appeared}</TableCell>
+                    <TableCell className="px-2 py-1">{result.passed}</TableCell>
+                    <TableCell className="px-2 py-1">
                       <Badge 
                         variant={
                           result.percentage > 50 ? "default" : 
@@ -245,13 +299,13 @@ export default function ResultsReports() {
                       >
                         {result.percentage}%
                       </Badge>
-                    </TableCell>
-                    <TableCell>
+                    </TableCell >
+                    <TableCell className="px-2 py-1">
                       <Badge variant={result.status === "Published" ? "default" : "secondary"}>
                         {result.status}
                       </Badge>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="px-2 py-1">
                       <div className="flex gap-2">
                         <Button variant="outline" size="sm">View Details</Button>
                         <Button variant="outline" size="sm">

@@ -150,13 +150,13 @@ const stats = [
     color: "text-pink-600",
     description: "Successfully onboarded"
   },
-  {
-    title: "Rejected Candidates",
-    value: "540",
-    icon: UserX,
-    color: "text-red-600",
-    description: "Not shortlisted"
-  }
+  // {
+  //   title: "Rejected Candidates",
+  //   value: "540",
+  //   icon: UserX,
+  //   color: "text-red-600",
+  //   description: "Not shortlisted"
+  // }
 ];
 
 type BadgeVariant = "outline" | "default" | "destructive" | "secondary";
@@ -361,12 +361,12 @@ export default function EmployerDashboard() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="px-8">Job Title</TableHead>
-                  <TableHead className="px-8">Department</TableHead>
-                  <TableHead className="px-8">Applications</TableHead>
-                  <TableHead className="px-8">Deadline</TableHead>
-                  <TableHead className="px-8">Status</TableHead>
-                  <TableHead className="px-8">Actions</TableHead>
+                  <TableHead className="text-primary font-bold">Job Title</TableHead>
+                  <TableHead className="text-primary font-bold">Department</TableHead>
+                  <TableHead className="text-primary font-bold">Applications</TableHead>
+                  <TableHead className="text-primary font-bold">Deadline</TableHead>
+                  <TableHead className="text-primary font-bold">Status</TableHead>
+                  <TableHead className="text-primary font-bold">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -452,13 +452,13 @@ export default function EmployerDashboard() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Candidate Name</TableHead>
-                  <TableHead>Job Applied</TableHead>
-                  <TableHead>Qualification</TableHead>
-                  <TableHead>Experience</TableHead>
-                  <TableHead>Application Date</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead className="text-primary font-bold">Candidate Name</TableHead>
+                  <TableHead className="text-primary font-bold">Job Applied</TableHead>
+                  <TableHead className="text-primary font-bold">Qualification</TableHead>
+                  <TableHead className="text-primary font-bold">Experience</TableHead>
+                  <TableHead className="text-primary font-bold">Application Date</TableHead>
+                  <TableHead className="text-primary font-bold">Status</TableHead>
+                  <TableHead className="text-primary font-bold">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
