@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
 import { Toaster } from "@/components/ui/toaster";
-import { Footer } from "@/components/layout/footer";
-import { FloatingChatButton } from "@/components/layout/floating-chat-button";
+import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,17 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="min-h-screen bg-background">
-          <Header />
-          <Toaster />
-          {/* Main content area */}
-          <main className=" max-full px-4 py-6">
-            {children}
-          </main>
-
-          <FloatingChatButton />
-        </div>
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
+        <Toaster />
       </body>
     </html>
   );
