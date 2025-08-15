@@ -982,7 +982,7 @@ export default function HomePage() {
     },
     {
       id: 3,
-      jobType: "JobFair",
+      jobType: "Job Fairs",
       jobList: [
         {
           id: 1,
@@ -1202,10 +1202,10 @@ export default function HomePage() {
                         </div>
 
                         <div className="flex items-center justify-between">
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-sm">
                             {job.type}
                           </Badge>
-                          <div className="flex items-center space-x-1 text-xs text-red-600">
+                          <div className="flex items-center space-x-1 text-sm text-red-600">
                             <Clock className="w-3 h-3" />
                             <span>Deadline: {job.deadline}</span>
                           </div>
@@ -1365,7 +1365,7 @@ export default function HomePage() {
                     </AccordionTrigger>
 
                     <AccordionContent>
-                      <ul className="space-y-2">
+                      <ul>
                         {/* If subcategories exist */}
                         {category.subJobCategories
                           ? category.subJobCategories.map((sub, index) => (
@@ -1431,16 +1431,17 @@ export default function HomePage() {
                                 <span className="text-xs sm:text-sm mr-2">
                                   {job.jobTitle || job.name}
                                 </span>
+                                
                                 {job.isNew && (
                                   <Badge
-                                    className="text-[10px] m-l-2"
+                                    className="text-[10px] p-l-2 bg-[#00aae7] text-white "
                                     variant="secondary"
                                   >
                                     New
                                   </Badge>
                                 )}
                                 {job.isHot && (
-                                  <Badge className="text-[10px] p-l-2 bg-[#00aae7] text-white">
+                                  <Badge className="text-[10px] p-l-2 bg-red-500 text-white animate-pulse">
                                     Trending
                                   </Badge>
                                 )}
@@ -1458,24 +1459,22 @@ export default function HomePage() {
                               </p>
                             </div>
                             <div className="flex flex-wrap gap-2 items-center">
-
-                              
                               {job.type && (
                                 <Badge variant="outline" className="text-xs">
                                   {job.type}
                                 </Badge>
                               )}
-                                {category.jobType && (
+                              {category.jobType && (
                                 <button
                                   className="bg-[#2368a0] text-white text-xs px-3 py-1 rounded hover:bg-[#174a6a] transition-colors"
                                   onClick={() => {
-                                  // Navigate to `/jobs/[jobType]/[jobTitle or name]`
-                                  window.location.href = `/jobdetail`;
+                                    // Navigate to `/jobs/[jobType]/[jobTitle or name]`
+                                    window.location.href = `/jobdetail`;
                                   }}
                                 >
                                   View Details
                                 </button>
-                                )}
+                              )}
                             </div>
                           </div>
 
@@ -1530,7 +1529,7 @@ export default function HomePage() {
               Job Notifications
             </h2>
             <ul
-              className="list-disc list-inside space-y-2 p-3 "
+              className="list-disc list-inside space-y-2 p-3 marker:text-red-500"
               style={{ height: "70vh", overflowY: "scroll" }}
             >
               {jobNotificationsData.map((job, idx) => (
