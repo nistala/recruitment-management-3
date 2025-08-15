@@ -45,6 +45,10 @@ import {
   Users,
   CheckCircle,
   Clock,
+  UserX,
+  UserCheck,
+  BadgeCheck,
+  CalendarIcon,
 } from "lucide-react";
 import {
   Skeleton,
@@ -102,25 +106,57 @@ const stats = [
     value: "24",
     icon: Building2,
     color: "text-blue-600",
+    description: "Currently open"
   },
   {
     title: "Total Applications",
     value: "3,456",
     icon: Users,
     color: "text-green-600",
+    description: "Received so far"
   },
   {
     title: "Qualified Candidates",
     value: "892",
     icon: CheckCircle,
     color: "text-orange-600",
+    description: "Shortlisted"
   },
   {
     title: "Pending Reviews",
     value: "156",
     icon: Clock,
     color: "text-purple-600",
+    description: "Awaiting action"
   },
+  {
+    title: "Interviews Scheduled",
+    value: "72",
+    icon: CalendarIcon,
+    color: "text-indigo-600",
+    description: "This month"
+  },
+  {
+    title: "Offers Released",
+    value: "38",
+    icon: BadgeCheck,
+    color: "text-teal-600",
+    description: "Sent to candidates"
+  },
+  {
+    title: "Hires Completed",
+    value: "21",
+    icon: UserCheck,
+    color: "text-pink-600",
+    description: "Successfully onboarded"
+  },
+  {
+    title: "Rejected Candidates",
+    value: "540",
+    icon: UserX,
+    color: "text-red-600",
+    description: "Not shortlisted"
+  }
 ];
 
 type BadgeVariant = "outline" | "default" | "destructive" | "secondary";
@@ -196,13 +232,13 @@ export default function EmployerDashboard() {
 
       {/* Stats Cards */}
       {loading ? (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
+        <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-8">
+          {Array.from({ length: 8 }).map((_, i) => (
             <SkeletonCard key={i} />
           ))}
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           {stats.map((stat) => (
             <Card key={stat.title} className="p-2">
               <CardHeader className="flex flex-row items-center justify-between p-0 mb-1">
@@ -213,6 +249,9 @@ export default function EmployerDashboard() {
               </CardHeader>
               <CardContent className="p-0 m-0 mt-0">
                 <div className="text-xl font-bold">{stat.value}</div>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <span>{stat.description}</span>
+              </div>
               </CardContent>
             </Card>
           ))}

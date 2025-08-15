@@ -56,7 +56,7 @@ export default function LoginPage() {
       setSuccess("Login successful! Redirecting...")
       // Redirect based on role
       setTimeout(() => {
-        window.location.href = "/dashboard"
+        window.location.href = "/"
       }, 1000)
     } catch (err) {
       setError("Invalid credentials. Please try again.")

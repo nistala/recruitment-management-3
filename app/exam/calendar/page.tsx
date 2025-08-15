@@ -73,10 +73,10 @@ export default function ExamCalendar() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 space-y-2">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Exam Calendar</h1>
+          <h1 className="text-2xl font-bold">Exam Calendar</h1>
           <p className="text-muted-foreground">Schedule and manage examination dates</p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { Skeleton, SkeletonCard, SkeletonTable, SkeletonChart } from "@/components/ui/skeleton"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts"
-import { Search, Filter, MapPin, Users, Clock, CheckCircle, Monitor, Shield, Zap, Phone, AlertTriangle, XCircle, Wifi, WifiOff, Camera, Scan, Battery } from 'lucide-react'
+import { Search, Filter, MapPin, Users, Clock, CheckCircle, Monitor, Shield, Zap, Phone, AlertTriangle, XCircle, Wifi, WifiOff, Camera, Scan, Battery, Users2, CalendarIcon } from 'lucide-react'
 
 const liveMonitoringData = [
   { center: "Hyderabad Main", online: 450, offline: 5, total: 455, uptime: 98.9 },
@@ -66,11 +66,63 @@ export default function ExamCenterDashboard() {
 
 
   const stats = [
-    { title: "Active Centers", value: "12", icon: MapPin, color: "text-blue-600" },
-    { title: "Total Capacity", value: "6,500", icon: Users, color: "text-green-600" },
-    { title: "Scheduled Exams", value: "24", icon: Clock, color: "text-orange-600" },
-    { title: "Avg Attendance", value: "89%", icon: CheckCircle, color: "text-purple-600" },
-  ]
+  { 
+    title: "Active Centers", 
+    value: "12", 
+    icon: MapPin, 
+    color: "text-blue-600",
+    description: "Currently operational"
+  },
+  { 
+    title: "Total Capacity", 
+    value: "6,500", 
+    icon: Users, 
+    color: "text-green-600",
+    description: "Max seating"
+  },
+  { 
+    title: "Scheduled Exams", 
+    value: "24", 
+    icon: Clock, 
+    color: "text-orange-600",
+    description: "This month"
+  },
+  { 
+    title: "Avg Attendance", 
+    value: "89%", 
+    icon: CheckCircle, 
+    color: "text-purple-600",
+    description: "Across exams"
+  },
+  { 
+    title: "Upcoming Exams", 
+    value: "8", 
+    icon: CalendarIcon, 
+    color: "text-indigo-600",
+    description: "Next 30 days"
+  },
+  { 
+    title: "Utilization Rate", 
+    value: "76%", 
+    icon: BarChart, 
+    color: "text-teal-600",
+    description: "Seats filled"
+  },
+  { 
+    title: "Staff Assigned", 
+    value: "145", 
+    icon: Users2, 
+    color: "text-pink-600",
+    description: "Invigilators & support"
+  },
+  { 
+    title: "Issues Reported", 
+    value: "12", 
+    icon: AlertTriangle, 
+    color: "text-red-600",
+    description: "Technical/logistics"
+  }
+];
 
   const renderStatsCards = () => {
     if (loading) {
@@ -83,15 +135,18 @@ export default function ExamCenterDashboard() {
       )
     } else {
       return (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-8">
           {stats.map((stat) => (
             <Card key={stat.title} className="p-2">
               <CardHeader className="flex flex-row items-center justify-between p-0 mb-1">
-                <CardTitle className="text-sm font-medium mr-1">{stat.title}</CardTitle>
+                <CardTitle className="text-sm font-medium mr-1 text-[#00aae7]">{stat.title}</CardTitle>
                 <stat.icon className={`h-4 w-4 ${stat.color}`} />
               </CardHeader>
               <CardContent className="p-0 m-0 mt-0">
                 <div className="text-xl font-bold">{stat.value}</div>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <span>{stat.description}</span>
+              </div>
               </CardContent>
             </Card>
           ))}
@@ -101,10 +156,10 @@ export default function ExamCenterDashboard() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 space-y-2">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Exam Center Dashboard</h1>
+          <h1 className="text-2xl font-bold">Exam Center Dashboard</h1>
           <p className="text-muted-foreground">Monitor and manage exam center operations</p>
         </div>
         <Button>
@@ -119,11 +174,31 @@ export default function ExamCenterDashboard() {
       {/* Main Dashboard Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="live-monitoring">Live Monitoring</TabsTrigger>
-          <TabsTrigger value="omr-logistics">OMR Logistics</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger value="reports">Reports</TabsTrigger>
-          <TabsTrigger value="contacts">Contacts</TabsTrigger>
+          <TabsTrigger value="live-monitoring" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Live Monitoring</TabsTrigger>
+          <TabsTrigger value="omr-logistics" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">OMR Logistics</TabsTrigger>
+          <TabsTrigger value="security" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Security</TabsTrigger>
+          <TabsTrigger value="reports" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Reports</TabsTrigger>
+          <TabsTrigger value="contacts" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Contacts</TabsTrigger>
         </TabsList>
 
         {/* Live Monitoring Tab */}

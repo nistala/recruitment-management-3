@@ -45,6 +45,10 @@ import {
   Building2,
   GraduationCap,
   ClipboardList,
+  Briefcase,
+  FileText,
+  CalendarIcon,
+  BadgeCheck
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
@@ -131,29 +135,61 @@ const examData = [
 
 const stats = [
   {
-    title: "Total Employers",
+    title: "Total Employees",
     value: "56",
     icon: Building2,
     color: "text-blue-600",
+    description: "Company-wide"
   },
   {
     title: "Registered Candidates",
     value: "150",
     icon: Users,
     color: "text-green-600",
+    description: "Job applicants"
   },
   {
-    title: "Active Exams",
+    title: "Active Employees",
     value: "89",
     icon: ClipboardList,
     color: "text-orange-600",
+    description: "Currently working"
   },
   {
     title: "Universities",
     value: "156",
     icon: GraduationCap,
     color: "text-purple-600",
+    description: "Partner institutions"
   },
+  {
+    title: "Departments",
+    value: "12",
+    icon: Briefcase,
+    color: "text-indigo-600",
+    description: "Across organization"
+  },
+  {
+    title: "Open Positions",
+    value: "24",
+    icon: FileText,
+    color: "text-red-600",
+    description: "Currently hiring"
+  },
+  // {
+  //   title: "Interviews Scheduled",
+  //   value: "32",
+  //   icon: CalendarIcon,
+  //   color: "text-teal-600",
+  //   description: "This month"
+  // },
+  // {
+  //   title: "Offers Released",
+  //   value: "18",
+  //   icon: BadgeCheck,
+  //   color: "text-yellow-600",
+  //   description: "Awaiting acceptance"
+  // }
 ];
 
 export default function EmployeeDashboard() {
@@ -186,7 +222,7 @@ export default function EmployeeDashboard() {
           ))}
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
           {stats.map((stat) => (
             <Card key={stat.title} className="p-2">
               <CardHeader className="flex flex-row items-center justify-between p-0 mb-1">
@@ -197,6 +233,9 @@ export default function EmployeeDashboard() {
               </CardHeader>
               <CardContent className="p-0 m-0 mt-0">
                 <div className="text-xl font-bold">{stat.value}</div>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <span>{stat.description}</span>
+              </div>
               </CardContent>
             </Card>
           ))}

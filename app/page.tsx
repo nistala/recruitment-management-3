@@ -1376,10 +1376,10 @@ export default function HomePage() {
           ${
             selectedSub === sub.categoryName
               ? "bg-[#00aae7] text-white"
-              : "hover:bg-gray-100"
+              : "hover:bg-[#00aae7] hover:text-white"
           }`}
                               >
-                                <span className="text-xs pl-5 pr-2 sm:text-sm">
+                                <span className="text-xs pl-5 pr-2 sm:text-sm ">
                                   {sub.categoryName}
                                 </span>
                               </li>
@@ -1434,15 +1434,10 @@ export default function HomePage() {
                                 
                                 {job.isNew && (
                                   <Badge
-                                    className="text-[10px] p-l-2 bg-[#00aae7] text-white "
+                                    className="text-[10px] p-l-2 bg-[#ef4048] text-white animate-pulse"
                                     variant="secondary"
                                   >
                                     New
-                                  </Badge>
-                                )}
-                                {job.isHot && (
-                                  <Badge className="text-[10px] p-l-2 bg-red-500 text-white animate-pulse">
-                                    Trending
                                   </Badge>
                                 )}
                               </h4>
