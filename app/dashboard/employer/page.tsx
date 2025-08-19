@@ -371,7 +371,10 @@ export default function EmployerDashboard() {
               </TableHeader>
               <TableBody>
                 {jobNotifications.map((job) => (
-                  <TableRow key={job.id}>
+                  <TableRow
+                    key={job.id}
+                    className="transition-colors hover:bg-[#e5e7eb] cursor-pointer"
+                  >
                     <TableCell className="font-medium px-8">
                       {job.title}
                     </TableCell>
@@ -451,7 +454,7 @@ export default function EmployerDashboard() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow  >
                   <TableHead className="text-primary font-bold">Candidate Name</TableHead>
                   <TableHead className="text-primary font-bold">Job Applied</TableHead>
                   <TableHead className="text-primary font-bold">Qualification</TableHead>
@@ -463,7 +466,8 @@ export default function EmployerDashboard() {
               </TableHeader>
               <TableBody>
                 {candidates.map((candidate, idx) => (
-                  <TableRow key={idx}>
+                  <TableRow key={idx} 
+                    className="transition-colors hover:bg-[#e5e7eb] cursor-pointer">
                     <TableCell className="font-medium">
                       {candidate.name}
                     </TableCell>

@@ -50,12 +50,12 @@ const navigationItems = [
     items: [
       {
         title: "Employer Registration",
-        href: "/registration/employer",
+        href: "/registration/employer-registration",
         icon: Building2,
       },
       {
         title: "Candidate Registration",
-        href: "/registration/candidate",
+        href: "/registration/candidate-registration",
         icon: UserPlus,
       },
     ],
@@ -236,20 +236,19 @@ export function Header() {
             {navigationItems.map((item) => renderNavigationItem(item))}
           </nav>
 
-
           {/* Right Side - Profile Menu */}
           <div className="flex items-center gap-4">
-             <div className="hidden md:flex md:items-center md:space-x-4 text-secondary">
-            <div className="relative">
-              <Button variant="ghost" size="icon">
-                <Bell className="h-6 w-6" />
-              </Button>
-              {/* Badge Count */}
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">
-                3
-              </span>
+            <div className="hidden md:flex md:items-center md:space-x-4 text-secondary">
+              <div className="relative">
+                <Button variant="ghost" size="icon">
+                  <Bell className="h-6 w-6" />
+                </Button>
+                {/* Badge Count */}
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                  3
+                </span>
+              </div>
             </div>
-          </div>
             {/* Mobile Menu Button */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
@@ -281,7 +280,11 @@ export function Header() {
                   className="relative h-10 w-10 rounded-full"
                 >
                   <Avatar className="h-10 w-10">
-                    <AvatarImage src="/placeholder-avatar.jpg" alt="Profile" />
+                    <AvatarImage
+                      className="rounded-full bg-secondary text-secondary-foreground"
+                      src="/jones.png?height=100&width=100&text=SN"
+                      alt="Profile"
+                    />
                     <AvatarFallback className="bg-secondary text-secondary-foreground">
                       <User className="h-5 w-5" />
                     </AvatarFallback>
@@ -298,20 +301,26 @@ export function Header() {
                   </div>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>My Profile</span>
+                <DropdownMenuItem asChild>
+                  <Link href="/profile" className="flex items-center">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>My Profile</span>
+                  </Link>
                 </DropdownMenuItem>
+
                 <DropdownMenuItem>
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-[#2368a0]">
-                  <Link href="/auth/login">
-    <LogOut className=" h-4 w-4" />
-    <span>Logout</span>
-  </Link>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href="/auth/login"
+                    className="flex items-center text-red-600 hover:text-red-800"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

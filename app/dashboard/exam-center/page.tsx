@@ -12,6 +12,7 @@ import { Progress } from "@/components/ui/progress"
 import { Skeleton, SkeletonCard, SkeletonTable, SkeletonChart } from "@/components/ui/skeleton"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts"
 import { Search, Filter, MapPin, Users, Clock, CheckCircle, Monitor, Shield, Zap, Phone, AlertTriangle, XCircle, Wifi, WifiOff, Camera, Scan, Battery, Users2, CalendarIcon } from 'lucide-react'
+import Link from "next/link";
 
 const liveMonitoringData = [
   { center: "Hyderabad Main", online: 450, offline: 5, total: 455, uptime: 98.9 },
@@ -163,8 +164,10 @@ export default function ExamCenterDashboard() {
           <p className="text-muted-foreground">Monitor and manage exam center operations</p>
         </div>
         <Button>
+          <Link href="/dashboard/exam-center/add-exam-center" className="flex items-center gap-2">
           <MapPin className="h-4 w-4 mr-2" />
           Add New Center
+          </Link>
         </Button>
       </div>
 

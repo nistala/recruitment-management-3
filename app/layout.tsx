@@ -4,6 +4,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 
+import { BreadcrumbNav } from "@/components/layout/breadcrumb-nav"
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,8 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LayoutWrapper>{children}</LayoutWrapper>
         <Toaster />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

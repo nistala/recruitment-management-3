@@ -986,21 +986,21 @@ export default function HomePage() {
       jobList: [
         {
           id: 1,
-          name: "National Government Job Fair 2024",
+          name: "Deccan",
           date: "2024-03-15",
           time: "10:00 AM - 6:00 PM",
           type: "Physical",
-          location: "Pragati Maidan, New Delhi",
+          location: "Nellimarla",
           participants: 150,
           expectedVisitors: "10,000+",
           registrationFee: "Free",
           status: "Registration Open",
           description:
-            "Largest government job fair featuring central and state government organizations.",
+            "Manufacturer of Silicone Composite Insulators for High Voltage Power Transmission, Sub-Station, Railways and Metro. Deccan Insulators up to 765kV HVAC and 800kV HVDC are installed across India and in 28 countries around the world.",
         },
         {
           id: 2,
-          name: "Banking & Finance Career Fair",
+          name: "Aurobindo",
           date: "2024-03-22",
           time: "11:00 AM - 5:00 PM",
           type: "Virtual",
@@ -1014,7 +1014,7 @@ export default function HomePage() {
         },
         {
           id: 3,
-          name: "Engineering Jobs Expo",
+          name: "LG",
           date: "2024-04-05",
           time: "9:00 AM - 7:00 PM",
           type: "Hybrid",
@@ -1028,7 +1028,7 @@ export default function HomePage() {
         },
         {
           id: 4,
-          name: "Healthcare Professionals Meet",
+          name: "Amazon",
           date: "2024-04-12",
           time: "10:00 AM - 4:00 PM",
           type: "Physical",
@@ -1042,7 +1042,7 @@ export default function HomePage() {
         },
         {
           id: 5,
-          name: "Tech Startups Career Carnival",
+          name: "TCL",
           date: "2024-04-20",
           time: "12:00 PM - 8:00 PM",
           type: "Hybrid",

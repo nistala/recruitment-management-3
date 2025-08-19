@@ -48,7 +48,7 @@ import {
   Briefcase,
   FileText,
   CalendarIcon,
-  BadgeCheck
+  BadgeCheck,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
@@ -57,6 +57,7 @@ import {
   SkeletonTable,
   SkeletonChart,
 } from "@/components/ui/skeleton";
+import { hover } from "framer-motion";
 
 const employerData = [
   { name: "Tech Corp", type: "Private", employees: 250, status: "Active" },
@@ -139,42 +140,42 @@ const stats = [
     value: "56",
     icon: Building2,
     color: "text-blue-600",
-    description: "Company-wide"
+    description: "Company-wide",
   },
   {
     title: "Registered Candidates",
     value: "150",
     icon: Users,
     color: "text-green-600",
-    description: "Job applicants"
+    description: "Job applicants",
   },
   {
     title: "Active Employees",
     value: "89",
     icon: ClipboardList,
     color: "text-orange-600",
-    description: "Currently working"
+    description: "Currently working",
   },
   {
     title: "Universities",
     value: "156",
     icon: GraduationCap,
     color: "text-purple-600",
-    description: "Partner institutions"
+    description: "Partner institutions",
   },
   {
     title: "Departments",
     value: "12",
     icon: Briefcase,
     color: "text-indigo-600",
-    description: "Across organization"
+    description: "Across organization",
   },
   {
     title: "Open Positions",
     value: "24",
     icon: FileText,
     color: "text-red-600",
-    description: "Currently hiring"
+    description: "Currently hiring",
   },
   // {
   //   title: "Interviews Scheduled",
@@ -234,8 +235,8 @@ export default function EmployeeDashboard() {
               <CardContent className="p-0 m-0 mt-0">
                 <div className="text-xl font-bold">{stat.value}</div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span>{stat.description}</span>
-              </div>
+                  <span>{stat.description}</span>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -374,7 +375,14 @@ export default function EmployeeDashboard() {
                     <TableCell className="px-2 py-1">
                       <Badge
                         variant={
-                          employer.status === "Active" ? "default" : "secondary"
+                          employer.status === "Active"
+                            ? "default"
+                            : "destructive"
+                        }
+                        className={
+                          employer.status === "Active"
+                            ? "hover:bg-primary hover:text-primary-foreground"
+                            : "hover:bg-destructive hover:text-destructive-foreground"
                         }
                       >
                         {employer.status}
@@ -471,8 +479,15 @@ export default function EmployeeDashboard() {
                           exam.status === "Active"
                             ? "default"
                             : exam.status === "Completed"
-                            ? "secondary"
+                            ? "outline" // use outline but we’ll override with yellow
                             : "outline"
+                        }
+                        className={
+                          exam.status === "Active"
+                            ? "hover:bg-primary hover:text-primary-foreground"
+                            : exam.status === "Completed"
+                            ? "bg-yellow-500 text-black hover:bg-yellow-600 hover:text-black"
+                            : "hover:bg-muted hover:text-muted-foreground"
                         }
                       >
                         {exam.status}

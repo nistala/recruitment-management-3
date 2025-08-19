@@ -76,6 +76,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { enUS } from "date-fns/locale";
 import { format } from "date-fns";
+import Link from "next/link";
 
 const examSchema = z.object({
   examName: z.string().min(2, "Exam name is required"),
@@ -569,227 +570,12 @@ export default function ExamDashboard() {
             Schedule and manage examinations
           </p>
         </div>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
+        <Button>
+          <Link href="/dashboard/exam/add-exam-schedule" className="flex items-center gap-2">
+           <Plus className="h-4 w-4 mr-2" />
               Schedule Exam
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>Schedule New Exam</DialogTitle>
-              <DialogDescription>
-                Fill in the details to schedule a new examination
-              </DialogDescription>
-            </DialogHeader>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
-                <div className="grid gap-4 md:grid-cols-2">
-                  <FormField
-                    control={form.control}
-                    name="examName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Exam Name *</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Banking Recruitment Exam"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="examType"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Exam Type *</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select exam type" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="CBT">
-                              CBT (Computer Based Test)
-                            </SelectItem>
-                            <SelectItem value="OMR">
-                              OMR (Optical Mark Recognition)
-                            </SelectItem>
-                            <SelectItem value="Online">Online Test</SelectItem>
-                            <SelectItem value="Offline">
-                              Offline/Written Exam
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="startDate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Start Date *</FormLabel>
-                        <FormControl>
-                          <Input type="date" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="endDate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>End Date *</FormLabel>
-                        <FormControl>
-                          <Input type="date" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="startTime"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Start Time *</FormLabel>
-                        <FormControl>
-                          <Input type="time" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="endTime"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>End Time *</FormLabel>
-                        <FormControl>
-                          <Input type="time" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="duration"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Duration (minutes) *</FormLabel>
-                        <FormControl>
-                          <Input type="number" placeholder="120" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="recruitingAgency"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Recruiting Agency *</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select agency" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="IBPS">IBPS</SelectItem>
-                            <SelectItem value="UPSC">UPSC</SelectItem>
-                            <SelectItem value="SSC">SSC</SelectItem>
-                            <SelectItem value="RRB">RRB</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="examBoard"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Exam Board *</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select board" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="Banking Board">
-                              Banking Board
-                            </SelectItem>
-                            <SelectItem value="Civil Services Board">
-                              Civil Services Board
-                            </SelectItem>
-                            <SelectItem value="State Education Board">
-                              State Education Board
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Additional details about the exam..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <DialogFooter>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setIsDialogOpen(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button type="submit">Schedule Exam</Button>
-                </DialogFooter>
-              </form>
-            </Form>
-          </DialogContent>
-        </Dialog>
+          </Link>
+        </Button>
       </div>
 
       {/* Enhanced Stats Cards */}
@@ -799,7 +585,7 @@ export default function ExamDashboard() {
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
-        className="space-y-6"
+        className="space-y-2"
       >
         <TabsList className="grid w-full grid-cols-9">
           <TabsTrigger
@@ -895,9 +681,9 @@ export default function ExamDashboard() {
         </TabsList>
 
         {/* Schedule Exam Tab */}
-        <TabsContent value="schedule" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-3">
-            {/* Calendar Section */}
+        <TabsContent value="schedule" className="space-y-2">
+          {/* <div className="grid gap-2 lg:grid-cols-3">
+            
             <Card className="lg:col-span-2 shadow-md border border-gray-200">
               <CardHeader className="pb-2">
                 <CardTitle className="text-xl font-bold text-primary">
@@ -932,7 +718,7 @@ export default function ExamDashboard() {
               </CardContent>
             </Card>
 
-            {/* Selected Date Details */}
+          
             <Card className="shadow-md border border-gray-200">
               <CardHeader className="pb-2">
                 <CardTitle className="text-xl font-bold text-primary">
@@ -992,7 +778,7 @@ export default function ExamDashboard() {
                 ) : null}
               </CardContent>
             </Card>
-          </div>
+          </div> */}
 
           {/* Scheduled Exams List */}
           <Card>
@@ -1061,8 +847,9 @@ export default function ExamDashboard() {
                         <TableCell  className="px-2 py-1">
                           <Badge
                             variant={
-                              exam.status === "Active" ? "default" : "secondary"
+                              exam.status === "Active" ? "default" : "destructive"
                             }
+                            className={exam.status === "Active" ? "hover:bg-primary hover:text-primary-foreground" : "hover:bg-secondary hover:text-secondary-foreground"}
                           >
                             {exam.status}
                           </Badge>
