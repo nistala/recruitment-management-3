@@ -1180,11 +1180,11 @@ export default function HomePage() {
                               NEW
                             </Badge>
                           )}
-                          {job.isHot && (
+                          {/* {job.isHot && (
                             <Badge className="bg-red-500 text-white text-xs animate-pulse">
                               Trending
                             </Badge>
-                          )}
+                          )} */}
                         </div>
 
                         <div className="flex items-center space-x-4 text-sm text-gray-600 mb-2">
@@ -1242,11 +1242,11 @@ export default function HomePage() {
                               NEW
                             </Badge>
                           )}
-                          {job.isHot && (
+                          {/* {job.isHot && (
                             <Badge className="bg-red-500 text-white text-xs animate-pulse">
                               Trending
                             </Badge>
-                          )}
+                          )} */}
                         </div>
 
                         <div className="flex items-center space-x-4 text-sm text-gray-600 mb-2">
@@ -1290,7 +1290,7 @@ export default function HomePage() {
             <p className="text-gray-600 text-md md:text-base leading-relaxed mt-2">
               Welcome to{" "}
               <span className="font-semibold text-[#00aae7]">JobConnect</span>,
-              your hub for the latest Government and Private jobs. Search,
+              your hub for the latest jobs notification. Search,
               filter, and apply — all in one place.
             </p>
           </div>
@@ -1395,7 +1395,14 @@ export default function HomePage() {
               : "hover:bg-gray-100"
           }`}
                               >
-                                <span className="text-xs pl-5 pr-2 sm:text-sm">
+                                <span
+                                  className="text-xs pl-5 pr-2 sm:text-sm"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    // Open dialog logic here
+                                    alert(`Dialog for: ${job.categoryName || job.name}`);
+                                  }}
+                                >
                                   {job.categoryName || job.name}
                                 </span>
                               </li>
@@ -1432,14 +1439,14 @@ export default function HomePage() {
                                   {job.jobTitle || job.name}
                                 </span>
                                 
-                                {job.isNew && (
-                                  <Badge
-                                    className="text-[10px] p-l-2 bg-[#ef4048] text-white animate-pulse"
-                                    variant="secondary"
-                                  >
-                                    New
-                                  </Badge>
-                                )}
+                                 {job.isNew && (
+                            <span
+                              className="inline-flex items-center justify-center w-8 h-8 text-[8px] animate-bounce font-bold text-white bg-yellow-600
+               [clip-path:polygon(50%_0%,61%_35%,98%_35%,68%_57%,79%_91%,50%_70%,21%_91%,32%_57%,2%_35%,39%_35%)]"
+                            >
+                              NEW
+                            </span>
+                          )}
                               </h4>
                               <p className="text-xs sm:text-sm text-gray-600">
                                 {(job.organization || job.company) && (

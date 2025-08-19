@@ -29,24 +29,6 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import {
   Skeleton,
   SkeletonCard,
   SkeletonTable,
@@ -121,7 +103,7 @@ const examSchedule = [
     duration: 180,
     agency: "UPSC",
     board: "Civil Services Board",
-    status: "Active",
+    status: "Ongoing",
     candidates: 800,
   },
 
@@ -151,7 +133,7 @@ const examSchedule = [
     duration: 120,
     agency: "SSC",
     board: "Staff Selection Commission",
-    status: "Active",
+    status: "Completed",
     candidates: 1500,
   },
 
@@ -181,7 +163,7 @@ const examSchedule = [
     duration: 120,
     agency: "State Police Board",
     board: "Police Recruitment Cell",
-    status: "Active",
+    status: "Completed",
     candidates: 1750,
   },
 
@@ -225,7 +207,7 @@ const examSchedule = [
     duration: 120,
     agency: "Wipro",
     board: "Private",
-    status: "Active",
+    status: "Completed",
     candidates: 720,
   },
   {
@@ -239,7 +221,7 @@ const examSchedule = [
     duration: 90,
     agency: "HCL Technologies",
     board: "Private",
-    status: "Scheduled",
+    status: "Completed",
     candidates: 400,
   },
 ];
@@ -247,26 +229,52 @@ const examSchedule = [
 const examCenters = [
   {
     id: 1,
-    name: "Hyderabad Main Center",
+    name: "Ion Digital Zone",
+    code: "IDZ001",
     location: "Hyderabad, Telangana",
     capacity: 500,
     assignedExams: 3,
+    completedExams: 4,
     status: "Active",
   },
   {
     id: 2,
-    name: "Bangalore Tech Center",
+    name: "SVS Technology And Solutions",
+    code: "SVS002",
     location: "Bangalore, Karnataka",
     capacity: 400,
     assignedExams: 2,
+    completedExams: 5,
     status: "Active",
   },
   {
     id: 3,
-    name: "Chennai Regional Center",
+    name: "Arowana Digital Zone",
+    code: "ADZ003",
     location: "Chennai, Tamil Nadu",
     capacity: 300,
     assignedExams: 1,
+    completedExams: 2,
+    status: "Inactive",
+  },
+  {
+    id: 4,
+    name: "Utakal Regional Center",
+    code: "URC004",
+    location: "Bhubaneswar, Odisha",
+    capacity: 200,
+    assignedExams: 1,
+    completedExams: 2,
+    status: "Inactive",
+  },
+  {
+    id: 5,
+    name: "TechZone Exam Center",
+    code: "TZEC005",
+    location: "Vizag, Andhra Pradesh",
+    capacity: 300,
+    assignedExams: 1,
+    completedExams: 2,
     status: "Inactive",
   },
 ];
@@ -299,6 +307,24 @@ const appliedCandidates = [
     center: "Chennai Regional",
     status: "Attended",
   },
+  {
+    id: 3,
+    name: "Hema Naidu",
+    applicationId: "APP004",
+    examName: "Civil Services",
+    examDate: "2025-08-20",
+    center: "Hyderabad Main",
+    status: "Applied",
+  },
+  {
+    id: 2,
+    name: "Ayush Singh",
+    applicationId: "APP005",
+    examName: "Banking Recruitment",
+    examDate: "2025-08-20",
+    center: "Bangalore Tech",
+    status: "Applied",
+  },
 ];
 
 const examResults = [
@@ -329,6 +355,24 @@ const examResults = [
     examName: "Technical Test",
     examDate: "2025-07-25",
   },
+  {
+    id: 4,
+    candidateName: "Sanjeeb Naidu",
+    score: 74,
+    result: "Pass",
+    rank: 76,
+    examName: "Banking Recruitment",
+    examDate: "2025-07-25",
+  },
+  {
+    id: 3,
+    candidateName: "Rajesh Yadav",
+    score: 40,
+    result: "Fail",
+    rank: 120,
+    examName: "Defence Services",
+    examDate: "2025-07-25",
+  },
 ];
 
 const employers = [
@@ -353,6 +397,20 @@ const employers = [
     exams: ["Civil Services"],
     uploadDate: "2025-07-10",
   },
+  {
+    id: 2,
+    name: "Infosys",
+    type: "Private",
+    exams: ["Software Engineer"],
+    uploadDate: "2025-07-05",
+  },
+  {
+    id: 2,
+    name: "Digital Solutions Pvt Ltd",
+    type: "Private",
+    exams: ["SEO Specialist", "Content Writer"],
+    uploadDate: "2025-07-05",
+  },
 ];
 
 const recruitingAgencies = [
@@ -375,6 +433,20 @@ const recruitingAgencies = [
     name: "SSC",
     contact: "ssc@gov.in",
     exams: ["Staff Selection"],
+    region: "National",
+  },
+  {
+    id: 4,
+    name: "Railway Recruitment Board",
+    contact: "rrb@gov.in",
+    exams: ["Driver Recruitment", "Technical Staff"],
+    region: "National",
+  },
+  {
+    id:5,
+    name: "Defence Recruitment Agency",
+    contact: "drdo@gov.in",
+    exams: ["Defence Services", "Technical Staff"],
     region: "National",
   },
 ];
@@ -401,6 +473,19 @@ const examBoards = [
     activeExams: 8,
     contact: "admin@stateboard.edu.in",
   },
+  {
+    id: 4,
+    name: "IGNOU Board of Examinations",
+    type: "State",
+    activeExams: 8,
+    contact: "igno@govt.edu.in",
+  },{
+    id: 5,
+    name: "Telangana State Board",
+    type: "State",
+    activeExams: 8,
+    contact: "tg@stateboard.edu.in",
+  },
 ];
 
 const screeningEmployers = [
@@ -418,7 +503,7 @@ const screeningEmployers = [
     examDetails: "Aptitude Test",
     candidatesScreened: 380,
     examDate: "2025-08-12",
-    cutoff: 80,
+    cutoff: 45,
   },
   {
     id: 3,
@@ -427,6 +512,22 @@ const screeningEmployers = [
     candidatesScreened: 320,
     examDate: "2025-08-14",
     cutoff: 70,
+  },
+  {
+    id: 4,
+    name: "ISRO",
+    examDetails: "Coding Assessment",
+    candidatesScreened: 340,
+    examDate: "2025-08-14",
+    cutoff: 65,
+  },
+  {
+    id: 5,
+    name: "Digital Solutions Pvt Ltd",
+    examDetails: "Group Discussion",
+    candidatesScreened: 320,
+    examDate: "2025-08-14",
+    cutoff: 60,
   },
 ];
 
@@ -460,16 +561,16 @@ export default function ExamDashboard() {
   };
 
   const stats = [
-    {
-      title: "Scheduled Exams",
-      value: "24",
-      change: "+12%",
+     {
+      title: "Enrolled Candidates",
+      value: "8,456",
+      change: "+15%",
       trend: "up",
-      icon: ClipboardList,
-      color: "text-blue-600",
-      description: "This month",
+      icon: Users,
+      color: "text-orange-600",
+      description: "Applied",
     },
-    {
+      {
       title: "Exam Centers",
       value: "12",
       change: "+2",
@@ -479,22 +580,13 @@ export default function ExamDashboard() {
       description: "Active centers",
     },
     {
-      title: "Total Candidates",
-      value: "8,456",
-      change: "+15%",
+      title: "Scheduled Exams",
+      value: "24",
+      change: "+12%",
       trend: "up",
-      icon: Users,
-      color: "text-orange-600",
-      description: "Applied",
-    },
-    {
-      title: "Results Published",
-      value: "18",
-      change: "-2%",
-      trend: "down",
-      icon: Award,
-      color: "text-purple-600",
-      description: "This week",
+      icon: ClipboardList,
+      color: "text-blue-600",
+      description: "This month",
     },
     {
       title: "Upcoming Exams",
@@ -506,13 +598,22 @@ export default function ExamDashboard() {
       description: "Next 30 days",
     },
     {
-      title: "Certificates Issued",
+      title: "Admit Cards Issued",
       value: "4,120",
       change: "+8%",
       trend: "up",
       icon: FileCheck,
       color: "text-teal-600",
       description: "All time",
+    },
+    {
+      title: "Results Published",
+      value: "18",
+      change: "-2%",
+      trend: "down",
+      icon: Award,
+      color: "text-purple-600",
+      description: "This week",
     },
   ];
 
@@ -565,15 +666,15 @@ export default function ExamDashboard() {
     <div className="p-2 space-y-2">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Exam Dashboard</h1>
+          <h1 className="text-2xl font-bold">Exam Center Dashboard</h1>
           <p className="text-muted-foreground">
-            Schedule and manage examinations
+            Monitor and manage exam center operations
           </p>
         </div>
         <Button>
-          <Link href="/dashboard/exam/add-exam-schedule" className="flex items-center gap-2">
-           <Plus className="h-4 w-4 mr-2" />
-              Schedule Exam
+         <Link href="/dashboard/exam-center/add-exam-center" className="flex items-center gap-2">
+          <MapPin className="h-4 w-4 mr-2" />
+          Add New Center
           </Link>
         </Button>
       </div>
@@ -588,47 +689,7 @@ export default function ExamDashboard() {
         className="space-y-2"
       >
         <TabsList className="grid w-full grid-cols-9">
-          <TabsTrigger
-            value="schedule"
-            className=" flex items-centerrounded-md px-3 py-2 transition
-               data-[state=active]:bg-primary 
-               data-[state=active]:text-primary-foreground
-               data-[state=inactive]:text-balck-foreground
-               hover:bg-muted/30 hover:text-foreground"
-          >
-            Schedule
-          </TabsTrigger>
-          <TabsTrigger
-            value="centers"
-            className=" flex items-centerrounded-md px-3 py-2 transition
-               data-[state=active]:bg-primary 
-               data-[state=active]:text-primary-foreground
-               data-[state=inactive]:text-balck-foreground
-               hover:bg-muted/30 hover:text-foreground"
-          >
-            Centers
-          </TabsTrigger>
-          <TabsTrigger
-            value="candidates"
-            className=" flex items-centerrounded-md px-3 py-2 transition
-               data-[state=active]:bg-primary 
-               data-[state=active]:text-primary-foreground
-               data-[state=inactive]:text-balck-foreground
-               hover:bg-muted/30 hover:text-foreground"
-          >
-            Candidates
-          </TabsTrigger>
-          <TabsTrigger
-            value="results"
-            className=" flex items-centerrounded-md px-3 py-2 transition
-               data-[state=active]:bg-primary 
-               data-[state=active]:text-primary-foreground
-               data-[state=inactive]:text-balck-foreground
-               hover:bg-muted/30 hover:text-foreground"
-          >
-            Results
-          </TabsTrigger>
-          <TabsTrigger
+            <TabsTrigger
             value="employers"
             className=" flex items-centerrounded-md px-3 py-2 transition
                data-[state=active]:bg-primary 
@@ -638,17 +699,17 @@ export default function ExamDashboard() {
           >
             Employers
           </TabsTrigger>
-          <TabsTrigger
-            value="exam-types"
+                 <TabsTrigger
+            value="candidates"
             className=" flex items-centerrounded-md px-3 py-2 transition
                data-[state=active]:bg-primary 
                data-[state=active]:text-primary-foreground
                data-[state=inactive]:text-balck-foreground
                hover:bg-muted/30 hover:text-foreground"
           >
-            Exam Types
+            Candidates
           </TabsTrigger>
-          <TabsTrigger
+             <TabsTrigger
             value="agencies"
             className=" flex items-centerrounded-md px-3 py-2 transition
                data-[state=active]:bg-primary 
@@ -656,7 +717,7 @@ export default function ExamDashboard() {
                data-[state=inactive]:text-balck-foreground
                hover:bg-muted/30 hover:text-foreground"
           >
-            Agencies
+            Departments
           </TabsTrigger>
           <TabsTrigger
             value="boards"
@@ -669,6 +730,36 @@ export default function ExamDashboard() {
             Boards
           </TabsTrigger>
           <TabsTrigger
+            value="centers"
+            className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground"
+          >
+            Centers
+          </TabsTrigger>
+           <TabsTrigger
+            value="exam-types"
+            className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground"
+          >
+            Exam Types
+          </TabsTrigger>
+          <TabsTrigger
+            value="schedule"
+            className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground"
+          >
+            Schedule
+          </TabsTrigger>
+          <TabsTrigger
             value="screening"
             className=" flex items-centerrounded-md px-3 py-2 transition
                data-[state=active]:bg-primary 
@@ -677,6 +768,17 @@ export default function ExamDashboard() {
                hover:bg-muted/30 hover:text-foreground"
           >
             Screening
+          </TabsTrigger>
+
+          <TabsTrigger
+            value="results"
+            className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground"
+          >
+            Results
           </TabsTrigger>
         </TabsList>
 
@@ -813,11 +915,11 @@ export default function ExamDashboard() {
                   <TableHeader>
                     <TableRow>
                       <TableHead className="text-primary font-bold">Exam Name</TableHead>
+                      <TableHead className="text-primary font-bold">Department</TableHead>
+                      <TableHead className="text-primary font-bold">Board</TableHead>
                       <TableHead className="text-primary font-bold">Type</TableHead>
                       <TableHead className="text-primary font-bold">Date & Time</TableHead>
                       <TableHead className="text-primary font-bold">Duration</TableHead>
-                      <TableHead className="text-primary font-bold">Agency</TableHead>
-                      <TableHead className="text-primary font-bold">Board</TableHead>
                       <TableHead className="text-primary font-bold">Status</TableHead>
                       <TableHead className="text-primary font-bold">Actions</TableHead>
                     </TableRow>
@@ -828,6 +930,8 @@ export default function ExamDashboard() {
                         <TableCell className="font-medium px-2 py-1">
                           {exam.name}
                         </TableCell>
+                        <TableCell  className="px-2 py-1">{exam.agency}</TableCell>
+                        <TableCell  className="px-2 py-1">{exam.board}</TableCell>
                         <TableCell  className="px-2 py-1">
                           <Badge variant="outline">{exam.type}</Badge>
                         </TableCell>
@@ -842,17 +946,26 @@ export default function ExamDashboard() {
                         <TableCell  className="px-2 py-1">
                           {exam.duration} min
                         </TableCell>
-                        <TableCell  className="px-2 py-1">{exam.agency}</TableCell>
-                        <TableCell  className="px-2 py-1">{exam.board}</TableCell>
                         <TableCell  className="px-2 py-1">
-                          <Badge
-                            variant={
-                              exam.status === "Active" ? "default" : "destructive"
-                            }
-                            className={exam.status === "Active" ? "hover:bg-primary hover:text-primary-foreground" : "hover:bg-secondary hover:text-secondary-foreground"}
-                          >
-                            {exam.status}
-                          </Badge>
+
+<Badge
+                        variant={
+                          exam.status === "Ongoing"
+                            ? "default"
+                            : exam.status === "Completed"
+                            ? "outline" // use outline but we’ll override with yellow
+                            : "destructive"
+                        }
+                        className={
+                          exam.status === "Ongoing"
+                            ? "hover:bg-primary hover:text-primary-foreground"
+                            : exam.status === "Completed"
+                            ? "bg-yellow-500 text-black hover:bg-yellow-600 hover:text-black"
+                            : "bg-destructive text-white hover:bg-destructive hover:text-white"
+                        }
+                      >
+                        {exam.status}
+                      </Badge>
                         </TableCell>
                         <TableCell  className="px-2 py-1">
                           <div className="flex gap-2">
@@ -908,9 +1021,11 @@ export default function ExamDashboard() {
                   <TableHeader>
                     <TableRow>
                       <TableHead className="text-primary font-bold">Center Name</TableHead>
+                      <TableHead className="text-primary font-bold">Code</TableHead>
                       <TableHead className="text-primary font-bold">Location</TableHead>
                       <TableHead className="text-primary font-bold">Capacity</TableHead>
                       <TableHead className="text-primary font-bold">Assigned Exams</TableHead>
+                      <TableHead className="text-primary font-bold">Completed Exams</TableHead>
                       <TableHead className="text-primary font-bold">Status</TableHead>
                       <TableHead className="text-primary font-bold">Actions</TableHead>
                     </TableRow>
@@ -921,9 +1036,11 @@ export default function ExamDashboard() {
                         <TableCell className="font-medium px-2 py-1">
                           {center.name}
                         </TableCell>
+                        <TableCell  className="px-2 py-1">{center.code}</TableCell>
                         <TableCell  className="px-2 py-1">{center.location}</TableCell>
                         <TableCell  className="px-2 py-1">{center.capacity}</TableCell>
                         <TableCell  className="px-2 py-1">{center.assignedExams}</TableCell>
+                        <TableCell  className="px-2 py-1">{center.completedExams}</TableCell>
                         <TableCell  className="px-2 py-1">
                           <Badge
                             variant={

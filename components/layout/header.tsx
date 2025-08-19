@@ -69,24 +69,24 @@ const navigationItems = [
         icon: Users,
       },
       {
+        title: "Employer Dashboard",
+        href: "/dashboard/employer",
+        icon: Building2,
+      },
+       {
         title: "Employee Dashboard",
         href: "/dashboard/employee",
         icon: Users,
       },
       {
-        title: "Employer Dashboard",
-        href: "/dashboard/employer",
-        icon: Building2,
-      },
-      {
         title: "Exam Dashboard",
-        href: "/dashboard/exam",
-        icon: ClipboardList,
+        href: "/dashboard/exam-center",
+        icon: MapPin,
       },
       {
         title: "Exam Center Dashboard",
-        href: "/dashboard/exam-center",
-        icon: MapPin,
+        href: "/dashboard/exam",
+        icon: ClipboardList,
       },
     ],
   },
@@ -94,7 +94,7 @@ const navigationItems = [
     title: "Exam Management",
     items: [
       {
-        title: "Exam Calendar",
+        title: "Exam Screening",
         href: "/exam/calendar",
         icon: Calendar,
       },

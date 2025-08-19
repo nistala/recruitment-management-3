@@ -60,19 +60,22 @@ import {
 import { hover } from "framer-motion";
 
 const employerData = [
-  { name: "Tech Corp", type: "Private", employees: 250, status: "Active" },
-  { name: "Govt Dept", type: "Government", employees: 500, status: "Active" },
+  { name: "Tech Corp",department:'IT', type: "Private",location:'Bangalore', employees: 250, status: "Released" },
+  { name: "Govt Dept",department:'Civil Services',location:"Hyderabad", type: "Government", employees: 500, status: "Released" },
   {
-    name: "Edu Institute",
-    type: "Educational",
+    name: "Manufactuiring Inc",
+    department:'Manufacturing',
+    location:"Chennai",
+    type: "Private",
     employees: 150,
     status: "Pending",
   },
 ];
 
 const candidateDistribution = [
-  { name: "Government Colleges", value: 65, color: " #2368a0" },
-  { name: "Private Colleges", value: 35, color: " #ef4048" },
+  { name: "Government", value: 55, color: " #2368a0" },
+  { name: "Private ", value: 35, color: " #ef4048" },
+  { name: "Job Fair ", value: 10, color: " #40ef40ff" },
 ];
 
 const examData = [
@@ -80,6 +83,7 @@ const examData = [
     name: "Banking Exam",
     examKey: "BE",
     candidates: 70,
+    exam_type:"Preliminary",
     date: "2025-08-15",
     status: "Scheduled",
   },
@@ -87,12 +91,14 @@ const examData = [
     name: "Civil Services",
     examKey: "CS",
     candidates: 50,
+    exam_type:"Preliminary",
     date: "2025-08-20",
-    status: "Active",
+    status: "Applied",
   },
   {
     name: "Technical Test",
     examKey: "TT",
+    exam_type:"Tier-1",
     candidates: 30,
     date: "2025-08-25",
     status: "Completed",
@@ -100,6 +106,7 @@ const examData = [
   {
     name: "Railway Recruitment",
     candidates: 120,
+    exam_type:"Mains",
     examKey: "RR",
     date: "2025-08-30",
     status: "Scheduled",
@@ -107,13 +114,15 @@ const examData = [
   {
     name: "Teacher Eligibility Test",
     candidates: 95,
+    exam_type:"Mains",
     examKey: "TET",
     date: "2025-09-05",
-    status: "Active",
+    status: "Applied",
   },
   {
     name: "Police Constable Exam",
     examKey: "PCE",
+    exam_type:"Preliminary",
     candidates: 150,
     date: "2025-09-10",
     status: "Scheduled",
@@ -121,13 +130,15 @@ const examData = [
   {
     name: "Software Developer Engineer",
     examKey: "SDE",
+    exam_type:"Tier-2",
     candidates: 40,
     date: "2025-09-15",
-    status: "Active",
+    status: "Applied",
   },
   {
     name: "Medical Entrance Test",
     examKey: "NEET",
+    exam_type:"Tier-2",
     candidates: 85,
     date: "2025-09-20",
     status: "Completed",
@@ -136,11 +147,18 @@ const examData = [
 
 const stats = [
   {
-    title: "Total Employees",
-    value: "56",
+    title: "Employees",
+    value: "120",
     icon: Building2,
     color: "text-blue-600",
     description: "Company-wide",
+  },
+    {
+    title: "Active Employees",
+    value: "89",
+    icon: ClipboardList,
+    color: "text-orange-600",
+    description: "Currently working",
   },
   {
     title: "Registered Candidates",
@@ -149,48 +167,42 @@ const stats = [
     color: "text-green-600",
     description: "Job applicants",
   },
-  {
-    title: "Active Employees",
-    value: "89",
-    icon: ClipboardList,
-    color: "text-orange-600",
-    description: "Currently working",
-  },
-  {
-    title: "Universities",
-    value: "156",
-    icon: GraduationCap,
-    color: "text-purple-600",
-    description: "Partner institutions",
-  },
-  {
-    title: "Departments",
-    value: "12",
-    icon: Briefcase,
-    color: "text-indigo-600",
-    description: "Across organization",
-  },
-  {
-    title: "Open Positions",
-    value: "24",
-    icon: FileText,
-    color: "text-red-600",
-    description: "Currently hiring",
+    {
+    title: "Interviews Scheduled",
+    value: "32",
+    icon: CalendarIcon,
+    color: "text-teal-600",
+    description: "This month"
   },
   // {
-  //   title: "Interviews Scheduled",
-  //   value: "32",
-  //   icon: CalendarIcon,
-  //   color: "text-teal-600",
-  //   description: "This month"
+  //   title: "Universities",
+  //   value: "156",
+  //   icon: GraduationCap,
+  //   color: "text-purple-600",
+  //   description: "Partner institutions",
   // },
   // {
-  //   title: "Offers Released",
-  //   value: "18",
-  //   icon: BadgeCheck,
-  //   color: "text-yellow-600",
-  //   description: "Awaiting acceptance"
-  // }
+  //   title: "Departments",
+  //   value: "12",
+  //   icon: Briefcase,
+  //   color: "text-indigo-600",
+  //   description: "Across organization",
+  // },
+  {
+    title: "Selceted Candidates",
+    value: "24",
+    icon: GraduationCap,
+    color: "text-red-600",
+    description: "Shortlisted for interviews",
+  },
+
+  {
+    title: "Offers Released",
+    value: "18",
+    icon: BadgeCheck,
+    color: "text-yellow-600",
+    description: "Awaiting acceptance"
+  }
 ];
 
 export default function EmployeeDashboard() {
@@ -323,7 +335,7 @@ export default function EmployeeDashboard() {
           <div className="flex gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Search employers..." className="pl-8" />
+              <Input placeholder="Search companies..." className="pl-8" />
             </div>
             <Select>
               <SelectTrigger className="w-[180px]">
@@ -353,8 +365,11 @@ export default function EmployeeDashboard() {
                     Company Name
                   </TableHead>
                   <TableHead className="text-primary font-bold">Type</TableHead>
+                  <TableHead className="text-primary font-bold">Department</TableHead>
+                  <TableHead className="text-primary font-bold">Location</TableHead>
+
                   <TableHead className="text-primary font-bold">
-                    Employees
+                    Selected Employees
                   </TableHead>
                   <TableHead className="text-primary font-bold">
                     Status
@@ -371,16 +386,18 @@ export default function EmployeeDashboard() {
                       {employer.name}
                     </TableCell>
                     <TableCell className="px-2 py-1">{employer.type}</TableCell>
+                    <TableCell className="px-2 py-1">{employer.department}</TableCell>
+                    <TableCell className="px-2 py-1">{employer.location}</TableCell>
                     <TableCell>{employer.employees}</TableCell>
                     <TableCell className="px-2 py-1">
                       <Badge
                         variant={
-                          employer.status === "Active"
+                          employer.status === "Released"
                             ? "default"
                             : "destructive"
                         }
                         className={
-                          employer.status === "Active"
+                          employer.status === "Released"
                             ? "hover:bg-primary hover:text-primary-foreground"
                             : "hover:bg-destructive hover:text-destructive-foreground"
                         }
@@ -409,7 +426,7 @@ export default function EmployeeDashboard() {
           <div className="flex gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Search exam name..." className="pl-8" />
+              <Input placeholder="Search exam title..." className="pl-8" />
             </div>
             <Select>
               <SelectTrigger className="w-[180px]">
@@ -447,7 +464,10 @@ export default function EmployeeDashboard() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="text-primary font-bold">
-                    Exam Name
+                    Exam Title
+                  </TableHead>
+                   <TableHead className="text-primary font-bold">
+                    Exam Type
                   </TableHead>
                   <TableHead className="text-primary font-bold">
                     Candidates
@@ -469,6 +489,9 @@ export default function EmployeeDashboard() {
                     <TableCell className="font-medium px-2 py-1">
                       {exam.name}
                     </TableCell>
+                     <TableCell className="font-medium px-2 py-1">
+                      {exam.exam_type}
+                    </TableCell>
                     <TableCell className="px-2 py-1">
                       {exam.candidates}
                     </TableCell>
@@ -476,14 +499,14 @@ export default function EmployeeDashboard() {
                     <TableCell className="px-2 py-1">
                       <Badge
                         variant={
-                          exam.status === "Active"
+                          exam.status === "Applied"
                             ? "default"
                             : exam.status === "Completed"
                             ? "outline" // use outline but we’ll override with yellow
                             : "outline"
                         }
                         className={
-                          exam.status === "Active"
+                          exam.status === "Applied"
                             ? "hover:bg-primary hover:text-primary-foreground"
                             : exam.status === "Completed"
                             ? "bg-yellow-500 text-black hover:bg-yellow-600 hover:text-black"

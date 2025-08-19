@@ -30,7 +30,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const jobData = {
   title: "IAS Recruitment 2025 Notification PDF",
-  postName: "Indian Administrative Service (IAS) Recruitment Online Form 2025",
+  postName: "Indian Administrative Service (IAS) Recruitment Online Notification 2025",
   postDate: "2025-07-10",
   latestUpdate: "2025-08-14",
   totalVacancy: 850,
@@ -125,9 +125,9 @@ export default function JobDetailsPage() {
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-6">
-      <div className="max-w-6xl mx-auto space-y-2">
+      <div className="max-w-6xl mx-auto space-y-1">
         {/* Header with Back Navigation */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center justify-center  gap-4 mb-6 ">
           <Button
             variant="outline"
             size="sm"
@@ -149,11 +149,11 @@ export default function JobDetailsPage() {
         </div>
 
         {/* Status Banner */}
-        <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex items-center justify-center  w-full gap-3.5">
           {/* Banner */}
-          <Card className="border-l-4 border-l-green-500 bg-green-50 flex-1">
+          <Card className="border-l-4 border-l-green-500 bg-green-50 w-full">
             <CardContent className="p-2">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 w-full">
                 {isApplicationOpen() ? (
                   <>
                     <CheckCircle className="h-5 w-5 text-green-600" />
@@ -186,11 +186,11 @@ export default function JobDetailsPage() {
           </Card>
 
           {/* Buttons */}
-          <div className="flex gap-3">
-            <Button
+          <div className="flex items-end justify-center w-full gap-2 ">
+            {/* <Button
               variant="outline"
               asChild
-              className="bg-[#00aae7] text-white px-4 py-2 rounded-lg hover:bg-[#00aae7] hover:text-white transition-colors w-full md:w-auto"
+              className="bg-[#00aae7] text-white rounded-lg hover:bg-[#00aae7] hover:text-white transition-colors flex items-center justify-center px-2 h-full"
             >
               <a
                 href={jobData.importantLinks.notificationPDF}
@@ -204,40 +204,71 @@ export default function JobDetailsPage() {
             <Button
               variant="outline"
               asChild
-              className=" bg-[#ef4048] text-white px-4 py-2 rounded-lg hover:bg-[#ef4048] hover:text-white transition-colors w-full md:w-auto"
+              className=" bg-[#ef4048] text-white px-4 py-5 rounded-lg hover:bg-[#ef4048] hover:text-white transition-colors h-full"
             >
               <a
                 href={jobData.importantLinks.officialWebsite}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <ExternalLink className="h-4 w-4 mr-2" />
+                <ExternalLink className="h-4 w-4 ml-2" />
                 Official Website
               </a>
             </Button>
             <Button
-              className=" bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors w-full md:w-auto"
+              className=" bg-primary text-white px-4 rounded-lg hover:bg-primary hover:text-white transition-colors h-full"
               size="lg"
               onClick={() => setShowApplyDialog(true)}
               disabled={!isApplicationOpen()}
             >
               {isApplicationOpen() ? "Apply Now" : "Applications Not Open"}
-            </Button>
+            </Button> */}
+
+            <button className="bg-[#00aae7] w-full py-2 rounded-lg text-sm text-white flex items-center justify-center">
+              <a
+                href={jobData.importantLinks.notificationPDF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Download Notification
+              </a>
+            </button>
+            <button className="bg-[#ef4048] w-full py-2 rounded-lg text-sm text-white flex items-center justify-center">
+              <a
+                href={jobData.importantLinks.officialWebsite}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3"
+              >
+                <ExternalLink className="h-4 w-4 ml-2" />
+                Official Website
+              </a>
+            </button>
+            <button
+              className="bg-primary w-full py-2 rounded-lg text-sm text-white flex items-center justify-center"
+              onClick={() => setShowApplyDialog(true)}
+              disabled={!isApplicationOpen()}
+            >
+              {isApplicationOpen() ? "Apply Now" : "Applications Not Open"}
+            </button>
+
           </div>
         </div>
 
-        <div className="grid gap-2 lg:grid-cols-4">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-2">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-2">
             {/* Brief Information */}
-            <Card>
+            <Card className="flex flex-col h-48 md:h-50 lg:h-80 ">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold text-primary">
-                  <FileText className="h-4 w-4" />
+                  <FileText className=" w-4" />
                   Job Overview
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2">
+              <CardContent className="space-y-4">
                 <p className="text-gray-700 leading-relaxed text-sm">
                   {jobData.briefInformation}
                 </p>
@@ -249,7 +280,7 @@ export default function JobDetailsPage() {
             </Card>
 
             {/* Organization Details */}
-            <Card>
+            <Card className="flex flex-col h-32 md:h-40 lg:h-48">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold text-primary">
                   <Building2 className="h-4 w-4" />
@@ -257,7 +288,7 @@ export default function JobDetailsPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-1 md:grid-cols-2">
                   <div>
                     <p className="text-sm font-medium text-gray-500">
                       Organization
@@ -292,7 +323,7 @@ export default function JobDetailsPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="flex flex-col h-48 md:h-50 lg:h-72">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold text-primary">
                   <GraduationCap className="h-4 w-4" />
@@ -320,7 +351,7 @@ export default function JobDetailsPage() {
                   <h3 className="text-sm font-medium text-gray-500 ">
                     Selection Process
                   </h3>
-                  <div>
+                  <div className="flex flex-col gap-2 mt-2">
                     {jobData.selectionProcess.map((step, index) => (
                       <div key={index} className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-semibold">
@@ -339,7 +370,7 @@ export default function JobDetailsPage() {
           <div className=" lg:col-span-2 space-y-2">
             {/* Important Dates */}
             {/* Salary Details */}
-            <Card>
+            <Card className="flex flex-col h-38 md:h-49 lg:h-80">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold text-primary">
                   <IndianRupee className="h-4 w-4" />
@@ -364,7 +395,7 @@ export default function JobDetailsPage() {
                   <p className="text-sm font-medium text-gray-500 mb-2">
                     Additional Benefits
                   </p>
-                  <ul className="space-y-1">
+                  <ul>
                     {jobData.salary.perks.map((perk, index) => (
                       <li
                         key={index}
@@ -378,7 +409,7 @@ export default function JobDetailsPage() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="flex flex-col h-32 md:h-40 lg:h-48">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold text-primary">
                   <Calendar className="h-4 w-4" />
@@ -430,7 +461,7 @@ export default function JobDetailsPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="flex flex-col h-48 md:h-50 lg:h-72">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-semibold text-primary">
                   <User className="h-4 w-4" />

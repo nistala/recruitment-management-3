@@ -181,7 +181,7 @@ export default function ProfilePage() {
                data-[state=active]:bg-primary 
                data-[state=active]:text-primary-foreground
                data-[state=inactive]:text-balck-foreground
-               hover:bg-muted/30 hover:text-foreground">Security</TabsTrigger>
+               hover:bg-muted/30 hover:text-foreground">Change Password</TabsTrigger>
             </TabsList>
 
             {/* Personal Information Tab */}
@@ -343,7 +343,7 @@ export default function ProfilePage() {
             <TabsContent value="security">
               <Card>
                 <CardHeader>
-                  <CardTitle>Security Settings</CardTitle>
+                  <CardTitle>Password Settings</CardTitle>
                   <CardDescription>Manage your password and security preferences</CardDescription>
                 </CardHeader>
                 <CardContent>

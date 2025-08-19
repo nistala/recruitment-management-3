@@ -64,6 +64,7 @@ const jobNotifications = [
     department: "IT",
     applications: 245,
     deadline: "2025-08-20",
+    jobType: "Full-time",
     status: "Active",
   },
   {
@@ -72,6 +73,7 @@ const jobNotifications = [
     department: "Analytics",
     applications: 189,
     deadline: "2025-08-25",
+    jobType: "Part-time",
     status: "Active",
   },
   {
@@ -80,6 +82,7 @@ const jobNotifications = [
     department: "Operations",
     applications: 156,
     deadline: "2025-08-30",
+    jobType: "Contract",
     status: "Draft",
   },
 ];
@@ -221,7 +224,7 @@ export default function EmployerDashboard() {
         <div>
           <h1 className="text-2xl font-bold">Employer Dashboard</h1>
           <p className="text-muted-foreground">
-            Manage job postings and candidate applications
+            Managing job notification postings and candidate applications
           </p>
         </div>
         <Button>
@@ -318,12 +321,12 @@ export default function EmployerDashboard() {
         <CardHeader>
           <CardTitle>Job Notifications</CardTitle>
           <CardDescription>
-            Manage your job postings and filter candidates
+            Managing job notifications, postings and filter candidates
           </CardDescription>
           <div className="flex gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Search job postings..." className="pl-8" />
+              <Input placeholder="Search job title..." className="pl-8" />
             </div>
             <Select>
               <SelectTrigger className="w-[180px]">
@@ -364,6 +367,7 @@ export default function EmployerDashboard() {
                   <TableHead className="text-primary font-bold">Job Title</TableHead>
                   <TableHead className="text-primary font-bold">Department</TableHead>
                   <TableHead className="text-primary font-bold">Applications</TableHead>
+                  <TableHead className="text-primary font-bold">Job Type</TableHead>
                   <TableHead className="text-primary font-bold">Deadline</TableHead>
                   <TableHead className="text-primary font-bold">Status</TableHead>
                   <TableHead className="text-primary font-bold">Actions</TableHead>
@@ -380,6 +384,7 @@ export default function EmployerDashboard() {
                     </TableCell>
                     <TableCell className="px-8">{job.department}</TableCell>
                     <TableCell className="px-8">{job.applications}</TableCell>
+                     <TableCell className="px-8">{job.jobType}</TableCell>
                     <TableCell className="px-8">{job.deadline}</TableCell>
                     <TableCell className="px-8">
                       <Badge
@@ -413,12 +418,12 @@ export default function EmployerDashboard() {
         <CardHeader>
           <CardTitle>Recent Applications</CardTitle>
           <CardDescription>
-            Latest candidate applications for your job postings
+            Latest candidate applications for your job notification
           </CardDescription>
           <div className="flex gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Search job postings..." className="pl-8" />
+              <Input placeholder="Search with Candidate..." className="pl-8" />
             </div>
             <Select>
               <SelectTrigger className="w-[180px]">

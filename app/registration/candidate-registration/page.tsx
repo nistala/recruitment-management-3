@@ -131,22 +131,9 @@ export default function CandidateRegistration() {
                   name="first_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>First Name *</FormLabel>
+                      <FormLabel>First Name <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="Ravi" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="last_name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Last Name *</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Kumar" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -167,10 +154,23 @@ export default function CandidateRegistration() {
                 />
                 <FormField
                   control={form.control}
+                  name="last_name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Last Name <span className="text-red-600">*</span></FormLabel>
+                      <FormControl>
+                        <Input placeholder="Kumar" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="gender"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Gender *</FormLabel>
+                      <FormLabel>Gender <span className="text-red-600">*</span></FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger>
@@ -192,7 +192,7 @@ export default function CandidateRegistration() {
                   name="phone_no"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone Number *</FormLabel>
+                      <FormLabel>Phone Number <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="+919876543210" {...field} />
                       </FormControl>
@@ -205,7 +205,7 @@ export default function CandidateRegistration() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email *</FormLabel>
+                      <FormLabel>Email <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="email" placeholder="ravi.kumar@example.com" {...field} />
                       </FormControl>
@@ -218,7 +218,7 @@ export default function CandidateRegistration() {
                   name="experience"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Experience (Years) *</FormLabel>
+                      <FormLabel>Experience (Years) <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="5" {...field} />
                       </FormControl>
@@ -231,7 +231,7 @@ export default function CandidateRegistration() {
                   name="marital_status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Marital Status *</FormLabel>
+                      <FormLabel>Marital Status <span className="text-red-600">*</span></FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger>
@@ -269,7 +269,7 @@ export default function CandidateRegistration() {
                       name="aadhar_card_number"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Aadhar Card Number *</FormLabel>
+                          <FormLabel>Aadhar Card Number <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="123456789012" {...field} />
                           </FormControl>
@@ -282,7 +282,7 @@ export default function CandidateRegistration() {
                       name="pan_number"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>PAN Number *</FormLabel>
+                          <FormLabel>PAN Number <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="ABCDE1234F" {...field} />
                           </FormControl>
@@ -297,7 +297,7 @@ export default function CandidateRegistration() {
                         <FormItem>
                           <FormLabel>Employment No.</FormLabel>
                           <FormControl>
-                            <Input placeholder="ABCDE1234F" {...field} />
+                            <Input placeholder="XYZ0106201201" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -316,7 +316,7 @@ export default function CandidateRegistration() {
                       name="father_name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Father's Name *</FormLabel>
+                          <FormLabel>Father's Name <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="Ramesh Kumar" {...field} />
                           </FormControl>
@@ -329,7 +329,7 @@ export default function CandidateRegistration() {
                       name="mother_name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Mother's Name *</FormLabel>
+                          <FormLabel>Mother's Name <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="Savitri Devi" {...field} />
                           </FormControl>
@@ -342,7 +342,7 @@ export default function CandidateRegistration() {
                       name="guardian_name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Guardian's Name *</FormLabel>
+                          <FormLabel>Guardian's Name <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="Ramesh Kumar" {...field} />
                           </FormControl>
@@ -363,7 +363,7 @@ export default function CandidateRegistration() {
                       name="religion"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Religion *</FormLabel>
+                          <FormLabel>Religion <span className="text-red-600">*</span></FormLabel>
                           <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger>
@@ -388,7 +388,7 @@ export default function CandidateRegistration() {
                       name="caste"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Caste *</FormLabel>
+                          <FormLabel>Caste <span className="text-red-600">*</span></FormLabel>
                           <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger>
@@ -411,7 +411,7 @@ export default function CandidateRegistration() {
                       name="sub_caste"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Sub Caste *</FormLabel>
+                          <FormLabel>Sub Caste <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="Y" {...field} />
                           </FormControl>
@@ -438,7 +438,7 @@ export default function CandidateRegistration() {
                   name="state"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>State *</FormLabel>
+                      <FormLabel>State <span className="text-red-600">*</span></FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger>
@@ -461,7 +461,7 @@ export default function CandidateRegistration() {
                   name="district"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>District *</FormLabel>
+                      <FormLabel>District <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="Hyderabad" {...field} />
                       </FormControl>
@@ -474,7 +474,7 @@ export default function CandidateRegistration() {
                   name="mandal"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Mandal *</FormLabel>
+                      <FormLabel>Mandal <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="Serilingampally" {...field} />
                       </FormControl>
@@ -487,7 +487,7 @@ export default function CandidateRegistration() {
                   name="city"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>City *</FormLabel>
+                      <FormLabel>City <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="Hyderabad" {...field} />
                       </FormControl>
@@ -500,7 +500,7 @@ export default function CandidateRegistration() {
                   name="pincode"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Pincode *</FormLabel>
+                      <FormLabel>Pincode <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="500032" {...field} />
                       </FormControl>
@@ -525,7 +525,7 @@ export default function CandidateRegistration() {
                   name="education_type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Education Type *</FormLabel>
+                      <FormLabel>Education Type <span className="text-red-600">*</span></FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger>
@@ -550,7 +550,7 @@ export default function CandidateRegistration() {
                   name="course_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Course Name *</FormLabel>
+                      <FormLabel>Course Name <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="B.Tech" {...field} />
                       </FormControl>
@@ -563,7 +563,7 @@ export default function CandidateRegistration() {
                   name="specialization"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Specialization *</FormLabel>
+                      <FormLabel>Specialization <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="Computer Science" {...field} />
                       </FormControl>
@@ -576,7 +576,7 @@ export default function CandidateRegistration() {
                   name="university_or_board"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>University/Board *</FormLabel>
+                      <FormLabel>University/Board <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="Osmania University" {...field} />
                       </FormControl>
@@ -589,7 +589,7 @@ export default function CandidateRegistration() {
                   name="school_or_college"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>School/College *</FormLabel>
+                      <FormLabel>School/College <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="CBIT Hyderabad" {...field} />
                       </FormControl>
@@ -602,7 +602,7 @@ export default function CandidateRegistration() {
                   name="education_location"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Education Location *</FormLabel>
+                      <FormLabel>Education Location <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="Hyderabad" {...field} />
                       </FormControl>
@@ -615,7 +615,7 @@ export default function CandidateRegistration() {
                   name="start_year"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Start Year *</FormLabel>
+                      <FormLabel>Start Year <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="2015" {...field} />
                       </FormControl>
@@ -628,7 +628,7 @@ export default function CandidateRegistration() {
                   name="end_year"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>End Year *</FormLabel>
+                      <FormLabel>End Year <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="2019" {...field} />
                       </FormControl>
@@ -641,7 +641,7 @@ export default function CandidateRegistration() {
                   name="cgpa"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>CGPA *</FormLabel>
+                      <FormLabel>CGPA <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="number" step="0.01" placeholder="8.75" {...field} />
                       </FormControl>
@@ -654,7 +654,7 @@ export default function CandidateRegistration() {
                   name="percentage"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Percentage *</FormLabel>
+                      <FormLabel>Percentage <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="number" step="0.01" placeholder="87.50" {...field} />
                       </FormControl>

@@ -44,12 +44,12 @@ export default function HomePage() {
       color: "#232527", // green-500
     },
     {
-      title: "Active Exams",
-      value: "89",
-      change: "+15%",
-      description: "Exams currently open for participation",
-      icon: ClipboardList,
-      color: "#0d416b", // amber-500
+      title: "Colleges",
+      value: "47",
+      change: "+9%",
+      description: "Educational institutions registered on the platform",
+      icon: Library,
+      color: " #00aae7", // pink-500
     },
     {
       title: "Exam Centers",
@@ -60,12 +60,12 @@ export default function HomePage() {
       color: "#0d416b", // violet-500
     },
     {
-      title: "Scheduled Exams",
-      value: "47",
-      change: "+9%",
-      description: "Exams scheduled to start within the next 30 days",
-      icon: Calendar,
-      color: " #00aae7", // pink-500
+      title: "Active Exams",
+      value: "89",
+      change: "+15%",
+      description: "Exams currently open for participation",
+      icon: ClipboardList,
+      color: "#0d416b", // amber-500
     },
     {
       title: "Results Published",
@@ -79,41 +79,47 @@ export default function HomePage() {
 
   const quickActions = [
     {
-      title: "Register New Employer",
+      title: "Employer",
       description: "Add a new employer to the system to enable them to post job openings",
       href: "/registration/employer",
+      label: "Register",
       icon: Building2,
     },
     {
-      title: "Register Candidate",
+      title: "Candidate",
       description: "Register a new candidate for the examination",
       href: "/registration/candidate",
+      label: "Register",
       icon: Users,
     },
     {
-      title: "Schedule Exam",
+      title: "Exam Center",
       description: "Create and schedule new examinations",
-      href: "/exam/calendar",
+      href: "/exam-center/add-exam-center",
+      label: "Register",
       icon: Calendar,
     },
-    {
-      title: "View Reports",
-      description: "Access detailed analytics and reports",
-      href: "/exam/results",
-      icon: TrendingUp,
-    },
+      {
+    title: "Colleges",
+    description: "Manage college information and affiliations",
+    href: "/colleges",
+    label: "Register",
+    icon: Library,  // assuming you have an icon named AcademicCap or similar
+  },
     {
     title: "Sales",
     description: "Manage and track sales activities and performance",
     href: "/sales",
+    label: "Register",
     icon: ShoppingCart,  // assuming you have an icon named ShoppingCart or similar
   },
-  {
-    title: "Colleges",
-    description: "Manage college information and affiliations",
-    href: "/colleges",
-    icon: Library,  // assuming you have an icon named AcademicCap or similar
-  },
+     {
+      title: "View Results",
+      description: "Access detailed analytics and reports",
+      href: "/exam/results",
+      label: "View",
+      icon: TrendingUp,
+    },
    
   ]
 
@@ -221,7 +227,7 @@ export default function HomePage() {
                 </CardHeader>
                 <CardContent>
                   <Button asChild className="w-full">
-                    <Link href={action.href}>Get Started</Link>
+                    <Link href={action.href}>{action.label}</Link>
                   </Button>
                 </CardContent>
               </Card>

@@ -276,7 +276,7 @@ export default function EmployerRegistration() {
             <CardHeader>
               <CardTitle id="company-info" className="text-primary">Company Information</CardTitle>
               <CardDescription>
-                Basic information about your company
+                Information about your company
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -293,7 +293,7 @@ export default function EmployerRegistration() {
                     return (
                       <FormItem>
                         <FormLabel>
-                          Corporate Identification Number (CIN)*
+                          Corporate Identification Number (CIN)<span className="text-red-600">*</span>
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -319,7 +319,7 @@ export default function EmployerRegistration() {
                   name="company_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Name *</FormLabel>
+                      Company Name <span className="text-red-600">*</span>
                       <FormControl>
                         <Input placeholder="Example Pvt Ltd" {...field} />
                       </FormControl>
@@ -332,7 +332,7 @@ export default function EmployerRegistration() {
                   name="company_website"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Website *</FormLabel>
+                      <FormLabel>Company Website <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input
                           placeholder="https://www.example.com"
@@ -348,7 +348,7 @@ export default function EmployerRegistration() {
                   name="company_type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Type *</FormLabel>
+                      <FormLabel>Company Type <span className="text-red-600">*</span></FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -383,7 +383,7 @@ export default function EmployerRegistration() {
                   name="industry_type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Industry Type *</FormLabel>
+                      <FormLabel>Industry Type <span className="text-red-600">*</span></FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -416,7 +416,7 @@ export default function EmployerRegistration() {
                   name="year_founded"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Year Founded *</FormLabel>
+                      <FormLabel>Year Founded <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="2005" {...field} />
                       </FormControl>
@@ -429,7 +429,7 @@ export default function EmployerRegistration() {
                   name="no_of_employees"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Number of Employees *</FormLabel>
+                      <FormLabel>Number of Employees <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="250" {...field} />
                       </FormControl>
@@ -442,7 +442,7 @@ export default function EmployerRegistration() {
                   name="number_of_branches"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Number of Branches *</FormLabel>
+                      <FormLabel>Number of Branches <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="10" {...field} />
                       </FormControl>
@@ -455,7 +455,7 @@ export default function EmployerRegistration() {
                   name="annual_revenue"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Annual Revenue *</FormLabel>
+                      <FormLabel>Annual Revenue <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="50Cr" {...field} />
                       </FormControl>
@@ -470,10 +470,10 @@ export default function EmployerRegistration() {
                   name="about_company"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>About Company *</FormLabel>
+                      <FormLabel>About Company <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="We are a leading IT solutions provider offering cutting-edge software solutions..."
+                          placeholder="We offer modern technology solutions for businesses...."
                           {...field}
                         />
                       </FormControl>
@@ -500,7 +500,7 @@ export default function EmployerRegistration() {
                   name="department_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Department Name *</FormLabel>
+                      <FormLabel>Department Name <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="Finance Department" {...field} />
                       </FormControl>
@@ -513,7 +513,7 @@ export default function EmployerRegistration() {
                   name="department_code"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Department Code *</FormLabel>
+                      <FormLabel>Department Code <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="FIN01" {...field} />
                       </FormControl>
@@ -526,7 +526,7 @@ export default function EmployerRegistration() {
                   name="department_type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Department Type *</FormLabel>
+                      <FormLabel>Department Type <span className="text-red-600">*</span></FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -574,7 +574,7 @@ export default function EmployerRegistration() {
                   name="date_of_registered"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Date of Registration *</FormLabel>
+                      <FormLabel>Date of Registration <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input type="date" {...field} />
                       </FormControl>
@@ -587,7 +587,7 @@ export default function EmployerRegistration() {
                   name="pan_number"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>PAN Number *</FormLabel>
+                      <FormLabel>PAN Number <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="ABCDE1234F" {...field} />
                       </FormControl>
@@ -600,7 +600,7 @@ export default function EmployerRegistration() {
                   name="gst_number"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>GST Number *</FormLabel>
+                      <FormLabel>GST Number <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Input placeholder="22ABCDE1234F1Z5" {...field} />
                       </FormControl>
@@ -620,7 +620,7 @@ export default function EmployerRegistration() {
                         />
                       </FormControl>
                       <div className="space-y-1 leading-none">
-                        <FormLabel>ISO Certified</FormLabel>
+                        <FormLabel>ISO Certified </FormLabel>
                       </div>
                     </FormItem>
                   )}
@@ -649,7 +649,7 @@ export default function EmployerRegistration() {
                       name="official_email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Official Email *</FormLabel>
+                          <FormLabel>Official Email <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input
                               type="email"
@@ -666,7 +666,7 @@ export default function EmployerRegistration() {
                       name="official_mobile"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Official Mobile *</FormLabel>
+                          <FormLabel>Official Mobile <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="9876543210" {...field} />
                           </FormControl>
@@ -702,7 +702,7 @@ export default function EmployerRegistration() {
                       name="contact_person_name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Contact Person Name *</FormLabel>
+                          <FormLabel>Contact Person Name <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input
                               placeholder="Sai Kartik Nistala"
@@ -718,7 +718,7 @@ export default function EmployerRegistration() {
                       name="contact_person_designation"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Contact Person Designation *</FormLabel>
+                          <FormLabel>Contact Person Designation <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="HR Manager" {...field} />
                           </FormControl>
@@ -731,7 +731,7 @@ export default function EmployerRegistration() {
                       name="contact_person_email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Contact Person Email *</FormLabel>
+                          <FormLabel>Contact Person Email <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input
                               type="email"
@@ -748,7 +748,7 @@ export default function EmployerRegistration() {
                       name="contact_person_mobile"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Contact Person Mobile *</FormLabel>
+                          <FormLabel>Contact Person Mobile <span className="text-red-600">*</span></FormLabel>
                           <FormControl>
                             <Input placeholder="9876543211" {...field} />
                           </FormControl>
@@ -777,7 +777,7 @@ export default function EmployerRegistration() {
                   name="head_office_address"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Head Office Address *</FormLabel>
+                      <FormLabel>Head Office Address <span className="text-red-600">*</span></FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="123, Main Street, Hyderabad, Telangana"
@@ -794,7 +794,7 @@ export default function EmployerRegistration() {
                     name="state"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>State *</FormLabel>
+                        <FormLabel>State <span className="text-red-600">*</span></FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           value={field.value}
@@ -824,7 +824,7 @@ export default function EmployerRegistration() {
                     name="district"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>District *</FormLabel>
+                        <FormLabel>District <span className="text-red-600">*</span></FormLabel>
                         <FormControl>
                           <Input placeholder="Hyderabad" {...field} />
                         </FormControl>
@@ -837,7 +837,7 @@ export default function EmployerRegistration() {
                     name="mandal"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Mandal *</FormLabel>
+                        <FormLabel>Mandal <span className="text-red-600">*</span></FormLabel>
                         <FormControl>
                           <Input placeholder="Serilingampally" {...field} />
                         </FormControl>
@@ -850,7 +850,7 @@ export default function EmployerRegistration() {
                     name="city"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>City *</FormLabel>
+                        <FormLabel>City <span className="text-red-600">*</span></FormLabel>
                         <FormControl>
                           <Input placeholder="Hyderabad" {...field} />
                         </FormControl>
@@ -863,7 +863,7 @@ export default function EmployerRegistration() {
                     name="pincode"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Pincode *</FormLabel>
+                        <FormLabel>Pincode <span className="text-red-600">*</span></FormLabel>
                         <FormControl>
                           <Input placeholder="500032" {...field} />
                         </FormControl>

@@ -76,10 +76,10 @@ export default function ExamCalendar() {
     <div className="p-2 space-y-2">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Exam Calendar</h1>
+          <h1 className="text-2xl font-bold">Exam Screening</h1>
           <p className="text-muted-foreground">Schedule and manage examination dates</p>
         </div>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="h-4 w-4 mr-2" />
@@ -234,7 +234,7 @@ export default function ExamCalendar() {
               </form>
             </Form>
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">

@@ -11,13 +11,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { Skeleton, SkeletonCard, SkeletonTable, SkeletonChart } from "@/components/ui/skeleton"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts"
-import { Search, Filter, MapPin, Users, Clock, CheckCircle, Monitor, Shield, Zap, Phone, AlertTriangle, XCircle, Wifi, WifiOff, Camera, Scan, Battery, Users2, CalendarIcon } from 'lucide-react'
+import { Search, Filter, MapPin, Users, Clock, CheckCircle, Monitor, Shield, Zap, Phone, AlertTriangle, XCircle, Wifi, WifiOff, Camera, Scan, Battery, Users2, CalendarIcon,Plus } from 'lucide-react'
 import Link from "next/link";
 
 const liveMonitoringData = [
-  { center: "Hyderabad Main", online: 450, offline: 5, total: 455, uptime: 98.9 },
-  { center: "Bangalore Tech", online: 380, offline: 2, total: 382, uptime: 99.5 },
-  { center: "Chennai Regional", online: 295, offline: 8, total: 303, uptime: 97.4 },
+  { center: "Ion Digital Zone", location: "Hyderabad, Telangana",  online: 450, offline: 5, total: 455, uptime: 98.9 },
+  { center: "SVS Technology And Solutions",location: "Bangalore, Karnataka", online: 380, offline: 2, total: 382, uptime: 99.5 },
+  { center: "Arowana Digital Zone", location: "Chennai, Tamil Nadu", online: 295, offline: 8, total: 303, uptime: 97.4 },
 ]
 
 const omrLogistics = [
@@ -34,15 +34,15 @@ const securityChecklist = [
 ]
 
 const powerInternetReports = [
-  { center: "Hyderabad Main", powerUptime: 99.8, internetUptime: 99.5, lastOutage: "2 days ago" },
-  { center: "Bangalore Tech", powerUptime: 98.2, internetUptime: 99.8, lastOutage: "1 week ago" },
-  { center: "Chennai Regional", powerUptime: 97.5, internetUptime: 98.9, lastOutage: "3 days ago" },
+  { center: "Ion Digital Zone", powerUptime: 99.8, internetUptime: 99.5, lastOutage: "2 days ago" },
+  { center: "SVS Technology And Solutions", powerUptime: 98.2, internetUptime: 99.8, lastOutage: "1 week ago" },
+  { center: "Arowana Digital Zone", powerUptime: 97.5, internetUptime: 98.9, lastOutage: "3 days ago" },
 ]
 
 const escalationContacts = [
-  { name: "Dr. Rajesh Kumar", designation: "Regional Coordinator", zone: "South", phone: "+91-9876543210", email: "rajesh.kumar@rems.gov.in" },
-  { name: "Ms. Priya Sharma", designation: "Technical Lead", zone: "North", phone: "+91-9876543211", email: "priya.sharma@rems.gov.in" },
-  { name: "Mr. Anil Reddy", designation: "Security Officer", zone: "Central", phone: "+91-9876543212", email: "anil.reddy@rems.gov.in" },
+  { name: "Dr. Rajesh Kumar",examCenter:'SVS Technology And Solutions', designation: "Regional Coordinator", zone: "South", phone: "+91-9876543210", email: "rajesh.kumar@rems.gov.in" },
+  { name: "Ms. Priya Sharma",examCenter:'Ion Digital Zone', designation: "Technical Lead", zone: "North", phone: "+91-9876543211", email: "priya.sharma@rems.gov.in" },
+  { name: "Mr. Anil Reddy",examCenter:'SVS Technology And Solutions',  designation: "Security Officer", zone: "Central", phone: "+91-9876543212", email: "anil.reddy@rems.gov.in" },
 ]
 
 const attendanceData = [
@@ -73,13 +73,6 @@ export default function ExamCenterDashboard() {
     icon: MapPin, 
     color: "text-blue-600",
     description: "Currently operational"
-  },
-  { 
-    title: "Total Capacity", 
-    value: "6,500", 
-    icon: Users, 
-    color: "text-green-600",
-    description: "Max seating"
   },
   { 
     title: "Scheduled Exams", 
@@ -115,13 +108,6 @@ export default function ExamCenterDashboard() {
     icon: Users2, 
     color: "text-pink-600",
     description: "Invigilators & support"
-  },
-  { 
-    title: "Issues Reported", 
-    value: "12", 
-    icon: AlertTriangle, 
-    color: "text-red-600",
-    description: "Technical/logistics"
   }
 ];
 
@@ -136,7 +122,7 @@ export default function ExamCenterDashboard() {
       )
     } else {
       return (
-        <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-8">
+        <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-6">
           {stats.map((stat) => (
             <Card key={stat.title} className="p-2">
               <CardHeader className="flex flex-row items-center justify-between p-0 mb-1">
@@ -160,14 +146,16 @@ export default function ExamCenterDashboard() {
     <div className="p-2 space-y-2">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Exam Center Dashboard</h1>
-          <p className="text-muted-foreground">Monitor and manage exam center operations</p>
+          <h1 className="text-2xl font-bold">Exam Dashboard</h1>
+          <p className="text-muted-foreground">Schedule and manage examinations </p>
         </div>
         <Button>
-          <Link href="/dashboard/exam-center/add-exam-center" className="flex items-center gap-2">
-          <MapPin className="h-4 w-4 mr-2" />
-          Add New Center
+          
+ <Link href="/dashboard/exam/add-exam-schedule" className="flex items-center gap-2">
+           <Plus className="h-4 w-4 mr-2" />
+              Schedule Exam
           </Link>
+          
         </Button>
       </div>
 
@@ -222,7 +210,7 @@ export default function ExamCenterDashboard() {
                   {liveMonitoringData.map((center, index) => (
                     <div key={index} className="border rounded-lg p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-medium">{center.center}</h4>
+                        <h4 className="font-medium">{center.center}, {center.location}</h4>
                         <Badge variant={center.uptime > 99 ? "default" : "secondary"}>
                           {center.uptime}% Uptime
                         </Badge>
@@ -457,6 +445,7 @@ export default function ExamCenterDashboard() {
                   <TableHeader>
                     <TableRow>
                       <TableHead className="text-primary font-bold">Name</TableHead>
+                      <TableHead className="text-primary font-bold">Exam Center</TableHead>
                       <TableHead className="text-primary font-bold">Designation</TableHead>
                       <TableHead className="text-primary font-bold">Zone</TableHead>
                       <TableHead className="text-primary font-bold">Phone</TableHead>
@@ -467,6 +456,7 @@ export default function ExamCenterDashboard() {
                     {escalationContacts.map((contact, index) => (
                       <TableRow key={index}>
                         <TableCell className="font-medium">{contact.name}</TableCell>
+                        <TableCell className="font-medium">{contact.examCenter}</TableCell>
                         <TableCell>{contact.designation}</TableCell>
                         <TableCell>
                           <Badge variant="outline">{contact.zone}</Badge>
