@@ -11,6 +11,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator"
 import { useToast } from "@/hooks/use-toast"
 import { User } from 'lucide-react'
+import EducationDetails from "./education-details/page"
+import ExperienceDetails from "./experience-details/page"
+
 
 const candidateSchema = z.object({
   first_name: z.string().min(2, "First name must be at least 2 characters"),
@@ -513,7 +516,7 @@ export default function CandidateRegistration() {
           </Card>
 
           {/* Education Information Section */}
-          <Card>
+          {/* <Card>
             <CardHeader>
               <CardTitle id="education-info" className="text-primary">Education Information</CardTitle>
               <CardDescription>Educational qualifications and academic details</CardDescription>
@@ -664,7 +667,11 @@ export default function CandidateRegistration() {
                 />
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
+          <div className="grid gap-4 md:grid-cols-2"> 
+            <EducationDetails control={form.control}/>
+            <ExperienceDetails control={form.control} /> 
+            </div>
 
           <Card>
   <CardHeader>

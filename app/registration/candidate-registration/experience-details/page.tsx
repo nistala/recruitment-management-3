@@ -23,7 +23,7 @@ type Props = {
   control: Control<any>;
 };
 
-export function WorkExperienceSection({ control }: Props) {
+export default function WorkExperienceSection({ control }: Props) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "work_experience",
@@ -151,7 +151,7 @@ export function WorkExperienceSection({ control }: Props) {
               location: "",
               start_date: "",
               end_date: "",
-              responsibilities: "",
+            responsibilities: "",
             })
           }
         >
