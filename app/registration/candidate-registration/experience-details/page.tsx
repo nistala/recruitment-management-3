@@ -24,6 +24,10 @@ type Props = {
 };
 
 export default function WorkExperienceSection({ control }: Props) {
+   if (!control) {
+    // Optionally, you can render null or a fallback UI
+    return null;
+  }
   const { fields, append, remove } = useFieldArray({
     control,
     name: "work_experience",
