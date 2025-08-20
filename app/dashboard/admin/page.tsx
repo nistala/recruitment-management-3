@@ -33,7 +33,7 @@ export default function HomePage() {
       change: "+12%",
       description: "Employers registered on the platform",
       icon: Building2,
-      color: "#232527",
+      color: "#6c757d",
     },
     {
       title: "Candidates (Reg.)",
@@ -41,7 +41,7 @@ export default function HomePage() {
       change: "+8%",
       description: "Candidates eligible for upcoming or ongoing exams",
       icon: Users,
-      color: "#232527", // green-500
+      color: "#6c757d", // green-500
     },
     {
       title: "Colleges",

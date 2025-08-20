@@ -13,7 +13,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-background">
       {!hideLayout && <Header />}
       {!hideLayout && <BreadcrumbNav/>}
-      <main className="max-full m-8 mt-0">{children}</main>
+      <main className="max-full m-8 mt-0 mb-0">{children}</main>
       {!hideLayout && <FloatingChatButton />}
       {!hideLayout && <Footer />}
     </div>

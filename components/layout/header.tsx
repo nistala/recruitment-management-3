@@ -88,6 +88,11 @@ const navigationItems = [
         href: "/dashboard/exam",
         icon: ClipboardList,
       },
+      {
+        title: "Results & Reports",
+        href: "/exam/results",
+        icon: BarChart3,
+      }
     ],
   },
   {
@@ -98,11 +103,11 @@ const navigationItems = [
         href: "/exam/calendar",
         icon: Calendar,
       },
-      {
-        title: "Results & Reports",
-        href: "/exam/results",
-        icon: BarChart3,
-      },
+      // {
+      //   title: "Results & Reports",
+      //   href: "/exam/results",
+      //   icon: BarChart3,
+      // },
     ],
   },
 ];

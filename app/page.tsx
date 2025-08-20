@@ -845,8 +845,8 @@ export default function HomePage() {
           jobList: [
             {
               jobTitle: "Software Engineer",
-              company: "Tech Solutions",
-              location: "New York, NY",
+              company: "HCL Technologies",
+              location: "New Delhi, India",
               salary: "$80,000 - $100,000",
               isNew: true,
               isHot: false,
@@ -855,7 +855,7 @@ export default function HomePage() {
             {
               jobTitle: "Full Stack Developer",
               company: "CodeCrafters Inc.",
-              location: "Seattle, WA",
+              location: "Bangalore, India",
               salary: "$85,000 - $110,000",
               isNew: false,
               isHot: true,
@@ -869,7 +869,7 @@ export default function HomePage() {
             {
               jobTitle: "Data Analyst",
               company: "Data Insights",
-              location: "San Francisco, CA",
+              location: "Bangalore, India",
               salary: "$70,000 - $90,000",
               isNew: false,
               isHot: true,
@@ -878,7 +878,7 @@ export default function HomePage() {
             {
               jobTitle: "Data Scientist",
               company: "AI Innovations",
-              location: "Boston, MA",
+              location: "Hyderabad, India",
               salary: "$95,000 - $130,000",
               isNew: true,
               isHot: true,
@@ -892,7 +892,7 @@ export default function HomePage() {
             {
               jobTitle: "UI/UX Designer",
               company: "Creative Minds Studio",
-              location: "Austin, TX",
+              location: "Hyderabad, India",
               salary: "$65,000 - $85,000",
               isNew: true,
               isHot: true,
@@ -901,7 +901,7 @@ export default function HomePage() {
             {
               jobTitle: "Graphic Designer",
               company: "VisualWorks",
-              location: "Los Angeles, CA",
+              location: "Pune, India",
               salary: "$55,000 - $75,000",
               isNew: false,
               isHot: false,
@@ -915,7 +915,7 @@ export default function HomePage() {
             {
               jobTitle: "Digital Marketing Specialist",
               company: "BrandBoost",
-              location: "Chicago, IL",
+              location: "Mumbai, India",
               salary: "$50,000 - $70,000",
               isNew: false,
               isHot: false,
@@ -924,7 +924,7 @@ export default function HomePage() {
             {
               jobTitle: "Sales Executive",
               company: "GlobalReach Corp",
-              location: "Dallas, TX",
+              location: "Chennai, India",
               salary: "$60,000 - $80,000 + Commission",
               isNew: true,
               isHot: false,
@@ -938,7 +938,7 @@ export default function HomePage() {
             {
               jobTitle: "Financial Analyst",
               company: "MoneyMatters Consulting",
-              location: "New York, NY",
+              location: "Pune, India",
               salary: "$75,000 - $95,000",
               isNew: true,
               isHot: false,
@@ -947,7 +947,7 @@ export default function HomePage() {
             {
               jobTitle: "Business Consultant",
               company: "GrowthPartners",
-              location: "San Diego, CA",
+              location: "Indore, India",
               salary: "$85,000 - $105,000",
               isNew: false,
               isHot: true,
@@ -961,7 +961,7 @@ export default function HomePage() {
             {
               jobTitle: "HR Manager",
               company: "PeopleFirst Solutions",
-              location: "Houston, TX",
+              location: "Hyderabad, India",
               salary: "$70,000 - $90,000",
               isNew: false,
               isHot: false,
@@ -970,7 +970,7 @@ export default function HomePage() {
             {
               jobTitle: "Recruitment Specialist",
               company: "TalentBridge",
-              location: "Denver, CO",
+              location: "Bhubaneshwar, India",
               salary: "$60,000 - $80,000",
               isNew: true,
               isHot: false,
@@ -1168,7 +1168,12 @@ export default function HomePage() {
               {governmentJobs.map((job) => (
                 <div key={job.id} className="w-full flex-shrink-0">
                   {/* Your Government job card UI here */}
-                  <Card className="p-4 mx-2 hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-primary bg-white/80 backdrop-blur-sm">
+                  <Card
+                    className="p-4 mx-2 hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-primary bg-white/80 backdrop-blur-sm"
+                    onClick={() => {
+                      window.location.href = `/jobdetail`;
+                    }}
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-2">
@@ -1230,7 +1235,11 @@ export default function HomePage() {
               {privateJobs.map((job) => (
                 <div key={job.id} className="w-full flex-shrink-0">
                   {/* Your Private job card UI here */}
-                  <Card className="p-4 mx-2 hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-primary bg-white/80 backdrop-blur-sm">
+                  <Card className="p-4 mx-2 hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-l-primary bg-white/80 backdrop-blur-sm"
+                  onClick={() => {
+                      window.location.href = `/jobdetail`;
+                    }}
+                  >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-2">
@@ -1338,7 +1347,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="flex w-full mt-4 gap-4 justify-space-around ">
+        <div className="flex w-full mt-4 gap-4  ">
           {/* Job Type - 20% */}
           <div className="w-1/3 bg-white/80 rounded-xl shadow-lg overflow-hidden">
             <h2 className="bg-primary text-white font-bold px-4 py-3 uppercase text-sm tracking-wide">
@@ -1421,10 +1430,12 @@ export default function HomePage() {
             <h2 className="bg-primary text-white font-bold px-4 py-3 uppercase text-sm tracking-wide">
               Job List Details
             </h2>
-            <div style={{ height: "70vh", overflowY: "scroll" }}>
+            <div style={{ height: "80vh", overflowY: "scroll" }}>
               {jobData.map((category) => {
                 return (
-                  <div key={category.id} className="divide-y">
+                  <div key={category.id} className="divide-y hover:cursor-pointer" onClick={() => {
+                      window.location.href = `/jobdetail`;
+                    }}>
                     {displayedJobs.length > 0 ? (
                       displayedJobs.map((job, idx) => (
                         <div
@@ -1462,15 +1473,14 @@ export default function HomePage() {
                             </div>
                             <div className="flex flex-wrap gap-2 items-center">
                               {job.type && (
-                                <Badge variant="outline" className="text-xs">
+                                <Badge variant="outline" className="bg-primary-800 text-xs px-3 py-1 rounded font-semibold border border-secondary">
                                   {job.type}
                                 </Badge>
                               )}
                               {category.jobType && (
                                 <button
-                                  className="bg-[#2368a0] text-white text-xs px-3 py-1 rounded hover:bg-[#174a6a] transition-colors"
-                                  onClick={() => {
-                                    // Navigate to `/jobs/[jobType]/[jobTitle or name]`
+                                className="text-primary font-semibold hover:underline cursor-pointer text-sm"
+                                   onClick={() => {
                                     window.location.href = `/jobdetail`;
                                   }}
                                 >
