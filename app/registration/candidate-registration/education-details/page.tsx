@@ -31,6 +31,10 @@ type Props = {
 };
 
 export default function EducationSection({ control }: Props) {
+  if (!control) {
+    // Optionally, you can render null or a fallback UI
+    return null;
+  }
   const { fields, append, remove } = useFieldArray({
     control,
     name: "education",
