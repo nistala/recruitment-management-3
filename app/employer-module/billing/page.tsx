@@ -268,8 +268,16 @@ export default function BillingPage() {
       {/* Tabs for Plans and History */}
       <Tabs defaultValue="plans" className="space-y-4">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="plans">Available Plans</TabsTrigger>
-          <TabsTrigger value="history">Billing History</TabsTrigger>
+          <TabsTrigger value="plans" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Available Plans</TabsTrigger>
+          <TabsTrigger value="history" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Billing History</TabsTrigger>
         </TabsList>
 
         <TabsContent value="plans" className="space-y-6">

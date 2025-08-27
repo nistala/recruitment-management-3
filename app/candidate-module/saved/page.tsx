@@ -196,8 +196,16 @@ export default function SavedJobsPage() {
       {/* Main Content Tabs */}
       <Tabs defaultValue="saved" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="saved">Saved Jobs ({savedJobs.length})</TabsTrigger>
-          <TabsTrigger value="alerts">Job Alerts ({jobAlerts.filter((a) => a.isActive).length})</TabsTrigger>
+          <TabsTrigger value="saved" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Saved Jobs ({savedJobs.length})</TabsTrigger>
+          <TabsTrigger value="alerts" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Job Alerts ({jobAlerts.filter((a) => a.isActive).length})</TabsTrigger>
         </TabsList>
 
         {/* Saved Jobs Tab */}

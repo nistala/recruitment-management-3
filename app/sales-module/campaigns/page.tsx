@@ -321,8 +321,16 @@ export default function MarketingCampaigns() {
       {/* Campaigns Table */}
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <TabsList>
-          <TabsTrigger value="campaigns">All Campaigns</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="campaigns" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">All Campaigns</TabsTrigger>
+          <TabsTrigger value="analytics" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Analytics</TabsTrigger>
         </TabsList>
 
         <TabsContent value="campaigns" className="mt-6">

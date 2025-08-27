@@ -47,12 +47,36 @@ export default function SettingsPage() {
 
       <Tabs defaultValue="general" className="space-y-4">
         <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="general">General</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger value="integrations">Integrations</TabsTrigger>
-          <TabsTrigger value="appearance">Appearance</TabsTrigger>
-          <TabsTrigger value="advanced">Advanced</TabsTrigger>
+          <TabsTrigger value="general" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">General</TabsTrigger>
+          <TabsTrigger value="notifications" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Notifications</TabsTrigger>
+          <TabsTrigger value="security" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Security</TabsTrigger>
+          <TabsTrigger value="integrations" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Integrations</TabsTrigger>
+          <TabsTrigger value="appearance" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Appearance</TabsTrigger>
+          <TabsTrigger value="advanced" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Advanced</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general" className="space-y-4">

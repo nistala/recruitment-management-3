@@ -410,9 +410,21 @@ export default function EntitiesManagement() {
       {/* Entity Tables */}
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="employers">Employers</TabsTrigger>
-          <TabsTrigger value="colleges">Colleges</TabsTrigger>
-          <TabsTrigger value="candidates">Candidates</TabsTrigger>
+          <TabsTrigger value="employers" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Employers</TabsTrigger>
+          <TabsTrigger value="colleges" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Colleges</TabsTrigger>
+          <TabsTrigger value="candidates" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Candidates</TabsTrigger>
         </TabsList>
 
         <TabsContent value="employers" className="mt-6">

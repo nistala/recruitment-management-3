@@ -33,6 +33,11 @@ import {
 
 // ====== DEFAULT NAVIGATION (Always present) ======
 export const defaultItems = [
+    {
+    title: "Home",
+    href: "/",
+    icon: Home,
+  },
   {
     title: "Registration",
     items: [

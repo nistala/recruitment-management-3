@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Building2, GraduationCap, Users, Search, Check, X, Eye, Calendar, Mail, Phone } from "lucide-react"
+import { Building2, GraduationCap, Users, Search, Check, X, Eye, Calendar, Mail, Phone, Headphones, ShoppingCart, FileText } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -19,6 +19,69 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
+
+const registrationStats = [
+  {
+    id: 1,
+    title: "Employer Registrations",
+    count: 120,
+    icon: Building2,
+    color: "blue",
+    growth: "+12% vs last month",
+    lastUpdated: "2h ago",
+    highlight: "Top industry: IT Services",
+  },
+  {
+    id: 2,
+    title: "College Registrations",
+    count: 75,
+    icon: GraduationCap,
+    color: "green",
+    growth: "+8 new this week",
+    lastUpdated: "5h ago",
+    highlight: "Active region: Hyderabad",
+  },
+  {
+    id: 3,
+    title: "Candidate Registrations",
+    count: 540,
+    icon: Users,
+    color: "purple",
+    growth: "+45 joined today",
+    lastUpdated: "30m ago",
+    highlight: "Trending skill: React.js",
+  },
+  {
+    id: 4,
+    title: "Exams Conducted",
+    count: 32,
+    icon: FileText,
+    color: "orange",
+    growth: "+5 this week",
+    lastUpdated: "1h ago",
+    highlight: "Most popular: Aptitude Test",
+  },
+  {
+    id: 5,
+    title: "Sales Deals Closed",
+    count: 18,
+    icon: ShoppingCart,
+    color: "red",
+    growth: "+3 vs last quarter",
+    lastUpdated: "3h ago",
+    highlight: "Highest plan: Enterprise",
+  },
+  {
+    id: 6,
+    title: "Support Tickets",
+    count: 48,
+    icon: Headphones,
+    color: "teal",
+    growth: "-4% vs last week",
+    lastUpdated: "10m ago",
+    highlight: "Avg resolution: 2h",
+  },
+];
 
 const registrations = {
   employers: [
@@ -374,7 +437,7 @@ export default function RegistrationsManagement() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-2">
       <div>
         <h1 className="text-2xl font-bold">Registrations Management</h1>
         <p className="text-muted-foreground">
@@ -383,54 +446,55 @@ export default function RegistrationsManagement() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-50 rounded-lg">
-                <Building2 className="h-5 w-5 text-blue-600" />
+     <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
+      {registrationStats.map((stat) => {
+        const Icon = stat.icon;
+        return (
+          <Card key={stat.id}>
+            <CardContent className="p-4 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className={`p-2 rounded-lg bg-${stat.color}-50`}>
+                  <Icon className={`h-5 w-5 text-${stat.color}-600`} />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">{stat.count}</p>
+                  <p className="text-sm text-muted-foreground">{stat.title}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-2xl font-bold">{registrations.employers.length}</p>
-                <p className="text-sm text-muted-foreground">Employer Registrations</p>
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>{stat.growth}</span>
+                <span>Last updated {stat.lastUpdated}</span>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-green-50 rounded-lg">
-                <GraduationCap className="h-5 w-5 text-green-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{registrations.colleges.length}</p>
-                <p className="text-sm text-muted-foreground">College Registrations</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-50 rounded-lg">
-                <Users className="h-5 w-5 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{registrations.candidates.length}</p>
-                <p className="text-sm text-muted-foreground">Candidate Registrations</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+              <p
+                className={`text-xs text-${stat.color}-600 bg-${stat.color}-50 rounded-md px-2 py-1 inline-block`}
+              >
+                {stat.highlight}
+              </p>
+            </CardContent>
+          </Card>
+        );
+      })}
+    </div>
+
 
       {/* Registration Tables */}
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="employers">Employers</TabsTrigger>
-          <TabsTrigger value="colleges">Colleges</TabsTrigger>
-          <TabsTrigger value="candidates">Candidates</TabsTrigger>
+          <TabsTrigger value="employers" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Employers</TabsTrigger>
+          <TabsTrigger value="colleges" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Colleges</TabsTrigger>
+          <TabsTrigger value="candidates" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Candidates</TabsTrigger>
         </TabsList>
 
         <TabsContent value="employers" className="mt-6">

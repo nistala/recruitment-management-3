@@ -133,8 +133,16 @@ export default function CompanyProfilePage() {
 
       <Tabs defaultValue="company" className="space-y-4">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="company">Company Details</TabsTrigger>
-          <TabsTrigger value="contacts">HR Contacts</TabsTrigger>
+          <TabsTrigger value="company" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Company Details</TabsTrigger>
+          <TabsTrigger value="contacts" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">HR Contacts</TabsTrigger>
         </TabsList>
 
         <TabsContent value="company" className="space-y-6">

@@ -183,9 +183,21 @@ export default function ExamEvaluationPage() {
       {/* Evaluation Tabs */}
       <Tabs value={evaluationMode} onValueChange={setEvaluationMode}>
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="pending">Pending Evaluation</TabsTrigger>
-          <TabsTrigger value="completed">Completed</TabsTrigger>
-          <TabsTrigger value="published">Published Results</TabsTrigger>
+          <TabsTrigger value="pending" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Pending Evaluation</TabsTrigger>
+          <TabsTrigger value="completed" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Completed</TabsTrigger>
+          <TabsTrigger value="published" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Published Results</TabsTrigger>
         </TabsList>
 
         <TabsContent value="pending" className="space-y-4">

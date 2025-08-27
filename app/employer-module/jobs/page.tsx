@@ -167,10 +167,26 @@ export default function JobManagementPage() {
 
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All Jobs ({jobCounts.all})</TabsTrigger>
-          <TabsTrigger value="active">Active ({jobCounts.active})</TabsTrigger>
-          <TabsTrigger value="draft">Draft ({jobCounts.draft})</TabsTrigger>
-          <TabsTrigger value="closed">Closed ({jobCounts.closed})</TabsTrigger>
+          <TabsTrigger value="all" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground" >All Jobs ({jobCounts.all})</TabsTrigger>
+          <TabsTrigger value="active" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Active ({jobCounts.active})</TabsTrigger>
+          <TabsTrigger value="draft" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Draft ({jobCounts.draft})</TabsTrigger>
+          <TabsTrigger value="closed" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Closed ({jobCounts.closed})</TabsTrigger>
         </TabsList>
 
         {["all", "active", "draft", "closed"].map((tab) => (

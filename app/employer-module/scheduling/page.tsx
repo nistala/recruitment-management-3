@@ -164,8 +164,16 @@ export default function SchedulingPage() {
         <div className="lg:col-span-2">
           <Tabs defaultValue="exams" className="space-y-4">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="exams">Exams ({exams.length})</TabsTrigger>
-              <TabsTrigger value="interviews">Interviews ({interviews.length})</TabsTrigger>
+              <TabsTrigger value="exams" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Exams ({exams.length})</TabsTrigger>
+              <TabsTrigger value="interviews" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Interviews ({interviews.length})</TabsTrigger>
             </TabsList>
 
             <TabsContent value="exams" className="space-y-4">

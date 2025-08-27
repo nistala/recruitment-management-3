@@ -17,52 +17,143 @@ export default function NotificationsPage() {
     const timer = setTimeout(() => {
       setLoading(false)
       setNotifications([
-        {
-          id: 1,
-          type: "job",
-          title: "New Application Received",
-          message: "Sarah Johnson applied for Frontend Developer position",
-          time: "2 minutes ago",
-          read: false,
-          avatar: "/placeholder.svg?height=40&width=40",
-        },
-        {
-          id: 2,
-          type: "candidate",
-          title: "Candidate Shortlisted",
-          message: "Michael Chen has been shortlisted for Backend Developer role",
-          time: "1 hour ago",
-          read: false,
-          avatar: "/placeholder.svg?height=40&width=40",
-        },
-        {
-          id: 3,
-          type: "system",
-          title: "Payment Reminder",
-          message: "Your premium plan expires in 3 days",
-          time: "3 hours ago",
-          read: true,
-          avatar: null,
-        },
-        {
-          id: 4,
-          type: "job",
-          title: "Job Post Approved",
-          message: "Your UI/UX Designer job posting has been approved and is now live",
-          time: "1 day ago",
-          read: true,
-          avatar: null,
-        },
-        {
-          id: 5,
-          type: "candidate",
-          title: "Interview Scheduled",
-          message: "Interview scheduled with Emily Davis for tomorrow at 2:00 PM",
-          time: "2 days ago",
-          read: true,
-          avatar: "/placeholder.svg?height=40&width=40",
-        },
-      ])
+  {
+    id: 1,
+    type: "job",
+    title: "New Application Received",
+    message: "Sarah Johnson applied for Frontend Developer position",
+    time: "2 minutes ago",
+    read: false,
+    avatar: "/placeholder.svg?height=40&width=40",
+  },
+  {
+    id: 2,
+    type: "candidate",
+    title: "Candidate Shortlisted",
+    message: "Michael Chen has been shortlisted for Backend Developer role",
+    time: "1 hour ago",
+    read: false,
+    avatar: "/placeholder.svg?height=40&width=40",
+  },
+  {
+    id: 3,
+    type: "system",
+    title: "Payment Reminder",
+    message: "Your premium plan expires in 3 days",
+    time: "3 hours ago",
+    read: true,
+    avatar: null,
+  },
+  {
+    id: 4,
+    type: "job",
+    title: "Job Post Approved",
+    message: "Your UI/UX Designer job posting has been approved and is now live",
+    time: "1 day ago",
+    read: true,
+    avatar: null,
+  },
+  {
+    id: 5,
+    type: "candidate",
+    title: "Interview Scheduled",
+    message: "Interview scheduled with Emily Davis for tomorrow at 2:00 PM",
+    time: "2 days ago",
+    read: true,
+    avatar: "/placeholder.svg?height=40&width=40",
+  },
+  {
+    id: 6,
+    type: "system",
+    title: "Security Alert",
+    message: "New login detected from a different device",
+    time: "2 days ago",
+    read: false,
+    avatar: null,
+  },
+  {
+    id: 7,
+    type: "job",
+    title: "Application Withdrawn",
+    message: "David Miller has withdrawn his application for Marketing Manager",
+    time: "3 days ago",
+    read: true,
+    avatar: "/placeholder.svg?height=40&width=40",
+  },
+  {
+    id: 8,
+    type: "candidate",
+    title: "Profile Updated",
+    message: "Anna Smith updated her candidate profile",
+    time: "3 days ago",
+    read: false,
+    avatar: "/placeholder.svg?height=40&width=40",
+  },
+  {
+    id: 9,
+    type: "system",
+    title: "Plan Upgraded",
+    message: "Your account has been upgraded to Enterprise plan",
+    time: "4 days ago",
+    read: true,
+    avatar: null,
+  },
+  {
+    id: 10,
+    type: "job",
+    title: "Job Post Expired",
+    message: "Your Data Analyst job posting has expired",
+    time: "5 days ago",
+    read: true,
+    avatar: null,
+  },
+  {
+    id: 11,
+    type: "candidate",
+    title: "Offer Accepted",
+    message: "John Doe has accepted your job offer",
+    time: "6 days ago",
+    read: false,
+    avatar: "/placeholder.svg?height=40&width=40",
+  },
+  {
+    id: 12,
+    type: "job",
+    title: "New Job Recommendation",
+    message: "Recommended posting: Cloud Engineer role",
+    time: "1 week ago",
+    read: true,
+    avatar: null,
+  },
+  {
+    id: 13,
+    type: "system",
+    title: "Maintenance Notice",
+    message: "Scheduled downtime tomorrow between 1 AM - 3 AM",
+    time: "1 week ago",
+    read: false,
+    avatar: null,
+  },
+  {
+    id: 14,
+    type: "candidate",
+    title: "Candidate Rejected",
+    message: "Interview feedback submitted: Jane Lee was not shortlisted",
+    time: "8 days ago",
+    read: true,
+    avatar: "/placeholder.svg?height=40&width=40",
+  },
+  {
+    id: 15,
+    type: "job",
+    title: "Job Draft Saved",
+    message: "Your draft for Senior Architect position has been saved",
+    time: "9 days ago",
+    read: true,
+    avatar: null,
+  },
+]
+)
     }, 1500)
     return () => clearTimeout(timer)
   }, [])
@@ -137,10 +228,26 @@ export default function NotificationsPage() {
 
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All ({notifications.length})</TabsTrigger>
-          <TabsTrigger value="job">Job-related ({filterNotifications("job").length})</TabsTrigger>
-          <TabsTrigger value="candidate">Candidate-related ({filterNotifications("candidate").length})</TabsTrigger>
-          <TabsTrigger value="system">System ({filterNotifications("system").length})</TabsTrigger>
+          <TabsTrigger value="all" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">All ({notifications.length})</TabsTrigger>
+          <TabsTrigger value="job" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Job-related ({filterNotifications("job").length})</TabsTrigger>
+          <TabsTrigger value="candidate" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Candidate-related ({filterNotifications("candidate").length})</TabsTrigger>
+          <TabsTrigger value="system" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">System ({filterNotifications("system").length})</TabsTrigger>
         </TabsList>
 
         {["all", "job", "candidate", "system"].map((tab) => (

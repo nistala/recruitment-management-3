@@ -118,8 +118,16 @@ export default function CollegeProfilePage() {
 
       <Tabs defaultValue="college" className="space-y-6">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="college">College Information</TabsTrigger>
-          <TabsTrigger value="officer">Placement Officer</TabsTrigger>
+          <TabsTrigger value="college" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">College Information</TabsTrigger>
+          <TabsTrigger value="officer" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Placement Officer</TabsTrigger>
         </TabsList>
 
         <TabsContent value="college" className="space-y-6">

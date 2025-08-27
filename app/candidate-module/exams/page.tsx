@@ -191,8 +191,16 @@ export default function ExamsPage() {
         <div className="lg:col-span-2">
           <Tabs defaultValue="upcoming" className="space-y-4">
             <TabsList>
-              <TabsTrigger value="upcoming">Upcoming Exams</TabsTrigger>
-              <TabsTrigger value="results">Results History</TabsTrigger>
+              <TabsTrigger value="upcoming" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Upcoming Exams</TabsTrigger>
+              <TabsTrigger value="results" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Results History</TabsTrigger>
             </TabsList>
 
             <TabsContent value="upcoming" className="space-y-4">

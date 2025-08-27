@@ -273,8 +273,16 @@ export default function MockTestsPage() {
         <div className="lg:col-span-2">
           <Tabs defaultValue="available" className="space-y-4">
             <TabsList>
-              <TabsTrigger value="available">Available Tests</TabsTrigger>
-              <TabsTrigger value="completed">Completed</TabsTrigger>
+              <TabsTrigger value="available" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Available Tests</TabsTrigger>
+              <TabsTrigger value="completed" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Completed</TabsTrigger>
             </TabsList>
 
             <TabsContent value="available" className="space-y-4">

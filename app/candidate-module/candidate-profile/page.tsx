@@ -37,9 +37,9 @@ export default function ProfilePage() {
 
   // Personal Details State
   const [personalDetails, setPersonalDetails] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
+    firstName: "Hema",
+    lastName: "Marada",
+    email: "hmarada@miraclesoft.com",
     phone: "+1 (555) 123-4567",
     dateOfBirth: "1995-06-15",
     address: "123 Main St, New York, NY 10001",
@@ -221,7 +221,7 @@ export default function ProfilePage() {
         <CardContent className="p-6">
           <div className="flex flex-col items-center space-y-4 md:flex-row md:space-x-6 md:space-y-0">
             <Avatar className="h-24 w-24">
-              <AvatarImage src="/placeholder.svg?height=96&width=96&text=JD" />
+              <AvatarImage src="https://images.miraclesoft.com/employee-profile-pics/hmarada.png?height=96&width=96&text=JD" />
               <AvatarFallback className="text-2xl">JD</AvatarFallback>
             </Avatar>
             <div className="flex-1 text-center md:text-left">
@@ -242,10 +242,26 @@ export default function ProfilePage() {
       {/* Main Content Tabs */}
       <Tabs defaultValue="personal" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="personal">Personal Details</TabsTrigger>
-          <TabsTrigger value="education">Education</TabsTrigger>
-          <TabsTrigger value="skills">Skills</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
+          <TabsTrigger value="personal" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Personal Details</TabsTrigger>
+          <TabsTrigger value="education" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Education</TabsTrigger>
+          <TabsTrigger value="skills" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Skills</TabsTrigger>
+          <TabsTrigger value="security" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Security</TabsTrigger>
         </TabsList>
 
         {/* Personal Details Tab */}
@@ -601,7 +617,7 @@ export default function ProfilePage() {
                   </div>
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  Current resume: <span className="font-medium">john_doe_resume.pdf</span>
+                  Current resume: <span className="font-medium">hmarada_resume.pdf</span>
                   <Button variant="link" className="p-0 h-auto ml-2">
                     Download
                   </Button>

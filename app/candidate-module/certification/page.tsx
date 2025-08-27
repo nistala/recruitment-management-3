@@ -442,8 +442,16 @@ export default function CertificatesPage() {
       {/* Main Content Tabs */}
       <Tabs defaultValue="certificates" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="certificates">Certificates ({certificates.length})</TabsTrigger>
-          <TabsTrigger value="achievements">Achievements ({achievements.length})</TabsTrigger>
+          <TabsTrigger value="certificates" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Certificates ({certificates.length})</TabsTrigger>
+          <TabsTrigger value="achievements" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Achievements ({achievements.length})</TabsTrigger>
         </TabsList>
 
         {/* Certificates Tab */}

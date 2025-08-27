@@ -354,8 +354,16 @@ export default function ApprovalWorkflows() {
                         {selectedWorkflow && (
                           <Tabs defaultValue="details" className="w-full">
                             <TabsList className="grid w-full grid-cols-2">
-                              <TabsTrigger value="details">Details</TabsTrigger>
-                              <TabsTrigger value="history">History</TabsTrigger>
+                              <TabsTrigger value="details" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">Details</TabsTrigger>
+                              <TabsTrigger value="history" className=" flex items-centerrounded-md px-3 py-2 transition
+               data-[state=active]:bg-primary 
+               data-[state=active]:text-primary-foreground
+               data-[state=inactive]:text-balck-foreground
+               hover:bg-muted/30 hover:text-foreground">History</TabsTrigger>
                             </TabsList>
 
                             <TabsContent value="details" className="space-y-4">
