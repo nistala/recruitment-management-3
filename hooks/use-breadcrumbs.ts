@@ -13,29 +13,64 @@ export function useBreadcrumbs(): BreadcrumbItem[] {
   const pathname = usePathname();
 
   return useMemo(() => {
-    // Route label mappings (only define what you actually support)
-     const routeLabels: Record<string, string> = {
-    "": "Home",
-    "admin": "Admin Dashboard",
-    "dashboard": "Dashboard",
-    "employee": "Employee Dashboard",
-    "employer": "Employer Dashboard",
-    "exam": "Exam Dashboard",
-    "exam-center": "Exam Center Dashboard",
-    "candidate-registration": "Candidate Registration",  //here it as the does not have two segments route exist
-    "employer-registration": "Employer Registration",  //here it as the does not have two segments route exist
-    "calendar": "Exam Calendar",
-    "results": "Results & Reports",
-    "job-details": "Job Details",
-    "profile": "Profile",
-    "add-exam-center": "Add Exam Center",   //here it as the two segments route exist
-    "add-exam-schedule": "Add Exam Schedule",  //here it as the two segments route exist
+    // Centralized mapping for segment → label
+    const routeLabels: Record<string, string> = {
+      "": "Home",
+      "admin": "Admin Dashboard",
+      "dashboard": "Dashboard",
+      "employee": "Employee Dashboard",
+      "employer": "Employer Dashboard",
+      "exam": "Exam Dashboard",
+      "exam-center": "Exam Center Dashboard",
+      "candidate-registration": "Candidate Registration",
+      "employer-registration": "Employer Registration",
+      "calendar": "Exam Calendar",
+      "results": "Results & Reports",
+      "job-details": "Job Details",
+      "profile": "Profile",
+      "add-exam-center": "Add Exam Center",
+      "add-exam-schedule": "Add Exam Schedule",
+
+      // Candidate Module
+      "candidate-module": "Candidate",
+      "jobs": "Jobs",
+      "job-fairs": "Job Fairs",
+      "saved": "Saved Jobs",
+      "applications-history": "Applications History",
+      "exams": "Exams",
+      "mock-test": "Mock Tests",
+      "certification": "Certification",
+      "candidate-profile": "Candidate Profile",
+
+      // Employer Module
+      "employer-module": "Employer",
+      "candidates": "Candidates",
+      "scheduling": "Scheduling",
+      "evaluation": "Evaluation",
+      "reports": "Reports",
+      "notifications": "Notifications",
+      "billing": "Billing",
+
+      // College Module
+      "college-module": "College",
+      "students-info": "Students Info",
+      "drives": "Drives",
+
+      // Sales Module
+      "sales-module": "Sales",
+      "registrations": "Registrations",
+      "entities": "Entities",
+      "approvals": "Approvals",
+      "revenue": "Revenue",
+      "marketing-analytics": "Marketing Analytics",
+      "campaigns": "Campaigns",
+      "audit": "Audit",
+      "support": "Support",
+      "settings": "Settings",
     };
 
-    // Split pathname into segments
     const pathSegments = pathname.split("/").filter(Boolean);
 
-    // Always start with Home
     const breadcrumbs: BreadcrumbItem[] = [
       {
         href: "/",
@@ -44,15 +79,17 @@ export function useBreadcrumbs(): BreadcrumbItem[] {
       },
     ];
 
-    // Build breadcrumbs, but only for segments that exist in routeLabels
-   const lastSegment = pathSegments[pathSegments.length - 1];
-    if (lastSegment && routeLabels[lastSegment]) {
+    let currentPath = "";
+    pathSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`;
+      const isLast = index === pathSegments.length - 1;
+
       breadcrumbs.push({
-        href: pathname, // full path for the last segment
-        label: routeLabels[lastSegment],
-        isCurrentPage: true,
+        href: currentPath,
+        label: routeLabels[segment] || segment, // fallback: show raw segment
+        isCurrentPage: isLast,
       });
-    }
+    });
 
     return breadcrumbs;
   }, [pathname]);

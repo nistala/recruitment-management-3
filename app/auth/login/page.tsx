@@ -186,7 +186,7 @@ export default function LoginPage() {
               <li>hmarada@miraclesoft.com / Hema123</li>
               <li>snistala@miraclesoft.com / Kartik123</li>
               <li>vkandregula@miraclesoft.com / Prasad123</li>
-              <li>pgrandi@miraclesoft.com / Prasanth123</li>
+              <li>pgrandhi2@miraclesoft.com / Prasanth123</li>
               <li>smadaka@miraclesoft.com / Srinu123</li>
             </ul>
           </div>

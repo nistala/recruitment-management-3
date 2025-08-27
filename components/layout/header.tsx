@@ -27,13 +27,10 @@ export function Header() {
       router.push("/auth/login"); // 🔹 force login if no role
       return;
     }
-
     // Set user for profile menu
     if (storedUser) setUser(JSON.parse(storedUser));
-
     // Role-based navigation
     setNavigationItems([...defaultItems, ...(navConfig[storedRole] || [])]);
-
     // 🔹 Protect routes
     const roleRoutes: Record<string, string> = {
       admin: "/dashboard/admin",
@@ -45,7 +42,7 @@ export function Header() {
 
     const baseRoute = roleRoutes[storedRole];
     if (baseRoute && !pathname.startsWith(baseRoute) && !pathname.startsWith("/registration")) {
-      router.replace(baseRoute); // redirect to role home if outside allowed routes
+      router.replace(baseRoute); 
     }
   }, [pathname, router]);
 
@@ -206,16 +203,14 @@ export function Header() {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    asChild
-                    onClick={() => {
-                      localStorage.clear();
-                      router.push("/auth/login");
-                    }}
-                  >
-                    <Link href="#">
-                      <LogOut className="mr-2 h-4 w-4" /> Logout
-                    </Link>
-                  </DropdownMenuItem>
+  onClick={() => {
+    localStorage.clear();
+    router.push("/auth/login");
+  }}
+>
+  <LogOut className="mr-2 h-4 w-4" /> Logout
+</DropdownMenuItem>
+
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
