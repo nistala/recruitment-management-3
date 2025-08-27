@@ -9,9 +9,9 @@ import { BreadcrumbNav } from "@/components/layout/breadcrumb-nav"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Recruitment & Exam Management System",
+  title: "Unemployee",
   description: "Comprehensive platform for recruitment and exam management",
-  generator: "v0.dev",
+  generator: "v1.0",
 };
 
 export default function RootLayout({

@@ -1,205 +1,206 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Phone, Mail, Eye, EyeOff } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Mail, Eye, EyeOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
+// ✅ Hardcoded credentials for demo
+// ✅ Hardcoded credentials for demo
+const users = [
+  {
+    email: "hmarada@miraclesoft.com",
+    password: "Hema123",
+    role: "candidate",
+    redirect: "/",
+    name: "Hema Marada",
+    avatar: "https://images.miraclesoft.com/employee-profile-pics/hmarada.png",
+  },
+  {
+    email: "snistala@miraclesoft.com",
+    password: "Kartik123",
+    role: "employer",
+    redirect: "/",
+    name: "Sai Kartik Nistala",
+    avatar: "https://images.miraclesoft.com/employee-profile-pics/snistala.png",
+  },
+  {
+    email: "vkandregula@miraclesoft.com",
+    password: "Prasad123",
+    role: "admin",
+    redirect: "/",
+    name: "Prasad Kandregula",
+    avatar: "https://images.miraclesoft.com/employee-profile-pics/vkandregula.png",
+  },
+  {
+    email: "pgrandhi2@miraclesoft.com",
+    password: "Prasanth123",
+    role: "sales",
+    redirect: "/",
+    name: "Prasanth Grandi",
+    avatar: "https://images.miraclesoft.com/employee-profile-pics/pgrandhi2.png",
+  },
+  {
+    email: "smadaka@miraclesoft.com",
+    password: "Srinu123",
+    role: "college",
+    redirect: "/",
+    name: "Srinu Madaka",
+    avatar: "https://images.miraclesoft.com/employee-profile-pics/smadaka.png",
+  },
+];
+
 
 export default function LoginPage() {
-  const [loginMethod, setLoginMethod] = useState<"phone" | "email">("phone")
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
-  const [showOTP, setShowOTP] = useState(false)
-
-  const [formData, setFormData] = useState({
-    phone: "",
-    email: "",
-    password: "",
-    otp: "",
-  })
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-    setError("")
-  }
-
-  const handleSendOTP = async () => {
-    setIsLoading(true)
-    setError("")
-
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setShowOTP(true)
-      setSuccess("OTP sent successfully!")
-    } catch (err) {
-      setError("Failed to send OTP. Please try again.")
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setError("");
+  };
 
   const handleLogin = async () => {
-    setIsLoading(true)
-    setError("")
+  setIsLoading(true);
+  setError("");
 
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setSuccess("Login successful! Redirecting...")
-      // Redirect based on role
-      setTimeout(() => {
-        window.location.href = "/"
-      }, 1000)
-    } catch (err) {
-      setError("Invalid credentials. Please try again.")
-    } finally {
-      setIsLoading(false)
+  try {
+    // find matching user
+    const user = users.find(
+      (u) => u.email === formData.email && u.password === formData.password
+    );
+
+    if (!user) {
+      setError("Invalid email or password");
+      setIsLoading(false);
+      return;
     }
+
+    // save role + login + userData in localStorage
+    localStorage.setItem("userRole", user.role);
+    localStorage.setItem("isLogin", JSON.stringify(true));
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        role: user.role,
+      })
+    );
+
+    // redirect based on role
+    router.push(user.redirect);
+  } catch {
+    setError("Something went wrong. Please try again.");
+  } finally {
+    setIsLoading(false);
   }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600"></div>
-          <CardTitle className="text-2xl font-bold">Welcome to Unemployee</CardTitle>
-          <CardDescription>Sign in to access your account</CardDescription>
+          <CardTitle className="text-2xl font-bold">
+            Login to Unemployee
+          </CardTitle>
+          <CardDescription>Use demo credentials to sign in</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={loginMethod} onValueChange={(value) => setLoginMethod(value as "phone" | "email")}>
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="phone" className=" flex items-centerrounded-md px-3 py-2 transition
-               data-[state=active]:bg-primary 
-               data-[state=active]:text-primary-foreground
-               data-[state=inactive]:text-balck-foreground
-               hover:bg-muted/30 hover:text-foreground">
-                <Phone className="mr-2 h-4 w-4" />
-                Phone
-              </TabsTrigger>
-              <TabsTrigger value="email" className=" flex items-centerrounded-md px-3 py-2 transition
-               data-[state=active]:bg-primary 
-               data-[state=active]:text-primary-foreground
-               data-[state=inactive]:text-balck-foreground
-               hover:bg-muted/30 hover:text-foreground">
-                <Mail className="mr-2 h-4 w-4" />
-                Email
-              </TabsTrigger>
-            </TabsList>
+          {/* Email */}
+          <div className="space-y-2 mb-4">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter email"
+              value={formData.email}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+            />
+          </div>
 
-            <TabsContent value="phone" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="+91 9876543210"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange("phone", e.target.value)}
-                />
-              </div>
-
-              {!showOTP ? (
-                <Button onClick={handleSendOTP} disabled={isLoading || !formData.phone} className="w-full">
-                  {isLoading ? "Sending..." : "Send OTP"}
-                </Button>
-              ) : (
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="otp">Enter OTP</Label>
-                    <Input
-                      id="otp"
-                      type="text"
-                      placeholder="123456"
-                      maxLength={6}
-                      value={formData.otp}
-                      onChange={(e) => handleInputChange("otp", e.target.value)}
-                    />
-                  </div>
-                  <Button onClick={handleLogin} disabled={isLoading || !formData.otp} className="w-full">
-                    {isLoading ? "Verifying..." : "Verify & Login"}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={handleSendOTP}
-                    disabled={isLoading}
-                    className="w-full bg-transparent"
-                  >
-                    Resend OTP
-                  </Button>
-                </div>
-              )}
-            </TabsContent>
-
-            <TabsContent value="email" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    value={formData.password}
-                    onChange={(e) => handleInputChange("password", e.target.value)}
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
-                </div>
-              </div>
-
+          {/* Password */}
+          <div className="space-y-2 mb-4">
+            <Label htmlFor="password">Password</Label>
+            <div className="relative">
+              <Input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={(e) => handleInputChange("password", e.target.value)}
+              />
               <Button
-                onClick={handleLogin}
-                disabled={isLoading || !formData.email || !formData.password}
-                className="w-full"
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="absolute right-2 top-1/2 -translate-y-1/2"
+                onClick={() => setShowPassword(!showPassword)}
               >
-                {isLoading ? "Signing in..." : "Sign In"}
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
               </Button>
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
 
+          {/* Login Button */}
+          <Button
+            onClick={handleLogin}
+            disabled={isLoading || !formData.email || !formData.password}
+            className="w-full"
+          >
+            {isLoading ? "Signing in..." : "Login"}
+          </Button>
+
+          {/* Error message */}
           {error && (
             <Alert className="mt-4 border-red-200 bg-red-50 text-red-800">
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 
-          {success && (
-            <Alert className="mt-4 border-green-200 bg-green-50 text-green-800">
-              <AlertDescription>{success}</AlertDescription>
-            </Alert>
-          )}
+          {/* Info about credentials */}
+          <div className="mt-6 text-sm text-gray-500">
+            <p><b>Sample Credentials:</b></p>
+            <ul className="list-disc list-inside">
 
+              <li>hmarada@miraclesoft.com / Hema123</li>
+              <li>snistala@miraclesoft.com / Kartik123</li>
+              <li>vkandregula@miraclesoft.com / Prasad123</li>
+              <li>pgrandi@miraclesoft.com / Prasanth123</li>
+              <li>smadaka@miraclesoft.com / Srinu123</li>
+            </ul>
+          </div>
+
+          {/* Links */}
           <div className="mt-6 text-center space-y-2">
-            <Link href="/auth/forgot-password" className="text-sm text-primary hover:underline">
+            <Link
+              href="/auth/forgot-password"
+              className="text-sm text-primary hover:underline"
+            >
               Forgot your password?
             </Link>
             <div className="text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/auth/register" className="text-primary hover:underline">
                 Sign up
               </Link>
@@ -208,5 +209,5 @@ export default function LoginPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
